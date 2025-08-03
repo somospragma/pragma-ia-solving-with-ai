@@ -20,6 +20,17 @@ Actualmente, muchos Agentes ofrecen 3 formas principales para personalizar la as
 
 Instrucciones específicas de equipo y proyecto para mejorar el comportamiento de GitHub Copilot para tecnologías específicas y prácticas de programación:
 
+### Por Chapter
+| Chapter | Descripción |
+| -------- | ----------- |
+| [📱 Frontend](instructions/frontend/) | Instrucciones para desarrollo frontend (React, Angular, Vue, etc.) |
+| [⚙️ Backend](instructions/backend/) | Instrucciones para desarrollo backend (APIs, bases de datos, etc.) |
+| [📲 Mobile](instructions/mobile/) | Instrucciones para desarrollo móvil (React Native, Flutter, etc.) |
+| [🚀 DevOps](instructions/devops/) | Instrucciones para DevOps e infraestructura |
+| [🧪 QA & Testing](instructions/qa-testing/) | Instrucciones para testing y quality assurance |
+| [🔄 Transversal](instructions/transversal/) | Instrucciones transversales aplicables a múltiples áreas |
+
+### Ejemplos Disponibles
 | Título | Descripción |
 | ------ | ----------- |
 | [Ejemplo de Instrucciones](instructions/example.instructions.md) | Pendiente por implementar.
@@ -30,6 +41,17 @@ Instrucciones específicas de equipo y proyecto para mejorar el comportamiento d
 
 Plantillas de prompts listas para usar para escenarios de desarrollo específicos y tareas, definiendo texto de prompt con un modo específico, modelo y conjunto de herramientas disponibles.
 
+### Por Chapter
+| Chapter | Descripción |
+| -------- | ----------- |
+| [📱 Frontend](prompts/frontend/) | Prompts para desarrollo frontend (React, Angular, Vue, etc.) |
+| [⚙️ Backend](prompts/backend/) | Prompts para desarrollo backend (APIs, bases de datos, etc.) |
+| [📲 Mobile](prompts/mobile/) | Prompts para desarrollo móvil (React Native, Flutter, etc.) |
+| [🚀 DevOps](prompts/devops/) | Prompts para DevOps e infraestructura |
+| [🧪 QA & Testing](prompts/qa-testing/) | Prompts para testing y quality assurance |
+| [🔄 Transversal](prompts/transversal/) | Prompts transversales aplicables a múltiples áreas |
+
+### Ejemplos Disponibles
 | Título | Descripción |
 | ------ | ----------- |
 | [Ejemplo de Prompts de IA](prompts/example.prompt.md) | Pendiente por implementar. |
@@ -40,6 +62,17 @@ Plantillas de prompts listas para usar para escenarios de desarrollo específico
 
 Los modos de chat personalizados definen comportamientos específicos y herramientas para GitHub Copilot Chat, permitiendo asistencia mejorada consciente del contexto para tareas o flujos de trabajo particulares.
 
+### Por Chapter
+| Chapter | Descripción |
+| -------- | ----------- |
+| [📱 Frontend](chatmodes/frontend/) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
+| [⚙️ Backend](chatmodes/backend/) | Chat modes para desarrollo backend (APIs, bases de datos, etc.) |
+| [📲 Mobile](chatmodes/mobile/) | Chat modes para desarrollo móvil (React Native, Flutter, etc.) |
+| [🚀 DevOps](chatmodes/devops/) | Chat modes para DevOps e infraestructura |
+| [🧪 QA & Testing](chatmodes/qa-testing/) | Chat modes para testing y quality assurance |
+| [🔄 Transversal](chatmodes/transversal/) | Chat modes transversales aplicables a múltiples áreas |
+
+### Ejemplos Disponibles
 | Título | Descripción |
 | ------ | ----------- |
 | [Ejemplo de Chatmode](chatmodes/example.chatmode.md) | Pendiente por implementar. |
