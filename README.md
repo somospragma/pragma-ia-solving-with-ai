@@ -1,13 +1,14 @@
 # pragma-ia-solving-with-ai
+
 Repositorio que busca centralizar distintos artefactos de IA, como Instructions, Prompts, Chatmodes, Agents y demás activos.
 
 ## 🎯 Funcionalidades de Personalización de los Agentes
 
 Actualmente, muchos Agentes ofrecen 3 formas principales para personalizar la asistencia de la Inteligencia Artificial:
 
-| **📋 [Instrucciones Personalizadas](#-instrucciones-personalizadas)** | **🎯 [Prompts Reutilizables](#-prompts-reutilizables)** | **🧩 [Modos de Chat Personalizados](#-modos-de-chat-personalizados)** |
+| **📋 [Instrucciones Personalizadas](#instrucciones-personalizadas)** | **🎯 [Prompts Reutilizables](#prompts-reutilizables)** | **🧩 [Modos de Chat Personalizados](#modos-de-chat-personalizados-en-github-copilot)** |
 | --- | --- | --- |
-| Define pautas comunes para tareas como generación de código, revisiones y mensajes de commit. Describe *cómo* deben realizarse las tareas<br><br>**Beneficios:**<br>• Inclusión automática en cada solicitud de chat<br>• Consistencia en todo el repositorio<br>• Múltiples opciones de implementación | Crea prompts reutilizables e independientes para tareas específicas. Describe *qué* debe hacerse con pautas opcionales específicas de la tarea<br><br>**Beneficios:**<br>• Elimina la escritura repetitiva de prompts<br>• Compartible entre equipos<br> | (Solo disponible en copilot) <br> Define el comportamiento del chat, herramientas disponibles y patrones de interacción con el código base dentro de límites específicos para cada solicitud<br><br>**Beneficios:**<br>• Asistencia consciente del contexto<br>• Configuración de herramientas<br>• Flujos de trabajo específicos por rol |
+| Define pautas comunes para tareas como generación de código, revisiones y mensajes de commit. Describe *cómo* deben realizarse las tareas. | Crea prompts reutilizables e independientes para tareas específicas. Describe *qué* debe hacerse con pautas opcionales específicas de la tarea. | Define el comportamiento del chat, herramientas disponibles y patrones de interacción con el código base dentro de límites específicos para cada solicitud. |
 
 > **💡 Pro Tip:** Las instrucciones personalizadas solo afectan a Copilot Chat (no a las completaciones de código en línea). Puedes combinar los tres tipos de personalización: usa instrucciones personalizadas para pautas generales, archivos de prompts para tareas específicas y modos de chat para controlar el contexto de interacción.
 
@@ -16,11 +17,12 @@ Actualmente, muchos Agentes ofrecen 3 formas principales para personalizar la as
 ¡Las contribuciones son bienvenidas! Consulta nuestra [Guía de Contribución](./CONTRIBUTING.md) para obtener detalles sobre cómo enviar nuevas instrucciones y prompts.
 > Guía de contribución por definir.
 
-## 📋 Instrucciones Personalizadas
+## Instrucciones Personalizadas
 
 Instrucciones específicas de equipo y proyecto para mejorar el comportamiento de GitHub Copilot para tecnologías específicas y prácticas de programación:
 
-### Por Chapter
+### Por Chapter - Instrucciones
+
 | Chapter | Descripción |
 | -------- | ----------- |
 | [📱 Frontend](instructions/frontend/) | Instrucciones para desarrollo frontend (React, Angular, Vue, etc.) |
@@ -30,18 +32,20 @@ Instrucciones específicas de equipo y proyecto para mejorar el comportamiento d
 | [🧪 QA & Testing](instructions/qa-testing/) | Instrucciones para testing y quality assurance |
 | [🔄 Transversal](instructions/transversal/) | Instrucciones transversales aplicables a múltiples áreas |
 
-### Ejemplos Disponibles
+### Ejemplos Disponibles - Instrucciones
+
 | Título | Descripción |
 | ------ | ----------- |
-| [Ejemplo de Instrucciones](instructions/example.instructions.md) | Pendiente por implementar.
+| [Ejemplo de Instrucciones](instructions/example.instructions.md) | Pendiente por implementar. |
 
 > 💡 **Uso en Copilot**: Copia estas instrucciones a tu archivo `.github/copilot-instructions.md` o crea archivos `.github/.instructions.md` específicos para tareas en la carpeta `.github/instructions` de tu espacio de trabajo.
 
-## 🎯 Prompts Reutilizables
+## Prompts Reutilizables
 
 Plantillas de prompts listas para usar para escenarios de desarrollo específicos y tareas, definiendo texto de prompt con un modo específico, modelo y conjunto de herramientas disponibles.
 
-### Por Chapter
+### Por Chapter - Prompts
+
 | Chapter | Descripción |
 | -------- | ----------- |
 | [📱 Frontend](prompts/frontend/) | Prompts para desarrollo frontend (React, Angular, Vue, etc.) |
@@ -51,18 +55,20 @@ Plantillas de prompts listas para usar para escenarios de desarrollo específico
 | [🧪 QA & Testing](prompts/qa-testing/) | Prompts para testing y quality assurance |
 | [🔄 Transversal](prompts/transversal/) | Prompts transversales aplicables a múltiples áreas |
 
-### Ejemplos Disponibles
+### Ejemplos Disponibles - Prompts
+
 | Título | Descripción |
 | ------ | ----------- |
 | [Ejemplo de Prompts de IA](prompts/example.prompt.md) | Pendiente por implementar. |
 
 > 💡 **Uso con Copilot**: Usa `/nombre-del-prompt` en el chat de VS Code, ejecuta el comando `Chat: Run Prompt`, o presiona el botón ejecutar mientras tienes un prompt abierto.
 
-## 🧩 Modos de Chat Personalizados en Github Copilot
+## Modos de Chat Personalizados en GitHub Copilot
 
 Los modos de chat personalizados definen comportamientos específicos y herramientas para GitHub Copilot Chat, permitiendo asistencia mejorada consciente del contexto para tareas o flujos de trabajo particulares.
 
-### Por Chapter
+### Por Chapter - Chat Modes
+
 | Chapter | Descripción |
 | -------- | ----------- |
 | [📱 Frontend](chatmodes/frontend/) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
@@ -72,12 +78,13 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 | [🧪 QA & Testing](chatmodes/qa-testing/) | Chat modes para testing y quality assurance |
 | [🔄 Transversal](chatmodes/transversal/) | Chat modes transversales aplicables a múltiples áreas |
 
-### Ejemplos Disponibles
+### Ejemplos Disponibles - Chat Modes
+
 | Título | Descripción |
 | ------ | ----------- |
 | [Ejemplo de Chatmode](chatmodes/example.chatmode.md) | Pendiente por implementar. |
 
-> 💡 **Uso**: Crea nuevos modos de chat usando el comando `Chat: Configure Chat Modes...`, luego cambia tu modo de chat en la entrada de Chat de _Agent_ o _Ask_ a tu propio modo.
+> 💡 **Uso**: Crea nuevos modos de chat usando el comando `Chat: Configure Chat Modes...`, luego cambia tu modo de chat en la entrada de Chat de *Agent* o *Ask* a tu propio modo.
 
 ## 📚 Recursos Adicionales
 
@@ -88,4 +95,5 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 - Otros recursos adicionales...
 
 ## 🤖 Secciones Adicionales
+>
 > Por definir...
