@@ -23,7 +23,7 @@ Repositorio que busca centralizar distintos artefactos de IA, como Instructions,
 
 ## Estándares de Instrucciones para IA
 
-📖 **[Ver Estándares Completos](instructions/standard/README.MD)** - Guía detallada con:
+📖 **[Ver Estándares Completos](instructions/_estandar-instructions/README.MD)** - Guía detallada con:
 
 - Limitaciones técnicas actualizadas (Septiembre 2025)
 - Mejores prácticas de ingeniería de contexto  
@@ -33,8 +33,8 @@ Repositorio que busca centralizar distintos artefactos de IA, como Instructions,
 
 | Plantilla | Uso Recomendado |
 |-----------|-----------------|
-| [📄 Unificada](instructions/standard/instructions-template.md) | Proyectos con <12K caracteres de instrucciones |
-| [🗂️ Modular](instructions/standard/instructions-orchestrator-template.md) | Casos complejos que requieren >12K caracteres |
+| [📄 Unificada](instructions/_estandar-instructions/instructions-template.md) | Proyectos con <12K caracteres de instrucciones |
+| [🗂️ Modular](instructions/_estandar-instructions/instructions-orchestrator-template.md) | Casos complejos que requieren >12K caracteres |
 
 ## Mínimos de Desarrollo
 
