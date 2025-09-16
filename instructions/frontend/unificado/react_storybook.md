@@ -2,9 +2,11 @@
 
 ```yaml
 name: "React + SASS + Vite + TypeScript + Storybook Project"
-version: "1.0"
-applies_to: ["frontend"]
+version: "2.0"
+applies_to: ["frontend", "react", "storybook", "typescript"]
 status: "Active"
+context_optimization: true
+ai_agent_optimized: true
 authors:
   - name: "Jhon Hernandez"
     email: "jhon.hernandez@pragma.com.co"
@@ -12,8 +14,8 @@ authors:
     email: "esteban.cadavid@pragma.com.co"
   - name: "Santiago Betancur"
     email: "santiago.betancur@pragma.com.co"
-tags: ["react", "typescript", "vite", "sass", "storybook", "zustand"]
-last_updated: "{{YYYY-MM-DD}}"
+tags: ["react", "typescript", "vite", "sass", "storybook", "zustand", "component-driven"]
+last_updated: "2025-09-15"
 ```
 
 ---

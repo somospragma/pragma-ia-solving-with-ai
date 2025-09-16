@@ -2,16 +2,18 @@
 
 ```yaml
 name: "Next.js Project"
-version: "1.0"
-applies_to: ["frontend"]
+version: "2.0"
+applies_to: ["frontend", "nextjs", "react", "typescript"]
 status: "Active"
+context_optimization: true
+ai_agent_optimized: true
 authors:
   - name: "Burke Holland"
     email: "burkeholland@gmail.com"
   - name: "Santiago Betancur"
     email: "santiago.betancur@pragma.com.co"
-tags: ["nextjs", "react", "typescript", "app-router"]
-last_updated: "2025-08-20"
+tags: ["nextjs", "react", "typescript", "app-router", "ssr", "ssg"]
+last_updated: "2025-09-15"
 ```
 
 ---

@@ -2,9 +2,11 @@
 
 ```yaml
 name: "React + SASS + Vite + TypeScript Project"
-version: "1.0"
-applies_to: ["frontend"]
+version: "2.0"
+applies_to: ["frontend", "react", "typescript"]
 status: "Active"
+context_optimization: true
+ai_agent_optimized: true
 authors:
   - name: "Jhon Hernandez"
     email: "jhon.hernandez@pragma.com.co"
@@ -12,8 +14,8 @@ authors:
     email: "esteban.cadavid@pragma.com.co"
   - name: "Santiago Betancur"
     email: "santiago.betancur@pragma.com.co"
-tags: ["react", "typescript", "vite", "sass", "zustand"]
-last_updated: "2025-09-06"
+tags: ["react", "typescript", "vite", "sass", "zustand", "hexagonal-architecture"]
+last_updated: "2025-09-15"
 ```
 
 ---

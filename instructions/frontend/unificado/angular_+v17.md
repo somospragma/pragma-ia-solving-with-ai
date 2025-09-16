@@ -2,9 +2,11 @@
 
 ```yaml
 name: "Angular Project"
-version: "1.0"
-applies_to: ["frontend"]
+version: "2.0"
+applies_to: ["frontend", "angular", "typescript"]
 status: "Active"
+context_optimization: true
+ai_agent_optimized: true
 authors:
   - name: "Jaime Gallo"
     email: "jaime.gallom@pragma.com.co"
@@ -12,8 +14,8 @@ authors:
     email: "cristian.otalora@pragma.com.co"
   - name: "Esteban García"
     email: "esteban.garcia@pragma.com.co"
-tags: ["angular", "typescript", "tailwind", "sass"]
-last_updated: "2025-09-06"
+tags: ["angular", "typescript", "tailwind", "sass", "standalone-components", "signals"]
+last_updated: "2025-09-15"
 ```
 
 ---
