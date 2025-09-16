@@ -316,13 +316,6 @@ Location: /src/config/environment/
 - A11Y/SEO validated
 - Code commented and documented
 
-### 5.3. Git Workflow
-
-**Routing:**
-
-- Use react-router-dom
-- Add ProtectedRoute when needed
-
 ---
 
 ## 📢 Final Notes for the AI Agent
