@@ -5,15 +5,13 @@ name: "Next.js Project"
 version: "2.0"
 applies_to: ["frontend", "nextjs", "react", "typescript"]
 status: "Active"
-context_optimization: true
-ai_agent_optimized: true
 authors:
   - name: "Burke Holland"
     email: "burkeholland@gmail.com"
   - name: "Santiago Betancur"
     email: "santiago.betancur@pragma.com.co"
 tags: ["nextjs", "react", "typescript", "app-router", "ssr", "ssg"]
-last_updated: "2025-09-15"
+last_updated: "2025-09-16"
 ```
 
 ---

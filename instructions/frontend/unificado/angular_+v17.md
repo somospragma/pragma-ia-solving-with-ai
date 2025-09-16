@@ -5,8 +5,6 @@ name: "Angular Project"
 version: "2.0"
 applies_to: ["frontend", "angular", "typescript"]
 status: "Active"
-context_optimization: true
-ai_agent_optimized: true
 authors:
   - name: "Jaime Gallo"
     email: "jaime.gallom@pragma.com.co"
@@ -15,7 +13,7 @@ authors:
   - name: "Esteban García"
     email: "esteban.garcia@pragma.com.co"
 tags: ["angular", "typescript", "tailwind", "sass", "standalone-components", "signals"]
-last_updated: "2025-09-15"
+last_updated: "2025-09-16"
 ```
 
 ---
