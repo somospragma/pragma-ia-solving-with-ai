@@ -4,6 +4,8 @@
 
 Este documento define un estándar para estructurar archivos de instrucciones para agentes de IA. La estructura propuesta es transversal para equipos de Frontend, Backend y Mobile, facilitando la implementación consistente de buenas prácticas de ingeniería y permitiendo la "hidratación" específica según el contexto tecnológico.
 
+Las instrucciones de este repositorio fueron construidas teniendo en cuenta los **[Mínimos de Desarrollo](https://docs.google.com/spreadsheets/d/1N7XEZkBshKJe9uNVgmaTwwCEKOjAU1XAYg5ofiWl2Uw/edit?gid=662975897#gid=662975897)** de Pragma, que obran como fuente de verdad en mínimos, buenas prácticas y deseables a nivel de Calidad de Software.
+
 ### Implementación Práctica
 
 La plantilla debe "hidratarse" con:
