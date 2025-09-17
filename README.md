@@ -6,7 +6,7 @@ Repositorio que busca centralizar distintos artefactos de IA, como Instructions,
 
 ### Para Nuevos Usuarios
 
-1. **🤖 Revisa la [Comparativa GitHub Copilot vs Amazon Q](Github%20Copilot%20vs%20Amazon%20Q.md)** para elegir la herramienta de IA más adecuada para tu proyecto
+1. **🤖 Revisa la [Comparativa GitHub Copilot vs Amazon Q](https://alejandria.pragma.co/es/private/conocimiento-aplicado/inteligencia-artificial/kc-cc/gen-ai/asistentes-code/amazonq-vs-copilot)** para elegir la herramienta de IA más adecuada para tu proyecto
 2. **📋 Revisa los [Estándares de Instrucciones](#estándares-de-instrucciones-para-ia)** para entender cómo crear instrucciones efectivas para agentes de IA
 3. **⚖️ Consulta los [Mínimos de Desarrollo](#mínimos-de-desarrollo)** para conocer los estándares de calidad requeridos
 4. **🎯 Explora las [Funcionalidades de Personalización](#funcionalidades-de-personalización-de-los-agentes)** para personalizar tu experiencia con agentes de IA
