@@ -81,6 +81,12 @@ last_updated: "2025-09-16"
 
 ### 2.3. Key Code Conventions
 
+**Linting & Formatting:**
+
+- Use ESLint for static code analysis and error detection
+- Use Prettier for automatic and consistent code formatting
+- Configure and honor .eslintrc and .prettierrc configurations
+
 **File Import Order:**
 
 1. React/core libs
@@ -98,6 +104,18 @@ last_updated: "2025-09-16"
 ## 3. Technology-Specific Guidelines
 
 ### 3.1. Architecture & Directory Structure
+
+**Atomic Design Methodology:**
+
+Organize UI components following atomic design principles:
+
+- **Atoms:** Basic, indivisible UI elements (buttons, inputs, labels, icons)
+- **Molecules:** Simple combinations of atoms that work together as a functional unit (search boxes, form fields)
+- **Organisms:** Complex UI components made of molecules and atoms (headers, navigation bars)
+- **Templates:** Page-level layouts that define the structure and placement of organisms, molecules, and atoms
+- **Pages:** Specific instances of templates with real content
+
+**Clean Architecture Structure:**
 
 #### src/config/
 
@@ -198,8 +216,12 @@ Location: /src/config/environment/
 
 ### 3.8. Styling & Design System
 
-- Tailwind or BEM/SASS modules
-- Co-locate styles
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM/SASS modules for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
 
 ---
 
@@ -254,6 +276,7 @@ Location: /src/config/environment/
 - Sanitize everything
 - Store tokens safely, prefer cookies (HttpOnly)
 - Always limit the input maxlength
+- Ensure HTTPS in production environments with proper SSL/TLS certificates
 
 #### 4.4.2. Compliance Requirements
 
@@ -265,6 +288,8 @@ Location: /src/config/environment/
 - Memoize (React.memo, useMemo)
 - Debounce heavy UI events
 - Skeleton UI while is loading
+- Implement image optimization using modern formats (WebP, AVIF) and compression techniques
+- Apply minification and obfuscation for CSS and JavaScript files in production builds
 
 ### 4.6. Accessibility (A11Y)
 
@@ -273,6 +298,13 @@ Location: /src/config/environment/
 - Use semantic HTML
 - Add ARIA labels/roles
 - Keyboard support
+
+### 4.7. SEO & Metadata
+
+**SEO Requirements:**
+
+- Implement proper HTML5 semantic markup for improved accessibility and SEO
+- Configure essential meta tags including title, description and others
 
 ---
 

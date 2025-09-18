@@ -29,6 +29,12 @@
 
 ## 2.3. Key Code Conventions
 
+**Linting & Formatting:**
+
+- Use ESLint for static code analysis and error detection
+- Use Prettier for automatic and consistent code formatting
+- Configure and honor .eslintrc and .prettierrc configurations
+
 **File Import Order:**
 
 1. React/core libs

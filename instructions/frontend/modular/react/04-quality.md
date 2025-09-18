@@ -49,6 +49,7 @@
 - Sanitize everything
 - Store tokens safely, prefer cookies (HttpOnly)
 - Always limit the input maxlength
+- Ensure HTTPS in production environments with proper SSL/TLS certificates
 
 ### 4.4.2. Compliance Requirements
 
@@ -60,6 +61,8 @@
 - Memoize (React.memo, useMemo)
 - Debounce heavy UI events
 - Skeleton UI while is loading
+- Implement image optimization using modern formats (WebP, AVIF) and compression techniques
+- Apply minification and obfuscation for CSS and JavaScript files in production builds
 
 ## 4.6. Accessibility (A11Y)
 
@@ -68,3 +71,10 @@
 - Use semantic HTML
 - Add ARIA labels/roles
 - Keyboard support
+
+## 4.7. SEO & Metadata
+
+**SEO Requirements:**
+
+- Implement proper HTML5 semantic markup for improved accessibility and SEO
+- Configure essential meta tags including title, description and others

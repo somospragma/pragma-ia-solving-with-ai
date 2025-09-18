@@ -2,6 +2,18 @@
 
 ## 3.1. Architecture & Directory Structure
 
+**Atomic Design Methodology:**
+
+Organize UI components following atomic design principles:
+
+- **Atoms:** Basic, indivisible UI elements (buttons, inputs, labels, icons)
+- **Molecules:** Simple combinations of atoms that work together as a functional unit (search boxes, form fields)
+- **Organisms:** Complex UI components made of molecules and atoms (headers, navigation bars)
+- **Templates:** Page-level layouts that define the structure and placement of organisms, molecules, and atoms
+- **Pages:** Specific instances of templates with real content
+
+**Clean Architecture Structure:**
+
 ### src/config/
 
 Global app configuration:
@@ -101,5 +113,9 @@ Location: /src/config/environment/
 
 ## 3.8. Styling & Design System
 
-- Tailwind or BEM/SASS modules
-- Co-locate styles
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM/SASS modules for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
