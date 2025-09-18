@@ -102,6 +102,18 @@ Do not create example/demo files (like ModalExample.tsx) in the main codebase un
 
 ### 3.1. Architecture & Directory Structure
 
+**Atomic Design Methodology:**
+
+Organize UI components following atomic design principles:
+
+- **Atoms:** Basic, indivisible UI elements (buttons, inputs, labels, icons)
+- **Molecules:** Simple combinations of atoms that work together as a functional unit (search boxes, form fields)
+- **Organisms:** Complex UI components made of molecules and atoms (headers, navigation bars)
+- **Templates:** Page-level layouts that define the structure and placement of organisms, molecules, and atoms
+- **Pages:** Specific instances of templates with real content
+
+**Next.js App Router Structure:**
+
 **Use the `app/` directory** (App Router) for all new projects. Prefer it over the legacy `pages/` directory.
 
 **Top-level folders:**
@@ -182,12 +194,22 @@ Always move client-only UI into a Client Component and import it directly in you
 
 ### 3.6. State Management
 
+### 3.7. Styling & Design System
+
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM methodology for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
+
 ---
 
 ## 4. Quality & Engineering Excellence
 
 ### 4.1. Testing Strategy & Implementation
 
+- **Test Coverage Requirements:** Maintain minimum test coverage of 80% across the application
 - **Testing:** Use Jest, React Testing Library, or Playwright. Write tests for all critical logic and components.
 - **Co-locate tests with components** (e.g., `UserCard.test.tsx`).
 
@@ -210,13 +232,24 @@ Always move client-only UI into a Client Component and import it directly in you
 
 ### 4.5. Performance & Optimization
 
-- Use built-in Image and Font optimization.
-- Use Suspense and loading states for async data.
-- Avoid large client bundles; keep most logic in Server Components.
+**Performance Optimization:**
+
+- Use built-in Image and Font optimization with modern formats for images (WebP, AVIF)
+- Apply minification and obfuscation for CSS and JavaScript files in production builds
+- Use Suspense and loading states for async data
+- Avoid large client bundles; keep most logic in Server Components
 
 ### 4.6. Accessibility (A11Y)
 
-- Use semantic HTML and ARIA attributes. Test with screen readers.
+- Implement proper HTML5 semantic and ARIA attributes. Test with screen readers.
+
+### 4.7. SEO & Metadata
+
+**SEO Requirements:**
+
+- Configure essential meta tags including title, description and others
+- Leverage Next.js built-in metadata API for dynamic meta tag management
+- Use Next.js Image component for automatic optimization and better Core Web Vitals
 
 ---
 

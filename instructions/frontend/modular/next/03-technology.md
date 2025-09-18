@@ -2,6 +2,18 @@
 
 ## 3.1. Architecture & Directory Structure
 
+**Atomic Design Methodology:**
+
+Organize UI components following atomic design principles:
+
+- **Atoms:** Basic, indivisible UI elements (buttons, inputs, labels, icons)
+- **Molecules:** Simple combinations of atoms that work together as a functional unit (search boxes, form fields)
+- **Organisms:** Complex UI components made of molecules and atoms (headers, navigation bars)
+- **Templates:** Page-level layouts that define the structure and placement of organisms, molecules, and atoms
+- **Pages:** Specific instances of templates with real content
+
+**Next.js App Router Structure:**
+
 **Use the `app/` directory** (App Router) for all new projects. Prefer it over the legacy `pages/` directory.
 
 **Top-level folders:**
@@ -81,3 +93,12 @@ Always move client-only UI into a Client Component and import it directly in you
 - **Environment Variables:** Store secrets in `.env.local`. Never commit secrets to version control.
 
 ## 3.6. State Management
+
+## 3.7. Styling & Design System
+
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM methodology for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
