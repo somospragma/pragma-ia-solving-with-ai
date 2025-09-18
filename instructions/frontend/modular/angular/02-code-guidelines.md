@@ -47,7 +47,11 @@
 
 ## 2.3. Key Code Conventions
 
-<!-- ⚪ REEMPLAZAR POR PRETTIER + ESLINT -->
+**Linting & Formatting:**
+
+- Use ESLint for static code analysis and error detection
+- Use Prettier for automatic and consistent code formatting
+- Configure and honor .eslintrc and .prettierrc configurations
 
 **Code Style:**
 
@@ -56,7 +60,6 @@
 - Ensure clean code with no trailing whitespace
 - Use const for immutable variables
 - Use template strings for string interpolation
-- Honor .prettierrc configuration
 - Avoid using string and magic numbers, use variables or constants
 
 **Import Order:**

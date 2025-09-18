@@ -79,7 +79,11 @@ last_updated: "2025-09-16"
 
 ### 2.3. Key Code Conventions
 
-<!-- ⚪ REEMPLAZAR POR PRETTIER + ESLINT -->
+**Linting & Formatting:**
+
+- Use ESLint for static code analysis and error detection
+- Use Prettier for automatic and consistent code formatting
+- Configure and honor .eslintrc and .prettierrc configurations
 
 **Code Style:**
 
@@ -88,7 +92,6 @@ last_updated: "2025-09-16"
 - Ensure clean code with no trailing whitespace
 - Use const for immutable variables
 - Use template strings for string interpolation
-- Honor .prettierrc configuration
 - Avoid using string and magic numbers, use variables or constants
 
 **Import Order:**
@@ -148,11 +151,25 @@ Organize UI components following atomic design methodology:
 - Leverage Angular's signals system for efficient state management and reactive programming
 - Use async pipe for observables in templates
 
+### 3.7. Styling & Design Guidelines
+
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM methodology for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+
 ---
 
 ## 4. Quality & Engineering Excellence
 
 ### 4.1. Testing Strategy & Implementation
+
+**Test Coverage Requirements:**
+
+- Maintain minimum test coverage of 80% across the application
+- Include unit tests for components, services, and utilities
+- Implement integration tests for critical user flows
 
 ### 4.2. Quality Gates & Acceptance Criteria
 
@@ -173,6 +190,7 @@ Organize UI components following atomic design methodology:
 - Prevent XSS with Angular's sanitization; avoid using innerHTML
 - Sanitize dynamic content with built-in tools
 - Avoid writing console.log statements to prevent information disclosure
+- Ensure HTTPS in production environments with proper SSL/TLS certificates
 
 #### 4.4.2. Compliance Requirements
 
@@ -189,6 +207,8 @@ Organize UI components following atomic design methodology:
 - Avoid computed properties (e.g. get prop() { }) when accessing variables from a HTML view. Prefer signals or observables
 - Unsubscribe from observables using Angular lifecycle ngOnDestroy if there are not clean-up automatically
 - Utilize deferrable views for optimizing component rendering, deferring non-critical views until necessary
+- Implement image optimization using modern formats (WebP, AVIF) and compression techniques
+- Apply minification and obfuscation for CSS and JavaScript files in production builds
 
 **Web Vitals:**
 
@@ -197,6 +217,13 @@ Organize UI components following atomic design methodology:
 ### 4.6. Accessibility (A11Y)
 
 - Ensure accessibility with semantic HTML and ARIA labels
+
+### 4.7. SEO & Metadata
+
+**SEO Requirements:**
+
+- Implement proper HTML5 semantic markup for improved accessibility and SEO
+- Configure essential meta tags including title, description and others
 
 ---
 

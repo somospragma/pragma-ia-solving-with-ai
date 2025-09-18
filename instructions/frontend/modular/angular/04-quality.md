@@ -2,6 +2,12 @@
 
 ## 4.1. Testing Strategy & Implementation
 
+**Test Coverage Requirements:**
+
+- Maintain minimum test coverage of 80% across the application
+- Include unit tests for components, services, and utilities
+- Implement integration tests for critical user flows
+
 ## 4.2. Quality Gates & Acceptance Criteria
 
 ## 4.3. Error Handling & Validation
@@ -21,6 +27,7 @@
 - Prevent XSS with Angular's sanitization; avoid using innerHTML
 - Sanitize dynamic content with built-in tools
 - Avoid writing console.log statements to prevent information disclosure
+- Ensure HTTPS in production environments with proper SSL/TLS certificates
 
 ### 4.4.2. Compliance Requirements
 
@@ -37,6 +44,8 @@
 - Avoid computed properties (e.g. get prop() { }) when accessing variables from a HTML view. Prefer signals or observables
 - Unsubscribe from observables using Angular lifecycle ngOnDestroy if there are not clean-up automatically
 - Utilize deferrable views for optimizing component rendering, deferring non-critical views until necessary
+- Implement image optimization using modern formats (WebP, AVIF) and compression techniques
+- Apply minification and obfuscation for CSS and JavaScript files in production builds
 
 **Web Vitals:**
 
@@ -45,3 +54,10 @@
 ## 4.6. Accessibility (A11Y)
 
 - Ensure accessibility with semantic HTML and ARIA labels
+
+## 4.7. SEO & Metadata
+
+**SEO Requirements:**
+
+- Implement proper HTML5 semantic markup for improved accessibility and SEO
+- Configure essential meta tags including title, description and others

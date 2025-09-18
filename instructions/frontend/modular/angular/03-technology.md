@@ -37,3 +37,11 @@ Organize UI components following atomic design methodology:
 
 - Leverage Angular's signals system for efficient state management and reactive programming
 - Use async pipe for observables in templates
+
+## 3.7. Styling & Design Guidelines
+
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM methodology for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
