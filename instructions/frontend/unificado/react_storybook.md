@@ -79,6 +79,12 @@ This template is optimized for projects using the following technologies:
 
 ### 2.3. Key Code Conventions
 
+**Linting & Formatting:**
+
+- Use ESLint for static code analysis and error detection
+- Use Prettier for automatic and consistent code formatting
+- Configure and honor .eslintrc and .prettierrc configurations
+
 **File Import Order:**
 
 1. React/core libs
@@ -117,6 +123,14 @@ Button/
 ## 3. Technology-Specific Guidelines
 
 ### 3.1. Architecture & Directory Structure
+
+**Atomic Design Methodology:**
+
+- **Atoms**: Basic building blocks (buttons, inputs, labels)
+- **Molecules**: Groups of atoms (form fields, search boxes)
+- **Organisms**: Complex components (headers, forms, product lists)
+- **Templates**: Page layouts without content
+- **Pages**: Specific instances of templates with real content
 
 #### src/config/
 
@@ -217,8 +231,12 @@ Location: /src/config/environment/
 
 ### 3.8. Styling & Design System
 
-- Tailwind or BEM/SASS modules
-- Co-locate styles
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM/SASS modules for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
 
 ---
 
@@ -226,12 +244,13 @@ Location: /src/config/environment/
 
 ### 4.1. Testing Strategy & Implementation
 
-**Testing:**
+**Testing Requirements:**
 
 - Use RTL + Vitest
 - Focus on integration tests
-- Aim for ≥ 80% coverage
+- **Maintain ≥ 80% test coverage** as a minimum requirement
 - Include A11Y tests
+- Test component stories in Storybook
 
 ### 4.2. Quality Gates & Acceptance Criteria
 
@@ -269,10 +288,12 @@ Location: /src/config/environment/
 
 **Security:**
 
+- **HTTPS in production**: Mandatory SSL/TLS certificates for all production environments
 - Avoid dangerouslySetInnerHTML
 - Sanitize everything
 - Store tokens safely, prefer cookies (HttpOnly)
 - Always limit the input maxlength
+- Input validation and sanitization to prevent XSS attacks
 
 #### 4.4.2. Compliance Requirements
 
@@ -280,12 +301,20 @@ Location: /src/config/environment/
 
 **Performance:**
 
+- **Image optimization**: Use modern formats (WebP, AVIF) with fallbacks
+- **Minification and obfuscation**: CSS and JavaScript files must be minified in production
 - Lazy load components (React.lazy)
 - Memoize (React.memo, useMemo)
 - Debounce heavy UI events
-- Skeleton UI while is loading
+- Skeleton UI while loading
+- Bundle analysis and code splitting optimization
 
-### 4.6. Accessibility (A11Y)
+### 4.6. SEO & Accessibility
+
+**SEO Requirements:**
+
+- Implement proper HTML5 semantic markup for improved accessibility and SEO
+- Configure essential meta tags including title, description and others
 
 **Accessibility (A11Y):**
 

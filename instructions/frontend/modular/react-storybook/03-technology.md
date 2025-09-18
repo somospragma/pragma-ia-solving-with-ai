@@ -2,6 +2,14 @@
 
 ## 3.1. Architecture & Directory Structure
 
+**Atomic Design Methodology:**
+
+- **Atoms**: Basic building blocks (buttons, inputs, labels)
+- **Molecules**: Groups of atoms (form fields, search boxes)
+- **Organisms**: Complex components (headers, forms, product lists)
+- **Templates**: Page layouts without content
+- **Pages**: Specific instances of templates with real content
+
 ### src/config/
 
 Global app configuration:
@@ -101,5 +109,9 @@ Location: /src/config/environment/
 
 ## 3.8. Styling & Design System
 
-- Tailwind or BEM/SASS modules
-- Co-locate styles
+**CSS Framework & Methodology:**
+
+- Use Tailwind CSS or BEM/SASS modules for consistent styling structure
+- Implement responsive design principles for optimal multi-device experience
+- Follow mobile-first approach in responsive design implementation
+- Co-locate styles with components
