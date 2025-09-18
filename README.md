@@ -4,9 +4,9 @@ Repositorio que busca centralizar distintos artefactos de IA, como: Instructions
 
 ## 🚀 Guía de Inicio Rápido
 
-1. **🤖 Revisa la [Comparativa GitHub Copilot vs Amazon Q](https://alejandria.pragma.co/es/private/conocimiento-aplicado/inteligencia-artificial/kc-cc/gen-ai/asistentes-code/amazonq-vs-copilot)** para elegir la herramienta de IA más adecuada para tu proyecto
-2. **📋 Revisa los [Estándares de Instrucciones](instructions/_estandar-instructions/README.MD)** para entender cómo se crearon las instrucciones efectivas para agentes de IA <!-- TODO: Migrar este Estándar a Alejandría -->
-3. **🎯 Explora las [Funcionalidades de Personalización](#funcionalidades-de-personalización-de-los-agentes)** para personalizar tu experiencia con agentes de IA
+1. **🤖 Revisa la [Comparativa GitHub Copilot vs Amazon Q](https://alejandria.pragma.co/es/private/conocimiento-aplicado/inteligencia-artificial/kc-cc/gen-ai/asistentes-code/amazonq-vs-copilot)**, si quieres entender cuál es la herramienta de IA más adecuada para tu proyecto
+2. **📋 Revisa el [Estándar de Instrucciones](https://alejandria.pragma.co/es/private/conocimiento-aplicado/inteligencia-artificial/kc-cc/gen-ai/asistentes-code/estandar-instrucciones)**, si quieres entender cómo se crearon las instrucciones efectivas para agentes de IA disponibilizadas en este repositorio
+3. **🎯 Explora las [Funcionalidades de Personalización](#funcionalidades-de-personalización-de-los-agentes)** para transformar tu experiencia con agentes de IA
 
 ---
 
