@@ -92,3 +92,40 @@ Este documento establece las reglas y estándares mínimos de calidad para el de
 ### Way to do it (Reglas de Artefactos)
 - **Arquitectura:** Documentar las decisiones de diseño y la arquitectura del sistema.
 - **APIs:** Documentar las APIs de manera formal (p. ej., con **OpenAPI/Swagger**).
+---
+## Herramientas y Framework de Automatización (Funcionalidad)
+
+### Mínimos
+- **Automatización con Playwright:** Implementar pruebas automatizadas de interfaz utilizando Playwright como herramienta principal.
+
+### Way to do it (Reglas de Desarrollo)
+- **Arquitectura del Proyecto:**
+  - Estructura modular: separar el proyecto en carpetas `tests`, `pages`, `utils`, `config`, `fixtures`.
+  - Aplicar patrones de diseño como **Page Object Model (POM)** o **ScreenplayBDD** para organizar la lógica de interacción.
+  - Cada página debe tener su propia clase con métodos que representen acciones y elementos.
+  - Evitar dependencias innecesarias: no incluir librerías externas si Playwright ya ofrece la funcionalidad nativamente.
+
+- **Diseño de Pruebas (Buenas Prácticas):**
+  - Un test por flujo: cada archivo de prueba debe validar un flujo completo (ej. login, compra, navegación).
+  - Seguir el patrón **AAA (Arrange-Act-Assert)** para estructurar cada prueba.
+
+- **Dependencias y Configuración:**
+  - Gestión de dependencias: usar `package.json` con versiones fijas; evitar rangos abiertos salvo en librerías muy mantenidas.
+  - Configuración centralizada: definir `playwright.config.ts` con ambientes (`dev`, `qa`, `prod`) usando `projects` y variables de entorno.
+  - Fixtures reutilizables: definir datos de prueba en `fixtures/` y usar `test.extend()` para compartir contexto entre pruebas.
+
+- **Integración y Ejecución:**
+  - Pruebas paralelas: habilitar `workers` para acelerar la ejecución.
+  - Ambientes aislados: usar `baseURL` y `contextOptions` para separar datos entre ambientes.
+
+- **Documentación:**
+  - README obligatorio: explicar estructura, reglas de dependencias, cómo ejecutar pruebas y cómo agregar nuevas.
+  - Comentarios mínimos: el código debe ser autoexplicativo; comentar solo lógica compleja.
+
+### Tecnología
+- **Playwright**, **JavaScript/TypeScript**
+
+### Observaciones
+- Esta categoría aborda la mecanización y optimización de las actividades de prueba a través de la infraestructura tecnológica, transformando las tareas manuales y repetitivas en procesos eficientes, monitorizables y controlables.
+- Aumenta la eficiencia, la velocidad y la fiabilidad de la ejecución de pruebas.
+
