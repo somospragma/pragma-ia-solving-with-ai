@@ -1,481 +1,131 @@
-# Calidad Transversal - Reglas Completas (calidad-all-full)
-Este documento consolida las reglas completas de calidad para todas las herramientas y dimensiones.
-
+# Calidad Transversal - Rules para Agentes AI y Desarrolladores
+Este documento establece las reglas y estándares mínimos de calidad para el desarrollo de software, aplicables de manera transversal (Backend, Frontend, Mobile, Integraciones).
 ---
-## Estrategia y Gobierno
-### Política y Estrategia de Pruebas
-
-#### Mínimos
-Definir y documentar los pilares estratégicos y de gobierno de las pruebas, alineándolos con la política de calidad del negocio y el ciclo de desarrollo.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir el alcance de pruebas por niveles (Unitaria, Integración, Sistema, Aceptación). 
-- Establecer los objetivos y los KPIs (p. ej., Defect Density, Defect Leakage). 
-- Estandarizar la selección de técnicas de diseño (basadas en riesgo/requisitos). 
-- Especificar las necesidades de Entornos y Datos de prueba.
-
+## Arquitectura y Diseño (Mantenibilidad, Fiabilidad)
+### Mínimos
+- **[DRY] No Repetir Código:** Extraer funcionalidad común en módulos compartidos y crear componentes reutilizables.
+- **[KISS] Mantener Simple:** Evitar la complejidad innecesaria. Preferir estructuras y lógica simples y legibles.
+- **[YAGNI] Solo lo Necesario:** Evitar la optimización o implementación prematura de funcionalidad que "quizás" se necesite en el futuro.
+- **Responsabilidad Única:** Mantener funciones, métodos y clases con una única responsabilidad clara.
+### Way to do it (Buenas Prácticas)
+- **Patrones de Diseño:** Seguir el patrón SOLID, especialmente la Inversión de Dependencias (Dependency Inversion).
+- **Separación de Intereses:** Implementar el patrón de diseño **Atomic Design** o similar para estructurar la interfaz de usuario.
+- **Módulos Compartidos:** Extraer la lógica de negocio, utilidades o servicios transversales en módulos claramente definidos.
 ---
-### Planificación de Pruebas
-
-#### Mínimos
-Implementar un proceso formal de análisis y evaluación de riesgos de producto para determinar el alcance y el énfasis de las pruebas requeridas.
-
-#### Way to do it (Reglas de Desarrollo)
-- Crear una matriz de riesgo (Impacto vs. Probabilidad) para funcionalidades y atributos de calidad. 
-- Establecer umbrales de cobertura obligatorios (p. ej., por riesgo). 
-- Definir el plan de Regresión y el cronograma para mitigar los riesgos identificados.
-
+## Seguridad (Confiabilidad)
+### Mínimos
+- **Validación de Entradas (Inputs):** Validar y sanitizar todas las entradas de datos, tanto a nivel de *frontend* (UX) como en el *backend* (seguridad).
+- **Control de Acceso:** Implementar un mecanismo robusto de autenticación y autorización para asegurar que solo los usuarios permitidos puedan acceder a los recursos.
+- **Conexiones Seguras:** Asegurar el uso obligatorio de **HTTPS** con certificados SSL/TLS válidos en todas las comunicaciones.
+### Way to do it (Reglas de Implementación)
+- **OWASP TOP 10 (Web y API):** Implementar cada una de las indicaciones/recomendaciones listadas en el **OWASP TOP 10 de Seguridad** (Web y API).
+- **Vulnerabilidades de Librerías:** Implementar **Dependency Pinning** para bibliotecas (fijar versiones) y utilizar herramientas de escaneo de vulnerabilidades (p. ej., SonarQube, Snyk).
+- **Ofuscación (Mobile/Frontend):**
+  - **Aplicar** minificación y ofuscación solo para *builds* de *release*, no en *debug*.
+  - **Generar** archivos de *mapping* por cada *build* para permitir la des-ofuscación de *stack traces*.
+  - **Generar** listado de exclusiones para código que no se debe ofuscar (p. ej., reflexión, llamadas dinámicas, código nativo, bibliotecas de terceros).
+  - **Validar** el *build* ofuscado comparando el tamaño y probando la des-ofuscación.
 ---
-### Entorno de Prueba
-
-#### Mínimos
-Establecer y controlar los recursos físicos y lógicos necesarios (sistemas, datos, configuración) para la ejecución de pruebas, asegurando su disponibilidad y aislamiento.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir la arquitectura del Entorno de Pruebas (infraestructura, versiones). 
-- Implementar la gestión de datos de prueba (TDM, incluyendo enmascaramiento). 
-- Coordinar la disponibilidad y el control de la configuración (Configuration Management).
-
+## Mantenibilidad y Legibilidad (Estandarización)
+### Mínimos
+- **Código Auto-Documentado:** Escribir código legible, sencillo y conciso. El código debe ser un activo, no un lastre.
+- **Nomenclatura Consistente:** Usar nombres claros, descriptivos y consistentes para variables, funciones, clases y archivos.
+- **Documentación Mínima:** Documentar el código de forma concisa (comentarios solo si explican el *por qué*, no el *qué*).
+- **Estilo de Código:** Seguir las convenciones de estilo del lenguaje (indentación, espacios, etc.) y usar herramientas de formateo.
+### Way to do it (Reglas de Desarrollo)
+- **Formatters y Linters:**
+  - Usar **ESLint** (o equivalente) para análisis de código estático y detección temprana de errores.
+  - Usar **Prettier** (o equivalente) para formato de código automático y consistente.
+- **Refactorización:** Refactorizar periódicamente para mejorar la legibilidad y mantenimiento del código.
+- **Limpieza de Código:** Eliminar código muerto, innecesario o sin uso.
 ---
-
-## Herramientas y Framework de Automatización
-### Herramienta de gestión de pruebas (ALM)
-
-#### Mínimos
-Seleccionar e implementar una herramienta que soporte el ciclo de vida completo de la prueba y la trazabilidad bidireccional entre requisitos, casos y defectos.
-
-#### Way to do it (Reglas de Desarrollo)
-- Configurar alguna herramienta ALM (Azure, Jira, BugTracker)para vincular automáticamente requisitos, casos de prueba y defectos. - Establecer plantillas estándar para la documentación de artefactos (Plan, Caso, Informe). 
-- Centralizar la gestión de versiones de artefactos.
-
+## Calidad del Código (Pruebas y Verificación)
+### Mínimos
+- **Pruebas Unitarias:** Escribir pruebas **antes** de implementar la funcionalidad (Ciclo Red-Green-Refactor, TDD).
+- **Cobertura Mínima:** Establecer un porcentaje de cobertura de pruebas unitarias como requisito obligatorio de *build* (Ver **calidad-pipeline-rules.md**).
+### Way to do it (Reglas de Desarrollo)
+- **TDD (Test-Driven Development):** Seguir el ciclo **Red-Green-Refactor** para el desarrollo de nuevas funcionalidades.
+- **Control de Flujo:** Utilizar interceptores (o *middlewares*) para manejar preocupaciones transversales como autenticación, *logging* y manejo de errores.
 ---
-### Automatización de pruebas unitarias
-
-#### Mínimos
-Establecer la prueba unitaria como el primer nivel de pruebas y el más denso, integrando su ejecución obligatoria en el proceso de build y deployment.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir el Framework preferido para cada tecnología (p. ej., Jest/Mocha para JS/TS, JUnit/TestNG para Java, PyTest para Python). 
-- Establecer el umbral mínimo de cobertura de 80% de líneas/métodos como requisito de build. 
-- Aplicar prácticas de TDD.
-
-#### Tecnología
-javascript-typescript
-
+## Rendimiento (Performance)
+### Mínimos
+- **Monitoreo:** Utilizar herramientas de monitoreo para medir el rendimiento, teniendo en cuenta las métricas específicas de cada plataforma/servicio.
+- **Liberación de Recursos:** Siempre liberar los recursos no utilizados (memoria, conexiones, *streams*).
+- **Optimización de Procesamiento:** Evitar bloquear el hilo principal de ejecución con tareas de larga duración o de procesamiento costoso.
+- **Uso de Recursos:** Evitar el acceso innecesario a recursos externos (servicios o bases de datos) o locales (almacenamiento).
+### Way to do it (Reglas de Optimización)
+- **Carga de Recursos:**
+  - Implementar **Skeleton UI** durante la carga de recursos de interfaz.
+  - Realizar un uso correcto de la **Carga Perezosa (*Lazy Loading*)** para posponer recursos o vistas no requeridas inmediatamente.
+  - Implementar la **optimización de imágenes** utilizando formatos modernos (WebP, AVIF) y/o tamaños adaptativos.
 ---
-### Automatización con Playwright
-
-#### Mínimos
-- Aplicar patrones de diseño POM o Screenplay.
-- Organizar el código en capas independientes de herramientas externas, navegadores o servicios de backend.
-- Centralizar la lógica de interacción en los Page Objects, evitando que los tests accedan directamente a selectores.
-- Definir reglas de dependencia claras: los tests dependen de los Page Objects, que a su vez dependen de utilidades o servicios.
-- Ninguna capa interna debe conocer detalles de capas externas.
-- Cada módulo debe tener una única responsabilidad y comunicarse mediante interfaces bien definidas.
-- Depender de abstracciones (interfaces o clases base) para facilitar el reemplazo de implementaciones concretas.
-- Evitar dependencias innecesarias
-- Apalancarse en Buenas practicas de POO y principios en la codificacion
-
-#### Way to do it (Reglas de Desarrollo)
-Dependencias y Configuración
-Gestión de dependencias: usa package.json con versiones fijas; evita rangos abiertos salvo en librerías muy mantenidas.
-Configuración centralizada: define playwright.config.ts con ambientes (dev, qa, prod) usando projects y env variables.
-Fixtures reutilizables: define datos de prueba en fixtures/ y usa test.extend() para compartir contexto entre pruebas.
-
-Arquitectura del Proyecto
-Estructura modular: separa el proyecto en carpetas tests, pages, utils, config, fixtures.
-Page Object Model (POM): cada página debe tener su propia clase con métodos que representen acciones y elementos.
-ScreenplayBDD:  Usar maquetación por encarpetamiento teniendo en cuenta Task, PageUI, Question etc...
-Evitar dependecnias innecesarios: No incluir librerías externas si Playwright ya ofrece la funcionalidad nativamente
-
-Diseño de Pruebas(Buenas practicas)
-Un test por flujo: cada archivo de prueba debe validar un flujo completo (ej. login, compra, navegación).
-AAA (Arrange-Act-Assert): estructura cada test siguiendo este patrón.
-
-Integración y Ejecución
-Pruebas paralelas: habilita workers para acelerar ejecución.
-Ambientes aislados: usa baseURL y contextOptions para separar datos entre ambientes.
-
-Documentación
-README obligatorio: explica estructura, reglas de dependencias, cómo ejecutar pruebas y cómo agregar nuevas.
-Comentarios mínimos: el código debe ser autoexplicativo; comenta solo lógica compleja.
-
-#### Tecnología
-playwright, javascript-typescript
-
+## Trazabilidad y Manejo de Errores (Confiabilidad)
+### Mínimos
+- **Manejo Controlado de Errores:** Implementar un mecanismo de manejo controlado de errores que **no interrumpa** el funcionamiento del sistema.
+- **Monitorización de Errores:** Implementar un servicio de monitoreo remoto (*Observability*) para identificar errores en tiempo real en producción.
+- **Feedback al Usuario:** Dar retroalimentación clara, entendible y no técnica al usuario si ocurre un error (no exponer errores no controlados).
+### Way to do it (Reglas de Logging y Excepciones)
+- **Captura de Errores:**
+  - Utilizar bloques **try-catch** y límites de error adecuados para la tecnología.
+  - **Evitar ignorar** la excepción de un *try/catch*.
+- **Clasificación de Logs:** Usar la clasificación de *logs* adecuadamente (Info, Warning, Error, Debug) al depurar y trazar.
+- **Tipado de Errores:**
+  - Utilizar excepciones tipadas que describan semánticamente el problema (o fábricas personalizadas).
+  - Utilizar el **patrón Result (Success-Failure)** para manejar explícitamente los errores en la capa de negocio.
+- **Seguridad en Logs:** Evitar exponer **información sensible** (passwords, tokens, PII) en *logs* o mensajes de error internos.
 ---
-### Automatización de pruebas frontend
-
-#### Mínimos
-Utilizar Cypress para pruebas de Componente y E2E, aprovechando su arquitectura y depuración amigable para desarrolladores en aplicaciones web modernas.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir los casos de uso para Cypress (p. ej., pruebas E2E y de Componente/Integración Frontend). 
-- Asegurar que los tests sigan la práctica de limpieza de estado antes de cada ejecución (vía API o database seeding). 
-- Utilizar la sintaxis cy.*.
-
-#### Tecnología
-cypress, javascript-typescript
-
+## Experiencia de Usuario y Accesibilidad (Usabilidad)
+### Mínimos
+- **Diseño Adaptativo (Responsive):** Implementar *media queries* para diseño responsivo.
+- **Mobile-First:** Utilizar un enfoque de desarrollo *Mobile-First*.
+- **Evitar *Overflow*:** Prevenir el desbordamiento de contenido en pantallas pequeñas.
+- **HTML Semántico:** Utilizar **HTML 5 semántico** (cuando aplique a *frontend*).
+### Way to do it (Reglas de Interfaz)
+- **Accesibilidad:**
+  - Añadir etiquetas y roles **ARIA** (**Accessible Rich Internet Applications**).
+  - Asegurar el soporte de **navegación por teclado** para todos los elementos interactivos.
+- **Estándares de *Styling*:** Usar metodologías como **BEM/SASS** (o equivalentes) para una estructura de estilos consistente y mantenible.
 ---
-### Automatización con Selenium
-
-#### Mínimos
-Implementar pruebas End-to-End tradicionales controlando navegadores mediante WebDriver, integrando con frameworks de soporte (TestNG, JUnit, etc.) para validaciones consistentes.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir el uso de WebDrivers estandarizados. 
-- Implementar patrones de diseño (p. ej., POM) para la organización del código. 
-- Asegurar que la ejecución sea compatible con una Selenium Grid para pruebas paralelas y cross-browser.
-
-#### Tecnología
-Selenium, java
-
+## Documentación
+### Mínimos
+- **README:** Crear y mantener un archivo **README** por repositorio, con la información esencial del proyecto (setup, *scripts* principales, arquitectura).
+### Way to do it (Reglas de Artefactos)
+- **Arquitectura:** Documentar las decisiones de diseño y la arquitectura del sistema.
+- **APIs:** Documentar las APIs de manera formal (p. ej., con **OpenAPI/Swagger**).
 ---
-### Automatización con Serenity BDD
-
-#### Mínimos
-Definir escenarios en lenguaje Gherkin (Given, When, Then) e implementar automatización en la capa superior de la pirámide, enfocándose en la trazabilidad y documentación automática del proceso.
-
-#### Way to do it (Reglas de Desarrollo)
-- Requerir que los casos de prueba sigan el formato Gherkin para la capa de negocio. 
-- Utilizar la capacidad de generación de reportes de Serenity BDD para trazar los escenarios a los requisitos de forma clara.
-
-#### Tecnología
-serenity-bdd, java
-
----
-### Golden Test Frontend
-
-#### Mínimos
-Comparar la salida visual de un componente o interfaz con una referencia preestablecida ("base de oro"), asegurando que los cambios no alteren de manera no deseada el diseño o la apariencia.
-
-#### Way to do it (Reglas de Desarrollo)
-- Establecer una "base de oro" de referencias visuales por componente. 
-- Configurar la herramienta (p. ej., Applitools o librerías de Flutter/React) para ignorar áreas dinámicas (fechas, IDs) y solo comparar el layout y estilo. Integrar en pipelines de Pull Request.
-
-#### Tecnología
-flutter
-
----
-### Mutation Test
-
-#### Mínimos
-Evaluar la efectividad de los tests existentes al introducir cambios pequeños y controlados (mutaciones) en el código, simulando errores para verificar si las pruebas los detectan.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir un Umbral Mínimo de Puntuación de Mutación (p. ej., 60-70%). 
-- Integrar la herramienta (PITest/Stryker) en el pipeline y ejecutar solo en código que ya tiene una alta cobertura unitaria (p. ej., >80%).
-
-#### Tecnología
-python
-
----
-### Automatización de pruebas con Karate
-
-#### Mínimos
-Unificar la automatización de pruebas de API, servicios web y UI en un solo framework mediante scripts declarativos tipo BDD.
-
-#### Way to do it (Reglas de Desarrollo)
-- Establecer el uso de Karate para automatización de APIs (REST/SOAP) y validaciones JSON/XML. 
-- Definir una convención para el mocking de servicios externos. 
-- Usar la sintaxis Gherkin específica de Karate.
-
-#### Tecnología
-java, Karate
-
----
-### Automatización de pruebas mobile
-
-#### Mínimos
-Asegurar la calidad y funcionalidad de aplicaciones móviles nativas, híbridas o web en distintos dispositivos y sistemas operativos.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir Appium (o frameworks nativos) como framework de automatización móvil. 
-- Establecer la Matriz de Dispositivos (versiones de OS y modelos a cubrir). 
-- Implementar patrones de diseño (p. ej., POM o Screenplay) específicos para Mobile.
-
-#### Tecnología
-java, flutter, Appium
-
----
-### Widget Test
-
-#### Mínimos
-Verificar el comportamiento y la apariencia de los componentes o widgets en la interfaz de usuario, comprobando que los elementos interactúan correctamente y se renderizan como se espera.
-
-#### Way to do it (Reglas de Desarrollo)
-- Usar las herramientas nativas de prueba de frameworks de UI (p. ej., Flutter, React Testing Library, Vue Test Utils). 
-- Asegurar que los tests se ejecuten sin un navegador completo (simulando el árbol de widgets) para mayor velocidad.
-
-#### Tecnología
-flutter
-
----
-### Gestión de datos de pruebas
-
-#### Mínimos
-Definir explícitamente la creación, manipulación y edición de los datos de prueba específicos y genéricos para aumentar la reproducibilidad y cumplimiento normativo.
-
-#### Way to do it (Reglas de Desarrollo)
-- Emplear herramientas o librerías de preparación/generación de datos de prueba (fakers). 
-- Formalizar el procedimiento de Enmascaramiento de Datos Sensibles (camuflaje) en entornos no productivos.
--  Archivar y documentar conjuntos de datos genéricos.
-
----
-### Gestión de entornos
-
-#### Mínimos
-Definir la especificación de requisitos del entorno de prueba al inicio del proyecto para asegurar un entorno administrado y controlado.
-
-#### Way to do it (Reglas de Desarrollo)
-- Utilizar herramientas de Infraestructura como Código (IaC) (Terraform, Kubernetes) para la creación rápida y reproducible de entornos de prueba. 
-- Definir un proceso de Reserva de Ambientes o de Autodestrucción para optimizar recursos.
-
----
-
-## Integración y Estandarización de Procesos
-### Organización de Pruebas
-
-#### Mínimos
-- Establecer una estructura de Roles y Responsabilidades formalizada. 
-- Crear un marco de Competencias para el personal de QA para institucionalizar la prueba como disciplina.
-
-#### Way to do it (Reglas de Desarrollo)
-- Documentar el organigrama de QA y la Matriz de Competencias (Junior, Advanced, Senior, Master). 
-- Definir los roles de pruebas con sus tareas. 
-- Asegurar la objetividad (separación de funciones entre desarrollo y QA de sistema/aceptación).
-
----
-### Programa de Formación de Pruebas
-
-#### Mínimos
-Desarrollar un programa de formación continuo con módulos específicos para elevar el nivel de competencia y la calidad del personal involucrado en las pruebas.
-
-#### Way to do it (Reglas de Desarrollo)
-- Identificar las brechas de conocimiento (p. ej., TDD, automatización con K6/Playwright, BDD, OWASP). 
-- Establecer una Matriz de Crecimiento y un plan de capacitación formativa (cursos, mentorías) para cubrir las necesidades estratégicas.
-
----
-### Ciclo de Vida de las Pruebas e Integración
-
-#### Mínimos
-Estandarizar el flujo de trabajo de pruebas, asegurando la trazabilidad y los puntos de integración obligatorios con el ciclo de vida de desarrollo (SDLC).
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir los Criterios de Entrada/Salida (Definición de Done) para cada nivel de prueba. 
-- Asegurar que los requisitos sean testeables. Documentar el flujo de trabajo de CI/CD para integrar la ejecución automatizada en todas las etapas.
-
----
-
-## Medición, Control y Evaluación de calidad
-### Monitorización y Control de Pruebas
-
-#### Mínimos
-Realizar revisiones periódicas del progreso y la calidad del producto y del proceso, asegurando que las actividades se realicen conforme al plan y que las desviaciones se identifiquen.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir puntos de control (Milestones) e hitos de las pruebas. 
-- Generar informes periódicos de Estado de la Ejecución y Calidad del Producto (p. ej., Burn-down charts de defectos). 
-- Utilizar la herramienta ALM para la trazabilidad y el reporting.
-
----
-### Mediciones de Pruebas
-
-#### Mínimos
-Establecer objetivos de medición alineados con los objetivos de negocio y las necesidades de información para asegurar el logro de los objetivos de calidad.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir métricas clave de Eficacia (p. ej., Tasa de Detección de Defectos) y Eficiencia (p. ej., Costo por Prueba, Tiempo de Ejecución). 
-- Documentar el Diccionario de Métricas (fórmula, objetivo, frecuencia).
-
----
-### Evaluación de la Calidad del Producto
-
-#### Mínimos
-Medir cuantitativamente la calidad del producto (y sus productos de trabajo intermedios) y comparando estos datos con los objetivos de calidad definidos.
-
-#### Way to do it (Reglas de Desarrollo)
-- Seleccionar métricas que proporcionen información relevante: Densidad de Defectos, Tasa de Escape de Defectos a producción, Puntaje de Seguridad (SonarQube/Checkmarx). 
-- Generar un Reporte de Calidad al final de cada ciclo/versión.
-
----
-### Revisiones entre Pares
-
-#### Mínimos
-Implementar un proceso formal de revisión por pares para artefactos críticos (código, requisitos, casos de prueba, diseño) en fases tempranas.
-
-#### Way to do it (Reglas de Desarrollo)
-- Establecer la Revisión de Código (Code Review) como obligatoria para cualquier merge (vía Pull Request). Definir Criterios de Entrada y Salida para las revisiones (p. ej., Checklist de pruebas).
-
----
-### Revisiones entre Pares Avanzadas
-
-#### Mínimos
-definir directrices de medición para las revisiones, incluyendo reglas, listas de control y técnicas de muestreo.
-
-#### Way to do it (Reglas de Desarrollo)
-- Sin definir.
-
----
-
-## Mejora continua
-### Prevención de Defectos
-
-#### Mínimos
-Definir un esquema de clasificación detallado de defectos para analizar los más críticos y frecuentes y determinar su causa raíz para evitar su recurrencia.
-
-#### Way to do it (Reglas de Desarrollo)
-- Implementar técnicas de Análisis de Causa Raíz (p. ej., 5 Porqués, Diagrama de Ishikawa) en defectos críticos. 
-- Generar propuestas de acción/solución para modificar los procesos de desarrollo y prueba.
-
----
-### Control de Calidad
-
-#### Mínimos
-Aplicar métodos estadísticos y de control de procesos para comprender las variaciones y asegurar que el proceso de pruebas es estadísticamente estable y predecible.
-
-#### Way to do it (Reglas de Desarrollo)
-- Establecer Gráficos de Control (p. ej., para la Tasa de Inserción de Defectos o el Tiempo de Ejecución de Pruebas). 
-- Calcular Intervalos de Confianza para la estimación de la fiabilidad del producto. 
-- Analizar las variaciones fuera de los límites aceptables para investigar la causa raíz.
-
----
-### Optimización del Proceso de Pruebas
-
-#### Mínimos
-Gestionar el ciclo de vida de la mejora continua (identificación, evaluación, piloto, despliegue) y establecer una librería de activos de prueba reutilizables.
-
-#### Way to do it (Reglas de Desarrollo)
-- Implementar un repositorio central de Activos de Prueba Reutilizables (casos, plantillas, scripts y datos de prueba). 
-- Fomentar la innovación mediante la evaluación de nuevas herramientas y técnicas (p. ej., a través de proyectos piloto). 
-- Definir un proceso para la evaluación de la madurez del proceso (p. ej., con TMMi o CMMI).
-
----
-### Inteligencia Artificial (IA)
-
-#### Mínimos
-Invertir en modelos predictivos (Machine Learning) entrenados con datos históricos y emplear herramientas basadas en IA para mejorar la efectividad (selección, generación) y la eficiencia del proceso.
-
-#### Way to do it (Reglas de Desarrollo)
-- Entrenar modelos para predecir dónde fallará el software (Risk-based Testing automatizado). 
-- Usar herramientas de IA para la selección óptima de casos de prueba de regresión o para la generación asistida de scripts de prueba E2E. 
-- Evaluar herramientas de curación de locators basadas en IA.
-
----
-### Pruebas Automatizadas de Código Estático - Pipelines Units Tests
-
-#### Mínimos
-Configurar pipelines CI/CD (por ejemplo, con Jenkins, GitHub Actions o Azure DevOps) para ejecutar análisis de código estático (SonarQube, ESLint, PMD) y unit tests automáticos (JUnit, Mocha, Jest) en cada commit o pull request, asegurando calidad continua desde el desarrollo.
-
-#### Way to do it (Reglas de Desarrollo)
-- Configurar pipelines (Jenkins, GitHub Actions) para ejecutar análisis de código estático (SonarQube, ESLint) y unit tests obligatoriamente en cada Pull Request. 
-- Establecer reglas de "Quality Gate" que bloqueen el merge si la cobertura es <80% o si hay vulnerabilidades críticas.
-
-#### Tecnología
-java, python, javascript-typescript
-
----
-
-## Procesos y Metodologías
-### Diseño y Ejecución de Pruebas
-
-#### Mínimos
-- Asegurar el uso sistemático de técnicas de diseño de pruebas apropiadas para maximizar la cobertura efectiva. 
--Estandarizar el ciclo de vida y la categorización de incidentes.
-
-#### Way to do it (Reglas de Desarrollo)
-- Requerir la aplicación de técnicas de Caja Negra (p. ej., Partición Equivalente, Valor Límite, tablas de decision) 
--Requerir la aplicacion de tecnicas de Caja Blanca (p. ej., Cobertura de Sentencias). 
-- Establecer una plantilla de Caso de Prueba Estándar con pasos claros y un esquema de clasificación de defectos (Claficiacion, Severidad, Prioridad).
-
----
-### Pruebas No Funcionales con Jmeter
-
-#### Mínimos
-- Ejecutar pruebas de rendimiento (carga, estrés) bajo condiciones controladas, simulando el comportamiento esperado del usuario y midiendo métricas clave.
-
-#### Way to do it (Reglas de Desarrollo)
-- Definir escenarios de carga basados en transacciones críticas y perfiles de usuario esperados. 
--Establecer métricas de Tiempos de Respuesta (p. ej., Percentil 95 < 2 segundos) y Throughput mínimos aceptables. - Configurar los listeners de JMeter para reportar métricas clave en formato procesable.
-
-#### Tecnología
-jmeter
-
----
-### Pruebas No Funcionales con K6
-
-#### Mínimos
-Utilizar K6 para la ejecución de pruebas de rendimiento ligeras, modernas y con integración en CI/CD facilitada por su uso de JavaScript.
-
-#### Way to do it (Reglas de Desarrollo)
-- Priorizar K6 para servicios Backend y pruebas de stress ligeras. 
-- Definir la estructura del script K6 en JavaScript para reporte automático de métricas y definición de umbrales (thresholds) que detengan la prueba si fallan.
-
-#### Tecnología
-k6
-
----
-### Profiling App
-
-#### Mínimos
-Integrar herramientas de profiling en el ciclo de desarrollo para monitorear el uso de recursos críticos (CPU, memoria, latencia de UI) durante la ejecución de las pruebas.
-
-#### Way to do it (Reglas de Desarrollo)
-- Establecer umbrales máximos para el uso de Memoria Heap y CPU. 
-- Definir la instrumentación necesaria (Dynatrace, VisualVM, Android Profiler, etc.) para analizar el rendimiento en transacciones críticas. 
-- Correr profiling en el entorno más cercano a producción.
-
----
-### Pruebas No Funcionales otros tipos
-
-#### Mínimos
-Realizar pruebas complementarias no funcionales basadas en estándares de la industria y requisitos específicos del producto para evaluar la experiencia de usuario
-
-#### Way to do it (Reglas de Desarrollo)
-- Accesibilidad: Aplicar checklists con validaciones minimas basados en WCAG (Web Content Accessibility Guidelines). 
-- Usabilidad: Realizar pruebas con usuarios finales para evaluar el flujo, la eficiencia y la satisfacción. - Herramientas: 
-- Usar linters de accesibilidad y checkers automáticos.
-
----
-### Gestión de defectos
-
-#### Mínimos
-Institucionalizar un flujo de trabajo estandarizado para el manejo de defectos (detección, registro, clasificación, asignación, corrección, re-prueba, cierre).
-
-#### Way to do it (Reglas de Desarrollo)
-- Configurar la herramienta ALM/Bugs para forzar la asignación de campos clave (Severidad, Prioridad, Componente/Módulo). 
-- Establecer un SLA para el tiempo de resolución basado en la Severidad. Definir el rol responsable de la validación del fix (QA/Tester).
-
----
-
-## Seguridad y cumplimiento
-### Pruebas de seguridad
-
-#### Mínimos
-Implementar pruebas de seguridad (análisis de vulnerabilidades) para detectar y mitigar vulnerabilidades en componentes del código, protegiendo la aplicación contra ataques.
-
-#### Way to do it (Reglas de Desarrollo)
-- SAST (Static Analysis): Configurar SonarQube/Checkmarx para escanear código en cada build. DAST (Dynamic Analysis): Implementar OWASP ZAP o similar en el entorno de QA/Staging para escaneo dinámico. - Bloquear builds con vulnerabilidades de Severidad Alta o Crítica.
-
----
-### Cumplimiento normativo
-
-#### Mínimos
-Integrar los requisitos de cumplimiento (legales, contractuales) directamente en los criterios de aceptación y los casos de prueba para asegurar la validez legal y contractual del producto.
-
-#### Way to do it (Reglas de Desarrollo)
-- Asegurar que los requisitos de cumplimiento (p. ej., GDPR, PCI DSS, Leyes de Accesibilidad) estén documentados como Casos de Prueba de Aceptación (UAT) obligatorios. 
-- Vincular estos requisitos críticos a la ejecución formal de pruebas y a los informes de calidad.
-
----
-### Protección de datos
-
-#### Mínimos
-Formalizar el procedimiento de camuflar datos confidenciales (enmascaramiento) en el Entorno de Pruebas y controlar el acceso y el archivado de los datos.
-
-#### Way to do it (Reglas de Desarrollo)
-- Implementar técnicas de Enmascaramiento de Datos Sensibles (camuflaje/tokenización) usando librerías o herramientas ETL en entornos no productivos. Definir políticas de Acceso Restringido y Archivado Seguro de los datos de prueba, cumpliendo la normativa interna y legal (p. ej., PII, datos bancarios).
-
----
+## Herramientas y Framework de Automatización (Funcionalidad)
+
+### Mínimos
+- **Automatización con Playwright:** Implementar pruebas automatizadas de interfaz utilizando Playwright como herramienta principal.
+
+### Way to do it (Reglas de Desarrollo)
+- **Arquitectura del Proyecto:**
+  - Estructura modular: separar el proyecto en carpetas `tests`, `pages`, `utils`, `config`, `fixtures`.
+  - Aplicar patrones de diseño como **Page Object Model (POM)** o **ScreenplayBDD** para organizar la lógica de interacción.
+  - Cada página debe tener su propia clase con métodos que representen acciones y elementos.
+  - Evitar dependencias innecesarias: no incluir librerías externas si Playwright ya ofrece la funcionalidad nativamente.
+
+- **Diseño de Pruebas (Buenas Prácticas):**
+  - Un test por flujo: cada archivo de prueba debe validar un flujo completo (ej. login, compra, navegación).
+  - Seguir el patrón **AAA (Arrange-Act-Assert)** para estructurar cada prueba.
+
+- **Dependencias y Configuración:**
+  - Gestión de dependencias: usar `package.json` con versiones fijas; evitar rangos abiertos salvo en librerías muy mantenidas.
+  - Configuración centralizada: definir `playwright.config.ts` con ambientes (`dev`, `qa`, `prod`) usando `projects` y variables de entorno.
+  - Fixtures reutilizables: definir datos de prueba en `fixtures/` y usar `test.extend()` para compartir contexto entre pruebas.
+
+- **Integración y Ejecución:**
+  - Pruebas paralelas: habilitar `workers` para acelerar la ejecución.
+  - Ambientes aislados: usar `baseURL` y `contextOptions` para separar datos entre ambientes.
+
+- **Documentación:**
+  - README obligatorio: explicar estructura, reglas de dependencias, cómo ejecutar pruebas y cómo agregar nuevas.
+  - Comentarios mínimos: el código debe ser autoexplicativo; comentar solo lógica compleja.
+
+### Tecnología
+- **Playwright**, **JavaScript/TypeScript**
+
+### Observaciones
+- Esta categoría aborda la mecanización y optimización de las actividades de prueba a través de la infraestructura tecnológica, transformando las tareas manuales y repetitivas en procesos eficientes, monitorizables y controlables.
+- Aumenta la eficiencia, la velocidad y la fiabilidad de la ejecución de pruebas.
 
