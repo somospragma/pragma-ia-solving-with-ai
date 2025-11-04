@@ -1,4 +1,4 @@
-# Análisis de Actividades Core en Proyectos de Infraestructura Cloud 
+# Guía análisis de Actividades Core para Proyectos de Infraestructura Cloud Basado en el Framework de Madurez
 
 Este documento establece una referencia base para realizar un análisis automatizado de las actividades fundamentales (core) en proyectos de infraestructura cloud. El objetivo es proporcionar un marco estructurado que permita a herramientas automatizadas y sistemas de IA evaluar de manera consistente la calidad, completitud y madurez de los proyectos de infraestructura cloud.
 
