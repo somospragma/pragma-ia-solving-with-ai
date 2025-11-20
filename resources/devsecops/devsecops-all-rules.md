@@ -120,7 +120,7 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 **Objetivo:** Identificar vulnerabilidades en la aplicación en tiempo de ejecución simulando ataques reales.
 
-1. Pregunta al Usuario si existe un reporte de una herramienta como OWASP ZAP para analizr su reporte o si desea continuar con la validacion por conocimiento propio.
+1. Pregunta al Usuario si dispone de un reporte externo (OWASP ZAP u otra herramienta DAST), indique la ubicación del archivo y el formato utilizado (por ejemplo: /reports/owasp_zap_report_2025-11-20.html). Si el reporte no está disponible, indique si desea continuar con la validación por conocimiento propio.
 2. **Recopilación de información:**  
    - Solicitar al desarrollador la URL base, endpoints, autenticación y roles, o analizar el workspace para identificar puntos de entrada.
 3. **Análisis del workspace:**  
@@ -140,7 +140,7 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 **Objetivo:** Detectar vulnerabilidades y riesgos en las dependencias y componentes de terceros.
 
-1. Valida si esta disponible el MCP de Trivy y la tool scan_filesystem si no pregunta al Usuario si existe una herramienta MCP como Trivy para hacer esta validacion y analizar el reporte o si desea continuar con la validacion por conocimiento propio.
+1. Valida si esta disponible el MCP de Trivy y la tool scan_filesystem, si no esta disponible o no se puede ejecutar, pregunta si dispone de un reporte externo (Trivy u otra herramienta SCA) e indique la ubicación del archivo y el formato utilizado (por ejemplo: /reports/trivy_scan_2025-11-20.json). Si el reporte no está disponible, indique si desea continuar con la validación por conocimiento propio.
 2. **Recopilación de información:**  
    - Identificar archivos de dependencias (`pom.xml`, `build.gradle`, `package.json`, etc.).
 3. **Inventario de componentes:**  
