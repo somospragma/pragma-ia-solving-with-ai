@@ -1,15 +1,10 @@
 # Guía de Análisis de Seguridad Integral para Workspaces Minimos DevSecOps Basado en el Framework de Madurez
 
-Este documento sirve como contexto y referencia para que una IA o herramienta automatizada realice un análisis de seguridad general en un workspace, abarcando los principales enfoques: almacenamiento seguro de información sensible, control de acceso, análisis estático (SAST), análisis dinámico (DAST) y composición de software (SCA).
+Este documento sirve como contexto y referencia para que una IA o herramienta automatizada realice un análisis de seguridad general en un workspace, abarcando por enfoques o topicos que se de ahora en adelante serán Reglas: 2. almacenamiento seguro de información sensible, 3. control de acceso, 4. análisis estático (SAST), 5. análisis dinámico (DAST) y 6. composición de software (SCA).
 
 
-## Análisis Automático del Proyecto
-Primero, analiza el repositorio actual para extraer automáticamente la siguiente información. **Luego, según el tipo de aplicación detectado:**
-
-- Si el proyecto es de **infraestructura** (por ejemplo, contiene principalmente archivos de IaC como Terraform, CloudFormation, ARM, etc.), **realizael Paso 2: Control de Acceso (ACL) en Recursos Críticos de Red**.
-- Si el proyecto **no es de infraestructura** (aplicaciones, servicios, etc.), **realiza los pasos** (1, 3, 4 y 5) y omite el Paso 2.
-
-Esto permite adaptar el análisis de seguridad al contexto real del proyecto y evitar revisiones irrelevantes.
+## 1. Análisis Automático del Proyecto
+Primero, analiza el repositorio actual para extraer automáticamente la siguiente información. 
 
 ### Detección Automática de Información
 1. **Analiza la estructura de directorios** del proyecto para identificar:
@@ -53,13 +48,21 @@ Esto permite adaptar el análisis de seguridad al contexto real del proyecto y e
 - **Puerto/Endpoint Principal**: [BUSCAR_EN_CONFIGS_Y_CODIGO]
 - **Arquitectura Base**: [INFERIR_DE_ESTRUCTURA_DE_CARPETAS]
 
+**Luego, según el tipo de aplicación detectado:**
+
+- Si el proyecto es de **infraestructura** (por ejemplo, contiene principalmente archivos de IaC como Terraform, CloudFormation, ARM, etc.), **realiza el 3: Control de Acceso (ACL) en Recursos Críticos de Red**.
+- Si el proyecto **no es de infraestructura** (aplicaciones, servicios, etc.), **realiza** (2, 4, 5 y 6) y omite el la Regla 3.
+
+
+
+**Esto permite adaptar el análisis de seguridad al contexto real del proyecto y evitar revisiones irrelevantes.**
+
 ---
 
-## 1. Almacenamiento Seguro de Información Sensible
+## 2. Almacenamiento Seguro de Información Sensible
 
 **Objetivo:** Garantizar que toda información de configuración sensible esté cifrada y protegida.
 
-**Pasos:**
 1. **Identificación de información sensible:**  
    - Buscar datos como contraseñas, claves API, tokens, secretos, certificados, credenciales, variables de entorno, etc.
 2. **Almacenamiento seguro:**  
@@ -75,11 +78,10 @@ Esto permite adaptar el análisis de seguridad al contexto real del proyecto y e
 
 ---
 
-## 2. Control de Acceso (ACL) en Recursos Críticos de Red
+## 3. Control de Acceso (ACL) en Recursos Críticos de Red
 
 **Objetivo:** Verificar que cada recurso crítico de red tenga una definición explícita y aplicada de control de acceso.
 
-**Pasos:**
 1. **Presencia de ACLs:**  
    - Buscar bloques, objetos o declaraciones con palabras clave como: acl, access_control, rule, allow, deny, ingress, egress, source, destination, port, protocol, cidr, principal, role, permission, policy, security_group, firewall_rule, network_policy.
 2. **Aplicación efectiva:**  
@@ -93,11 +95,10 @@ Esto permite adaptar el análisis de seguridad al contexto real del proyecto y e
 
 ---
 
-## 3. Análisis Estático de Código (SAST)
+## 4. Análisis Estático de Código (SAST)
 
 **Objetivo:** Detectar vulnerabilidades de seguridad en el código fuente antes de su ejecución.
 
-**Pasos:**
 1. **Identificación de vulnerabilidades comunes:**  
    - Buscar patrones inseguros como inyecciones, uso inseguro de funciones, manejo incorrecto de datos externos, exposición de información sensible.
 2. **Validación de prácticas seguras:**  
@@ -115,11 +116,10 @@ Esto permite adaptar el análisis de seguridad al contexto real del proyecto y e
 
 ---
 
-## 4. Análisis Dinámico de Aplicaciones (DAST)
+## 5. Análisis Dinámico de Aplicaciones (DAST)
 
 **Objetivo:** Identificar vulnerabilidades en la aplicación en tiempo de ejecución simulando ataques reales.
 
-**Pasos:**
 1. **Recopilación de información:**  
    - Solicitar al desarrollador la URL base, endpoints, autenticación y roles, o analizar el workspace para identificar puntos de entrada.
 2. **Análisis del workspace:**  
@@ -135,11 +135,10 @@ Esto permite adaptar el análisis de seguridad al contexto real del proyecto y e
 
 ---
 
-## 5. Análisis de Composición de Software (SCA)
+## 6. Análisis de Composición de Software (SCA)
 
 **Objetivo:** Detectar vulnerabilidades y riesgos en las dependencias y componentes de terceros.
 
-**Pasos:**
 1. **Recopilación de información:**  
    - Identificar archivos de dependencias (`pom.xml`, `build.gradle`, `package.json`, etc.).
 2. **Inventario de componentes:**  
