@@ -120,17 +120,18 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 **Objetivo:** Identificar vulnerabilidades en la aplicación en tiempo de ejecución simulando ataques reales.
 
-1. **Recopilación de información:**  
+1. Pregunta al Usuario si existe un reporte de una herramienta como OWASP ZAP para analizr su reporte o si desea continuar con la validacion por conocimiento propio.
+2. **Recopilación de información:**  
    - Solicitar al desarrollador la URL base, endpoints, autenticación y roles, o analizar el workspace para identificar puntos de entrada.
-2. **Análisis del workspace:**  
+3. **Análisis del workspace:**  
    - Buscar archivos que definan rutas, endpoints o configuraciones de red.
-3. **Generación de scripts de ataque:**  
+4. **Generación de scripts de ataque:**  
    - Crear scripts (fetch, curl, Postman, OWASP ZAP) para simular ataques: inyección, autenticación, acceso no autorizado, extracción de información sensible.
-4. **Ejecución y orientación:**  
+5. **Ejecución y orientación:**  
    - Guiar al desarrollador en la ejecución de scripts y análisis de respuestas.
-5. **Documentación y remediación:**  
+6. **Documentación y remediación:**  
    - Documentar hallazgos y orientar sobre correcciones.
-6. **Opciones y mejoras:**  
+7. **Opciones y mejoras:**  
    - Recomendar integración de herramientas DAST en CI/CD y uso de extensiones de seguridad.
 
 ---
@@ -139,17 +140,18 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 **Objetivo:** Detectar vulnerabilidades y riesgos en las dependencias y componentes de terceros.
 
-1. **Recopilación de información:**  
+1. Valida si esta disponible el MCP de Trivy y la tool scan_filesystem si no pregunta al Usuario si existe una herramienta MCP como Trivy para hacer esta validacion y analizar el reporte o si desea continuar con la validacion por conocimiento propio.
+2. **Recopilación de información:**  
    - Identificar archivos de dependencias (`pom.xml`, `build.gradle`, `package.json`, etc.).
-2. **Inventario de componentes:**  
+3. **Inventario de componentes:**  
    - Listar todas las dependencias y sus versiones.
-3. **Detección de vulnerabilidades:**  
+4. **Detección de vulnerabilidades:**  
    - Buscar vulnerabilidades conocidas en bases públicas (NVD, Snyk, osv.dev, etc.).
-4. **Revisión de licencias:**  
+5. **Revisión de licencias:**  
    - Analizar licencias para detectar incompatibilidades o restricciones.
-5. **Generación de reporte:**  
+6. **Generación de reporte:**  
    - Documentar dependencias vulnerables, recomendaciones y conflictos de licencias.
-6. **Opciones y mejoras:**  
+7. **Opciones y mejoras:**  
    - Recomendar integración de herramientas SCA en CI/CD y mantener dependencias actualizadas.
 
 ---
