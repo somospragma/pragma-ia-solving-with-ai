@@ -1,0 +1,5 @@
+# Cyclomatic Complexity Analysis\n\n
+## REGLA: cyclomatic_complexity\n- **Lenguajes soportados**: java, py\n- **Descripcion**: Calcula la complejidad ciclomatica de cada funcion o metodo. Genera alerta si supera el umbral configurado. Si path_code esta definido, obten el codigo de esa ubicacion, caso contrario solicita al usuario que proporcione el codigo a analizar.\n\n
+## ARGUMENTOS:\n- threshold: Umbral maximo de complejidad permitido (por defecto 10)\n- path_code: Ruta al archivo de codigo a analizar (opcional)\n\n
+## FORMATO DE SALIDA REQUERIDO:\n```json\n[{\"clase\": \"string\", \"metodo\": \"string\", \"linea_inicio\": number, \"complejidad\": number, \"mensaje\": \"string\"}]\n```\n\n
+## INSTRUCCIONES:\nEjecuta el analisis segun la regla especificada y proporciona resultados en el formato JSON indicado.
