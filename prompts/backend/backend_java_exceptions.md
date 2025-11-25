@@ -100,31 +100,27 @@
 7. **Generación de Reporte:**
 	- Genera un reporte en formato Markdown en la carpeta 'reports', nombrado 'backend_java_exceptions_report_VERSIONADO.md' (usa SemVer: MAYOR.MENOR.PARCHE).
 	- El reporte debe incluir:
-	  - **Sección de Fuentes Utilizadas:** Especificar claramente qué reportes externos se analizaron y qué validaciones se realizaron por conocimiento.
 	  - Tabla visual con criterios evaluados y su estado (✔️ Cumple / ❌ No cumple / ⚠️ Parcial / N/A).
 	  - Tabla de hallazgos clasificados por criticidad, con referencia a archivo y línea si aplica.
 	  - **Sección de Hallazgos Críticos Justificados (🟡):** Si existen hallazgos con justificación aprobada del Paso 6, incluir sección dedicada.
-	  - **Para hallazgos de reportes externos:** Indicar la fuente del hallazgo (ej: "Fuente: OWASP ZAP - reporte del 2025-11-20").
 	  - **Para hallazgos justificados:** Indicar categoría, explicación completa, responsable, fecha de revisión y referencias.
 	  - Barra de cumplimiento visual y porcentaje de cobertura (ejemplo: █▓▒░ 83%).
 	  - **Cálculo de cumplimiento:** Los hallazgos "🟡 Crítico Justificado" NO cuentan como incumplimientos pero se documentan en sección separada.
 	  - Recomendaciones específicas y priorizadas para cada hallazgo no cumplido.
 	  - Resumen ejecutivo con los tres principales riesgos y pasos sugeridos para mejorar el cumplimiento.
 	  - Fecha, versión del análisis, LLM utilizado (nombre y versión), y hash corto del commit analizado.
-	  - **Disclaimer de limitaciones:** Si alguna regla fue evaluada por conocimiento en lugar de reportes externos, indicarlo claramente.
+	  - **Disclaimer de limitaciones:** Si alguna regla fue evaluada por conocimiento, indicarlo claramente.
 8. **Notificación:**
-	- Notifica ubicación del reporte, principales hallazgos, número de críticos justificados, porcentaje de cumplimiento, riesgos relevantes, fuentes utilizadas, recomendación de ejecutar herramientas externas si no se usaron, y recordatorio de fechas de revisión.
+	- Notifica ubicación del reporte, principales hallazgos, número de críticos justificados, porcentaje de cumplimiento, riesgos relevantes, y recordatorio de fechas de revisión.
 
 ---
 
 ### INSTRUCCIONES GENERALES
 
 - No omitas ningún paso ni criterio.
-- Pregunta sobre reportes externos antes de evaluar.
 - Si hay hallazgos críticos, pregunta por justificaciones.
 - Si algún criterio no aplica, indícalo como 'N/A' con justificación.
 - El reporte debe ser claro, visual y accionable.
 - Permite agregar criterios personalizados si el usuario lo solicita.
-- Indica claramente qué hallazgos provienen de reportes externos vs. validación por conocimiento.
 - Documenta limitaciones si alguna regla fue evaluada por conocimiento.
 - Todas las justificaciones deben quedar documentadas con categoría, responsable y seguimiento.
