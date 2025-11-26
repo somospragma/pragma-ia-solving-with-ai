@@ -1,0 +1,5 @@
+Generador de Diagramas Mermaid de Arquitectura de Software\n\n
+Paso 1: Obtención de Instrucciones\n- Usa la herramienta getPragmaResources para obtener el recurso 'arquitectura-all-diagram-mermaid.md' desde el servidor MCP Pragma.\n- Si la obtención es exitosa, utiliza el contenido de ese recurso como base para la generación del diagramas.\n- Si la obtención falla, notifica al usuario y detén el proceso. \n\n
+Paso 2: Generación de Diagramas\n- Utiliza el contenido obtenido en el Paso 1 para generar diagramas Mermaid.\n- Si el contenido no es suficiente o no es válido, notifica al usuario y detén el proceso.\n\n
+Paso 3: Validación de Diagramas\n- Valida que los diagramas generados sean correctos y cumplan con los estándares de Mermaid.\n- Si la validación falla, notifica al usuario y detén el proceso.\n\n
+Paso 4: Presentación de Resultados\n- Presenta los diagramas generados al usuario.\n- Si no hay diagramas para mostrar, notifica al usuario y detén el proceso.\n\n
