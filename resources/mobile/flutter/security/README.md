@@ -1,9 +1,9 @@
 # OWASP Mobile Top 10 para Flutter
 
-## Versión 2.0
+## Versión 1.0
 
 ### Alcance
-Flutter para Android, iOS y Dart
+Flutter para Android, iOS
 
 ### Optimizado para agentes de IA y MCP
 
@@ -79,7 +79,6 @@ Ejecutar los siguientes comandos bash:
 ```
 
 ## Sección de Actualizaciones
-- Versión 2.0
 - Versión 1.0
 
 ## Referencias
@@ -93,5 +92,5 @@ Ejecutar los siguientes comandos bash:
 
 ## Sección de Licencia
 
-Mantenido por **Pragma IA Team**
-Última actualización: **2025-01-12**
+Mantenido por **Pragma Chapter Mobile**
+Última actualización: **2025-11-12**
