@@ -1,0 +1,72 @@
+---
+config:
+  theme: neo
+  look: neo
+  layout: elk
+---
+flowchart TB
+  subgraph P["Presentation"]
+    direction TB
+    V["UI View<br/>(Widget/Page)"]
+    E["Event"]
+    B["Bloc / Cubit"]
+    S["UiState (ViewState)"]
+  end
+ subgraph D["Domain"]
+    direction TB
+        UC["UseCase<br>(Interactor)"]
+        F["Failure / Result<br>(domain errors)"]
+        RC["Repository Contract<br>(interface)"]
+        EN["Entity / ValueObject"]
+  end
+ subgraph DA["Data"]
+    direction TB
+        RI["RepositoryImpl<br>(adapter)"]
+        M["Mapper<br>(Dto ↔ Entity)"]
+        DTO["Dto / DataModel"]
+        RDS["RemoteDataSource<br>(interface)"]
+        LDS["LocalDataSource<br>(interface)"]
+        DDS["DeviceDataSource<br>(interface)"]
+        RDSI["RemoteDataSourceImpl"]
+        LDSI["LocalDataSourceImpl"]
+        DDSI["DeviceDataSourceImpl"]
+  end
+ subgraph I["Infrastructure"]
+    direction TB
+        API["API Client<br>(HTTP/GraphQL/gRPC)"]
+        DB["Database / Cache"]
+        PL["Platform/Plugins<br>(SecureStorage, Biometrics,<br>WebView, Sensors, etc.)"]
+  end
+ subgraph C["Composition Root"]
+    direction TB
+        INJ["Injector / Bootstrap<br>(GetIt / Riverpod providers)"]
+  end
+    V -- "creates/dispatches" --> E
+    E -- "handled by" --> B
+    B -- "emits (0..*)" --> S
+    S -. "render" .-> V
+    UC -. returns Result/Either .-> F
+    UC -- "depends (0..*)" --> RC
+    UC -. uses .-> EN
+    RI -- "implements (1..*)" --> RC
+    RI -- uses --> M
+    M -. maps .-> DTO & EN
+    RI -- "uses (0..*)" --> RDS & LDS & DDS
+    RDSI -- implements --> RDS
+    LDSI -- implements --> LDS
+    DDSI -- implements --> DDS
+    RDSI -- talks to --> API
+    LDSI -- talks to --> DB
+    DDSI -- talks to --> PL
+    B -- "calls (0..*)" --> UC
+    INJ -. wires .-> B & UC & RI & RDSI & LDSI & DDSI
+    INJ -. config .-> API & DB & PL
+    n1["."]
+
+    n1@{ shape: text}
+    style n1 color:#FFFFFF
+    style P fill:#FFF9C4
+    style D fill:#C8E6C9
+    style DA fill:#FFCDD2
+    style I fill:#BBDEFB
+    style C fill:#E1BEE7

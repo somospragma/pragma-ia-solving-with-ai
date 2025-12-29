@@ -1,0 +1,235 @@
+---
+config:
+  layout: elk
+  theme: neo
+---
+classDiagram
+direction TB
+class FeaturePage {
+  <<UI>>
+  +build() Widget
+  +dispatch(e: FeatureEvent) void
+  +render(s: FeatureUiState) void
+}
+
+class FeatureBloc {
+  <<Bloc>>
+  -useCase: FeatureUseCase
+  -uiMapper: FeatureUiMapper
+  +add(e: FeatureEvent) void
+  +emit(s: FeatureUiState) void
+}
+
+class FeatureUiMapper {
+  <<UI Mapper>>
+  +toViewModel(entity: FeatureEntity) FeatureViewModel
+  +toErrorState(failure: Failure) FeatureError
+}
+
+class FeatureEvent {
+  <<sealed>>
+}
+class FeatureRequested {
+  +params: FeatureParams
+}
+class FeatureSubmitted {
+  +params: FeatureParams
+}
+FeatureEvent <|-- FeatureRequested
+FeatureEvent <|-- FeatureSubmitted
+
+class FeatureUiState {
+  <<sealed>>
+}
+class FeatureInitial
+class FeatureLoading
+class FeatureLoaded {
+  +viewModel: FeatureViewModel
+}
+class FeatureError {
+  +message: String
+  +code: String
+}
+
+FeatureUiState <|-- FeatureInitial
+FeatureUiState <|-- FeatureLoading
+FeatureUiState <|-- FeatureLoaded
+FeatureUiState <|-- FeatureError
+
+class FeatureViewModel {
+  <<UI Model>>
+  +title: String
+  +subtitle: String
+}
+
+FeaturePage --> FeatureBloc : dispatches
+FeatureBloc --> FeatureEvent : handles
+FeatureBloc --> FeatureUiState : emits
+FeatureBloc --> FeatureUiMapper : maps Entity/Failure -> UI
+class FeatureUseCase {
+  <<UseCase>>
+  -repository: FeatureRepository
+  +call(params: FeatureParams) Either~Failure, FeatureEntity~
+}
+
+class FeatureParams {
+  <<Params>>
+  +id: String
+}
+
+class FeatureEntity {
+  <<Entity>>
+  +id: String
+}
+
+class FeatureRepository {
+  <<interface>>
+  +getFeature(id: String) Either~Failure, FeatureEntity~
+  +saveFeature(entity: FeatureEntity) Either~Failure, void~
+}
+
+class Either~L,R~ {
+  <<Value>>
+}
+
+class Failure {
+  <<sealed>>
+  +message: String
+  +code: String
+}
+class NetworkFailure
+class UnauthorizedFailure
+class ServerFailure
+class CacheFailure
+class ValidationFailure
+
+Failure <|-- NetworkFailure
+Failure <|-- UnauthorizedFailure
+Failure <|-- ServerFailure
+Failure <|-- CacheFailure
+Failure <|-- ValidationFailure
+
+FeatureBloc --> FeatureUseCase : calls
+FeatureUseCase --> FeatureRepository : depends on
+FeatureUseCase --> Either~Failure, FeatureEntity~ : returns
+FeatureRepository --> Either~Failure, FeatureEntity~ : returns
+class FeatureRepositoryImpl {
+  <<RepositoryImpl>>
+  -remote: FeatureRemoteDataSource
+  -local: FeatureLocalDataSource
+  -device: FeatureDeviceDataSource
+  -mapper: FeatureMapper
+  +getFeature(id: String) Either~Failure, FeatureEntity~
+  +saveFeature(entity: FeatureEntity) Either~Failure, void~
+}
+FeatureRepository <|.. FeatureRepositoryImpl : implements
+
+class FeatureMapper {
+  <<Mapper>>
+  +dtoToEntity(dto: FeatureDto) FeatureEntity
+  +entityToDto(entity: FeatureEntity) FeatureDto
+}
+
+class FeatureDto {
+  <<DTO>>
+  +id: String
+}
+class FeatureRemoteDataSource {
+  <<interface>>
+  +fetch(id: String) FeatureDto
+  +post(dto: FeatureDto) void
+}
+class FeatureLocalDataSource {
+  <<interface>>
+  +getCached(id: String) FeatureDto?
+  +cache(dto: FeatureDto) void
+}
+class FeatureDeviceDataSource {
+  <<interface>>
+  +readSecure(key: String) String?
+  +writeSecure(key: String, value: String) void
+  +biometricAuth() bool
+}
+class FeatureRemoteDataSourceImpl {
+  <<RemoteImpl>>
+  -api: ApiClient
+  +fetch(id: String) FeatureDto
+  +post(dto: FeatureDto) void
+}
+class FeatureLocalDataSourceImpl {
+  <<LocalImpl>>
+  -cache: CacheStore
+  +getCached(id: String) FeatureDto?
+  +cache(dto: FeatureDto) void
+}
+class FeatureDeviceDataSourceImpl {
+  <<DeviceImpl>>
+  -secure: SecureStorage
+  -biometrics: BiometricsPlugin
+  +readSecure(key: String) String?
+  +writeSecure(key: String, value: String) void
+  +biometricAuth() bool
+}
+
+FeatureRepositoryImpl --> FeatureRemoteDataSource : uses (0..*)
+FeatureRepositoryImpl --> FeatureLocalDataSource : uses (0..*)
+FeatureRepositoryImpl --> FeatureDeviceDataSource : uses (0..*)
+
+FeatureRemoteDataSource <|.. FeatureRemoteDataSourceImpl : implements
+FeatureLocalDataSource <|.. FeatureLocalDataSourceImpl : implements
+FeatureDeviceDataSource <|.. FeatureDeviceDataSourceImpl : implements
+
+FeatureRepositoryImpl --> FeatureMapper : uses
+FeatureMapper --> FeatureDto : maps
+FeatureMapper --> FeatureEntity : maps
+class ApiClient {
+  <<Infra>>
+  +get(path: String, query: Map) Map
+  +post(path: String, body: Map) Map
+}
+class CacheStore {
+  <<Infra>>
+  +read(key: String) Map?
+  +write(key: String, value: Map) void
+  +delete(key: String) void
+}
+class SecureStorage {
+  <<Plugin>>
+  +read(key: String) String?
+  +write(key: String, value: String) void
+}
+class BiometricsPlugin {
+  <<Plugin>>
+  +authenticate() bool
+}
+
+FeatureRemoteDataSourceImpl --> ApiClient : talks to
+FeatureLocalDataSourceImpl --> CacheStore : talks to
+FeatureDeviceDataSourceImpl --> SecureStorage : talks to
+FeatureDeviceDataSourceImpl --> BiometricsPlugin : talks to
+class AppInjector {
+  <<CompositionRoot>>
+  +featureBloc() FeatureBloc
+  +featureUiMapper() FeatureUiMapper
+  +featureUseCase() FeatureUseCase
+  +featureRepository() FeatureRepository
+  +remoteDs() FeatureRemoteDataSource
+  +localDs() FeatureLocalDataSource
+  +deviceDs() FeatureDeviceDataSource
+  +apiClient() ApiClient
+  +cacheStore() CacheStore
+  +secureStorage() SecureStorage
+  +biometrics() BiometricsPlugin
+}
+
+AppInjector ..> FeatureBloc : wires
+AppInjector ..> FeatureUiMapper : wires
+AppInjector ..> FeatureUseCase : wires
+AppInjector ..> FeatureRepositoryImpl : wires
+AppInjector ..> FeatureRemoteDataSourceImpl : wires
+AppInjector ..> FeatureLocalDataSourceImpl : wires
+AppInjector ..> FeatureDeviceDataSourceImpl : wires
+AppInjector ..> ApiClient : config
+AppInjector ..> CacheStore : config
+AppInjector ..> SecureStorage : config
+AppInjector ..> BiometricsPlugin : config

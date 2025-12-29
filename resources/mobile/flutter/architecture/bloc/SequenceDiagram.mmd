@@ -1,0 +1,64 @@
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant V as FeaturePage
+  participant B as FeatureBloc
+  participant UM as FeatureUiMapper
+  participant UC as FeatureUseCase
+  participant RC as FeatureRepository (contract)
+  participant RI as FeatureRepositoryImpl
+  participant RDS as FeatureRemoteDataSource
+  participant RDSI as FeatureRemoteDataSourceImpl
+  participant API as ApiClient
+  participant M as FeatureMapper
+  participant LDS as FeatureLocalDataSource
+  participant LDSI as FeatureLocalDataSourceImpl
+  participant DB as CacheStore/Db
+
+  U->>V: Tap / Submit
+  V->>B: add(FeatureRequested(params))
+  B-->>V: emit(FeatureLoading)
+
+  B->>UC: call(params)
+  UC->>RC: getFeature(params.id)
+  RC->>RI: getFeature(params.id)
+
+  RI->>RDS: fetch(params.id)
+  RDS->>RDSI: fetch(params.id)
+  RDSI->>API: GET /feature/{id}
+
+  alt Remote success (200)
+    API-->>RDSI: FeatureDto
+    RDSI-->>RI: FeatureDto
+
+    RI->>M: dtoToEntity(dto)
+    M-->>RI: FeatureEntity
+
+    opt Cache write (optional)
+      RI->>LDS: cache(dto)
+      LDS->>LDSI: cache(dto)
+      LDSI->>DB: write(key, dto)
+      DB-->>LDSI: ok
+      LDSI-->>RI: ok
+    end
+
+    RI-->>UC: Either.Right(FeatureEntity)
+    UC-->>B: Either.Right(FeatureEntity)
+
+    B->>UM: toViewModel(entity)
+    UM-->>B: FeatureViewModel
+    B-->>V: emit(FeatureLoaded(viewModel))
+    V-->>U: Render UI
+
+  else Remote failure (timeout/4xx/5xx)
+    API--x RDSI: error/timeout
+    RDSI-->>RI: error
+
+    RI-->>UC: Either.Left(Failure)
+    UC-->>B: Either.Left(Failure)
+
+    B->>UM: toErrorState(failure)
+    UM-->>B: FeatureError(message, code)
+    B-->>V: emit(FeatureError)
+    V-->>U: Show error / Retry
+  end

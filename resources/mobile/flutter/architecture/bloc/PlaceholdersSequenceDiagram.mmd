@@ -1,0 +1,64 @@
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant V as {Feature}Page
+  participant B as {Feature}Bloc
+  participant UM as {Feature}UiMapper
+  participant UC as {Action}{Entity}UseCase
+  participant RC as {Entity}Repository (contract)
+  participant RI as {Entity}RepositoryImpl
+  participant RDS as {Entity}RemoteDataSource
+  participant RDSI as {Entity}RemoteDataSourceImpl
+  participant API as ApiClient
+  participant M as {Entity}Mapper
+  participant LDS as {Entity}LocalDataSource
+  participant LDSI as {Entity}LocalDataSourceImpl
+  participant DB as CacheStore/Db
+
+  U->>V: {UserAction}
+  V->>B: add({Feature}{Event}(params))
+  B-->>V: emit({Feature}Loading)
+
+  B->>UC: call({Action}{Entity}Params)
+  UC->>RC: {repositoryMethod}(id)
+  RC->>RI: {repositoryMethod}(id)
+
+  RI->>RDS: fetch(id)
+  RDS->>RDSI: fetch(id)
+  RDSI->>API: {HTTP_METHOD} {endpoint}
+
+  alt Remote success ({SuccessCode})
+    API-->>RDSI: {Entity}Dto
+    RDSI-->>RI: {Entity}Dto
+
+    RI->>M: dtoToEntity(dto)
+    M-->>RI: {Entity}Entity
+
+    opt Cache write (optional)
+      RI->>LDS: cache(dto)
+      LDS->>LDSI: cache(dto)
+      LDSI->>DB: write(key, dto)
+      DB-->>LDSI: ok
+      LDSI-->>RI: ok
+    end
+
+    RI-->>UC: Either.Right({Entity}Entity)
+    UC-->>B: Either.Right({Entity}Entity)
+
+    B->>UM: toViewModel(entity)
+    UM-->>B: {Feature}ViewModel
+    B-->>V: emit({Feature}Loaded(viewModel))
+    V-->>U: Render UI
+
+  else Remote failure (timeout/{ErrorCodes})
+    API--x RDSI: error/timeout
+    RDSI-->>RI: error
+
+    RI-->>UC: Either.Left(Failure)
+    UC-->>B: Either.Left(Failure)
+
+    B->>UM: toErrorState(failure)
+    UM-->>B: {Feature}Error(message, code)
+    B-->>V: emit({Feature}Error)
+    V-->>U: Show error / Retry
+  end
