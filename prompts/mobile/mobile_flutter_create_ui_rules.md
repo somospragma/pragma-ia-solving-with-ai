@@ -10,7 +10,7 @@
 
 ## PASO 4: Creación de Organismos\n- Construye bloques de interfaz de alto nivel combinando moléculas tal cuál esten construídos en el Figma.\n\n
 
-## PASO 5: Verifica que todo lo creado dentro del sistema de diseño, esté ordenado tal cual la creación inicial o la estructuración existente del sistema de diseño del proyecto actual, ejemplo que el archivo colors.dart esté en la carpeta correspondiente de /colors, etc.\n\n
+## PASO 5: Verifica que todo lo creado dentro del sistema de diseño, esté ordenado tal cual la creación inicial o la estructuración existente del sistema de diseño del proyecto actual, ejemplo que el archivo colors.dart esté en la carpeta correspondiente de /colors, etc. Es importante que en la creación de los elementos estos tengan la facultad de poder funcionar correctamente en cualquier tamaño de pantall, ademas de no tener problemas de overflowed.\n\n
 
 ## PASO 6: Ensamblaje de Pantalla Completa\n- Construye la pantalla que tenga el nombre obtenido del Figma y que cumpla las buenas prácticas de nombramiento de archivos en Dart, siguiendo estrictamente las definiciones de la pantalla en Figma, verifica que para el ensamble de la pantalla existan los tokens y componentes atómicos ya creados en el sistema de diseño del proyecto de Flutter, si no crea los que no existan según corresponda al diseño de Figma.\n\n
 
