@@ -523,10 +523,3 @@ SNAPSHOT,snap-0987654321fedcba0,"N/A","500","Standard","true",
 
 ---
 5. **Monitorear**: Ejecutar análisis mensualmente
-
----
-
-**Generado**: 2026-01-29 14:30 UTC  
-**Región**: us-east-1  
-**Perfil AWS**: Especificado por el usuario  
-**Fuente de Datos**: AWS EC2 API + AWS Pricing API via MCP
