@@ -314,11 +314,6 @@ Si falla alguno → WARNING o FAIL según cantidad
 ### Markdown: `iam-users-audit-report-<account-id>.md`
 
 **Estructura**:
-## Salida
-
-### Markdown: `iam-users-audit-report-<account-id>.md`
-
-**Estructura**:
 
 ```markdown
 # AWS IAM Users Audit Report
