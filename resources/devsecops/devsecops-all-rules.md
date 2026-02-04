@@ -53,7 +53,6 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 - Si el proyecto **no es de infraestructura** (aplicaciones, servicios, etc.), **realiza solo las reglas** (2, 4, 5 y 6) y omite el la Regla 3.
 
 
-
 **Esto permite adaptar el análisis de seguridad al contexto real del proyecto y evitar revisiones irrelevantes.**
 
 ---
