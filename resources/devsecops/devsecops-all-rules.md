@@ -1,4 +1,4 @@
-# Guía de Análisis de Seguridad Integral para Workspaces Minimos DevSecOps Basado en el Framework de Madurez
+# Reglas de Análisis de Seguridad Integral para Workspaces - Must to Have DevSecOps Basado en Framework de Madurez.
 
 Este documento sirve como contexto y referencia para que una IA o herramienta automatizada realice un análisis de seguridad general en un workspace, abarcando por enfoques o topicos que se de ahora en adelante serán Reglas: 2. almacenamiento seguro de información sensible, 3. control de acceso, 4. análisis estático (SAST), 5. análisis dinámico (DAST) y 6. composición de software (SCA).
 
@@ -63,14 +63,19 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 2.1 **Identificación de información sensible:**  
    - Buscar datos como contraseñas, claves API, tokens, secretos, certificados, credenciales, variables de entorno, etc.
+
 2.2 **Almacenamiento seguro:**  
    - Verificar el uso de cifrado y herramientas seguras (Vault, KMS, SOPS, AWS Secrets Manager, Azure Key Vault, etc.).
+
 2.3 **Ausencia de texto plano:**  
    - Revisar que no existan datos sensibles en texto plano en archivos, scripts o documentación.
+
 2.4 **Validación de exclusión en control de versiones:**  
    - Confirmar que archivos como `.env`, `config`, `settings`, `secrets` estén en `.gitignore` y no versionados accidentalmente.
+
 2.5 **Trazabilidad y control de versiones:**  
    - Asegurar que los archivos cifrados estén bajo control de versiones de forma segura.
+
 2.6 **Justificación de excepciones:**  
    - Documentar cualquier excepción y los controles alternativos aplicados.
 
@@ -82,12 +87,16 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 3.1 **Presencia de ACLs:**  
    - Buscar bloques, objetos o declaraciones con palabras clave como: acl, access_control, rule, allow, deny, ingress, egress, source, destination, port, protocol, cidr, principal, role, permission, policy, security_group, firewall_rule, network_policy.
+
 3.2 **Aplicación efectiva:**  
    - Confirmar que la ACL esté asociada a un recurso real y no esté comentada ni deshabilitada.
+
 3.3 **Principio de menor privilegio:**  
    - Revisar que no existan reglas con 0.0.0.0/0 en puertos críticos (22, 3389, 443, 80) sin justificación explícita.
+
 3.4 **Unicidad por recurso:**  
    - Verificar que cada recurso tenga su propia ACL y no dependa de ACLs genéricas sin trazabilidad.
+
 3.5 **Trazabilidad:**  
    - Asegurar que la ACL pueda rastrearse hasta su archivo de origen y esté bajo control de versiones.
 
@@ -99,16 +108,22 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 4.1 **Identificación de vulnerabilidades comunes:**  
    - Buscar patrones inseguros como inyecciones, uso inseguro de funciones, manejo incorrecto de datos externos, exposición de información sensible.
+
 4.2 **Validación de prácticas seguras:**  
    - Verificar validación y sanitización de entradas, y gestión segura de errores.
+
 4.3 **Revisión de autenticación y autorización:**  
    - Revisar controles de acceso en rutas, endpoints y funciones.
+
 4.4 **Detección de información sensible:**  
    - Buscar credenciales o secretos expuestos en el código.
+
 4.5 **Validación de dependencias:**  
    - Analizar archivos de dependencias para detectar librerías vulnerables.
+
 4.6 **Reporte y trazabilidad:**  
    - Documentar vulnerabilidades con archivo y línea afectada, y sugerir correcciones.
+
 4.7 **Justificación de excepciones:**  
    - Documentar excepciones justificadas y controles compensatorios.
 
@@ -120,14 +135,19 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 5.1 **Recopilación de información:**  
    - Solicitar al desarrollador la URL base, endpoints, autenticación y roles, o analizar el workspace para identificar puntos de entrada.
+
 5.2 **Análisis del workspace:**  
    - Buscar archivos que definan rutas, endpoints o configuraciones de red.
+
 5.3 **Generación de scripts de ataque:**  
    - Crear scripts (fetch, curl, Postman, OWASP ZAP) para simular ataques: inyección, autenticación, acceso no autorizado, extracción de información sensible.
+
 5.4 **Ejecución y orientación:**  
    - Guiar al desarrollador en la ejecución de scripts y análisis de respuestas.
+
 5.5 **Documentación y remediación:**  
    - Documentar hallazgos y orientar sobre correcciones.
+
 5.6 **Opciones y mejoras:**  
    - Recomendar integración de herramientas DAST en CI/CD y uso de extensiones de seguridad.
 
@@ -141,14 +161,19 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 
 6.2 **Recopilación de información:**  
    - Identificar archivos de dependencias (`pom.xml`, `build.gradle`, `package.json`, etc.).
+
 6.3 **Inventario de componentes:**  
    - Listar todas las dependencias y sus versiones.
+
 6.4 **Detección de vulnerabilidades:**  
    - Buscar vulnerabilidades conocidas en bases públicas (NVD, Snyk, osv.dev, etc.).
+
 6.5 **Revisión de licencias:**  
    - Analizar licencias para detectar incompatibilidades o restricciones.
+
 6.6 **Generación de reporte:**  
    - Documentar dependencias vulnerables, recomendaciones y conflictos de licencias.
+
 6.7 **Opciones y mejoras:**  
    - Recomendar integración de herramientas SCA en CI/CD y mantener dependencias actualizadas.
 
