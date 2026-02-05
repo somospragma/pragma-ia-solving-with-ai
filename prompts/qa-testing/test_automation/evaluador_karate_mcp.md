@@ -62,7 +62,8 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 - Para cada criterio, verifica el cumplimiento en el código y documentación del repositorio.
 
 ## Paso 4: Generación de Reporte
-- Genera un reporte en formato Markdown en la carpeta 'reports', nombrado 'karate_quality_report.md'.
+- Genera un reporte COMPLETAMENTE NUEVO en formato Markdown en la carpeta 'reports', nombrado 'karate_quality_report.md'.
+- **IMPORTANTE**: SOBRESCRIBE cualquier reporte anterior - NO conserves información de evaluaciones previas.
 - El reporte debe incluir:
   - Una tabla visual con los criterios evaluados y su estado (✔️ Cumple / ❌ No cumple / ⚠️ Parcial / N/A).
   - Recomendaciones específicas para cada criterio no cumplido.
@@ -82,3 +83,5 @@ Primero, analiza el repositorio actual para extraer automáticamente la siguient
 - No omitas ningún criterio del recurso obtenido.
 - Si algún criterio no aplica, indícalo como 'N/A'.
 - El reporte debe ser claro, visual y accionable para el desarrollador.
+- **CRITICO**: Cada evaluación debe ser INDEPENDIENTE - no uses información de reportes anteriores.
+- **CRITICO**: Genera un reporte COMPLETAMENTE NUEVO basado únicamente en el estado actual del repositorio.
