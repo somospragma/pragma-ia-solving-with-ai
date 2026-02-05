@@ -188,9 +188,39 @@ Aplica a proyectos que utilicen Appium para automatización de aplicaciones móv
 **Evidencias**: Configuración Git, versionado, conectividad ALM
 **Criticidad**: Alta
 
+### Regla 19: Seguridad y Protección de Datos
+**Descripción**: Implementación de medidas de seguridad para protección de datos sensibles
+**Criterios**:
+- 19.1. NO DEBE tener credenciales hardcodeadas en código fuente
+- 19.2. DEBE usar variables de entorno para información sensible
+- 19.3. DEBE implementar validación de entrada para prevenir inyección
+- 19.4. DEBE enmascarar datos sensibles en logs y reportes
+**Evidencias**: Ausencia de credenciales hardcodeadas, uso de variables de entorno, validación de inputs
+**Criticidad**: Crítica
+
+### Regla 20: Control de Acceso y Autenticación
+**Descripción**: Gestión apropiada de acceso a recursos de testing
+**Criterios**:
+- 20.1. DEBE implementar autenticación segura para ambientes de testing
+- 20.2. DEBE usar tokens seguros para APIs en tests
+- 20.3. DEBE implementar timeout de sesiones en tests de larga duración
+- 20.4. DEBE validar permisos antes de ejecutar acciones críticas
+**Evidencias**: Configuración de autenticación, manejo de tokens, timeouts
+**Criticidad**: Alta
+
+### Regla 21: Cumplimiento y Auditoría
+**Descripción**: Trazabilidad y cumplimiento normativo
+**Criterios**:
+- 21.1. DEBE generar logs de auditoría para acciones críticas
+- 21.2. DEBE implementar trazabilidad de ejecuciones de tests
+- 21.3. DEBE cumplir con estándares de retención de datos
+- 21.4. DEBE documentar procesos de seguridad implementados
+**Evidencias**: Logs de auditoría, trazabilidad, documentación de seguridad
+**Criticidad**: Alta
+
 ## Criterios de Cumplimiento
-- **Crítico**: Reglas 1, 2, 4, 5, 9 (Bloquean ejecución)
-- **Alto**: Reglas 3, 7, 8, 10, 18 (Impactan mantenibilidad)
+- **Crítico**: Reglas 1, 2, 4, 5, 9, 19 (Bloquean ejecución)
+- **Alto**: Reglas 3, 7, 8, 10, 18, 20, 21 (Impactan mantenibilidad)
 - **Medio**: Reglas 6, 11, 13, 15, 17 (Mejoran calidad)
 - **Bajo**: Reglas 12, 14, 16 (Optimizaciones)
 

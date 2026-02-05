@@ -148,19 +148,49 @@ Aplica a proyectos que utilicen Karate para automatización de APIs REST/GraphQL
 **Evidencias**: Ausencia de código comentado, .editorconfig, consistencia
 **Criticidad**: Media
 
-### Regla 15: Versionado y Conectividad
+### Regla 16: Versionado y Conectividad
 **Descripción**: Gestión de versiones y conectividad con herramientas
 **Criterios**:
-- 15.1. DEBE tener configuración de branches y protección en Git
-- 15.2. DEBE usar versionado semántico en releases
-- 15.3. DEBE tener configuración de conectividad VST/ALM apropiada
-- 15.4. DEBE tener configuración de hooks de Git para calidad
+- 16.1. DEBE tener configuración de branches y protección en Git
+- 16.2. DEBE usar versionado semántico en releases
+- 16.3. DEBE tener configuración de conectividad VST/ALM apropiada
+- 16.4. DEBE tener configuración de hooks de Git para calidad
 **Evidencias**: Configuración Git, versionado, conectividad ALM
 **Criticidad**: Alta
 
+### Regla 17: Seguridad y Protección de Datos
+**Descripción**: Implementación de medidas de seguridad para protección de datos sensibles
+**Criterios**:
+- 16.1. NO DEBE tener credenciales hardcodeadas en código fuente
+- 16.2. DEBE usar variables de entorno para información sensible
+- 16.3. DEBE implementar validación de entrada para prevenir inyección
+- 16.4. DEBE enmascarar datos sensibles en logs y reportes
+**Evidencias**: Ausencia de credenciales hardcodeadas, uso de variables de entorno, validación de inputs
+**Criticidad**: Crítica
+
+### Regla 18: Control de Acceso y Autenticación
+**Descripción**: Gestión apropiada de acceso a recursos de testing
+**Criterios**:
+- 17.1. DEBE implementar autenticación segura para ambientes de testing
+- 17.2. DEBE usar tokens seguros para APIs en tests
+- 17.3. DEBE implementar timeout de sesiones en tests de larga duración
+- 17.4. DEBE validar permisos antes de ejecutar acciones críticas
+**Evidencias**: Configuración de autenticación, manejo de tokens, timeouts
+**Criticidad**: Alta
+
+### Regla 19: Cumplimiento y Auditoría
+**Descripción**: Trazabilidad y cumplimiento normativo
+**Criterios**:
+- 18.1. DEBE generar logs de auditoría para acciones críticas
+- 18.2. DEBE implementar trazabilidad de ejecuciones de tests
+- 18.3. DEBE cumplir con estándares de retención de datos
+- 18.4. DEBE documentar procesos de seguridad implementados
+**Evidencias**: Logs de auditoría, trazabilidad, documentación de seguridad
+**Criticidad**: Alta
+
 ## Criterios de Cumplimiento
-- **Crítico**: Reglas 1, 2, 5, 6 (Bloquean ejecución)
-- **Alto**: Reglas 3, 7, 8, 9, 15 (Impactan mantenibilidad)
+- **Crítico**: Reglas 1, 2, 5, 6, 17 (Bloquean ejecución)
+- **Alto**: Reglas 3, 7, 8, 9, 16, 18, 19 (Impactan mantenibilidad)
 - **Medio**: Reglas 4, 10, 14 (Mejoran calidad)
 - **Bajo**: Reglas 11, 12, 13 (Optimizaciones)
 
