@@ -1,0 +1,41 @@
+name: Data Quality Checks
+
+on:
+  pull_request:
+    branches: [ main, develop, 'feature/**' ]
+
+jobs:
+  data-quality:
+    name: Run Great Expectations validations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install great_expectations
+
+      - name: Run Great Expectations checkpoint (example)
+        env:
+          GE_HOME: ${{ github.workspace }}/great_expectations
+        run: |
+          # Assumes a checkpoint named `default_checkpoint` is configured in the repo's GE config
+          if ! great_expectations checkpoint run --checkpoint-name default_checkpoint; then
+            echo "Great Expectations validation failed";
+            exit 1;
+          fi
+
+      - name: Upload GE validation result (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ge-validation-results
+          path: great_expectations/uncommitted/validation_results
