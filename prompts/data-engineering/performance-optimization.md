@@ -7,23 +7,23 @@
 ### REGLAS DE DIAGNÓSTICO
 
 **Identificación de Skew:**
-- ✅ Detecta tasks con duración desproporcionada (100x más que baseline).
-- ✅ Revisa distribución de claves: ¿hay claves "hot" (ej: NULL, '0001')?
-- ✅ Calcula ratio max/min de particiones por key.
+- ✅ Detecta tasks con duración significativamente mayor que la mayoría (orden de magnitud diferente vs baseline).
+- ✅ Revisa distribución de claves: ¿hay claves que concentren desproporcionadamente registros?
+- ✅ Calcula ratio max/min de particiones por key para cuantificar desequilibrio.
 - ❌ Asumir distribución uniforme sin validar datos reales.
 
 **Particionado & Bucketing:**
 - ✅ Particiona por columnas de bajo cardinality (fecha, región) para paralelismo.
-- ✅ Usa salting para keys hot (ej: NULL_SALT_1... NULL_SALT_N).
-- ✅ Numero de particiones = workers × cores / tarea (regla de oro).
+- ✅ Usa salting para keys hot (distribuir clave concentrada en múltiples particiones).
+- ✅ Numero de particiones alineado con recursos disponibles (workers, cores) y volumen de datos.
 - ✅ Bucket para joins frecuentes (Spark BucketedSort).
-- ❌ Sobre-particionar (< 128 MB por partition).
+- ❌ Sobre-particionar (resulting in very small partitions per worker capacity).
 
 **Resource Tuning:**
-- ✅ Memory pressure: ejecutor desciende si spill > 10% shuffle.
-- ✅ Shuffle partitions: spark.sql.shuffle.partitions alineado con volumen.
-- ✅ Broadcast joins: usa para tablas < 8 GB.
-- ✅ Caching selective en datos reutilizados 3+ veces.
+- ✅ Memory pressure: monitor for spill-to-disk operations indicando insufficient memory allocation.
+- ✅ Shuffle partitions: configure según volumen de datos y cluster resources (ver 03-technology para parámetros).
+- ✅ Broadcast joins: usar para tablas pequeñas que caben en memory; evitar broadcast si data exceeds executor memory.
+- ✅ Caching selective: evaluar si datos son reutilizados múltiples veces en mismo job.
 
 **Query Optimization:**
 - ✅ Pushdown: filtros antes de joins (Catalyst optimizer check).
@@ -40,16 +40,16 @@
 
 2. **Análisis de skew:**
    - Histograma de partición sizes.
-   - Identifica keys con concentración > 10% del volumen.
+   - Identifica keys con concentración desproporcionada del volumen.
 
 3. **Revisión de resource tuning:**
    - Config actual vs recomendado (ejecutors, cores, memory).
    - Status de cache/spill/GC.
 
 4. **Propuestas de optimización:**
-   - Ranking por impacto (3x mejora realista).
+   - Ranking por impacto (measurable improvement esperado).
    - Código/config de ejemplo antes/después.
-   - Trade-offs (costo vs velocidad).
+   - Trade-offs (costo vs velocidad, complejidad operacional).
 
 5. **OUTPUT:**
    - Plan de acción priorizado (quick wins vs mid-term).

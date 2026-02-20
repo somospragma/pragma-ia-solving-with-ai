@@ -105,8 +105,29 @@ Tengo este DAG en Airflow. ¿Está listo para producción?
 
 ---
 
+### [glue-job-troubleshooting.md](./glue-job-troubleshooting.md)
+**Propósito:** Diagnosticar y resolver problemas operacionales de ETL jobs: timeouts, hangs, OOM, state management (agnóstico de plataforma: AWS Glue, Azure Synapse, Data Factory).
+
+**Usa cuando:**
+- ETL job está "colgado" en ejecución pero logs muestran que falló (state discrepancy)
+- Job es lento (duración aumentó 4x) sin errores visibles
+- Hay OOM (Out of Memory) o task timeouts
+- Output tiene duplicados (state management/checkpoint issues)
+- Necesitas diagnóstico estructurado sin entrar en comandos específicos de plataforma
+
+**Ejemplo de uso en Copilot:**
+```
+/glue-job-troubleshooting
+
+Mi job de Glue/Synapse lleva 2 horas en RUNNING, pero logs muestran que falló hace 1 hora.
+No veo error claro. ¿Qué está pasando?
+```
+
+**Nota:** Agnóstico a plataforma. Incluye ejemplos de AWS Glue, Azure Synapse Spark, y Azure Data Factory para patrones equivalentes.
+
+---
+
 ### [glue-job-validation.md](./glue-job-validation.md)
-**Propósito:** Validar AWS Glue jobs con configuración declarativa (YAML-based): estructura ETL, transformaciones, manejo de errores, reutilización.
 
 **Usa cuando:**
 - Diseñas o revisas un Glue job antes de deploy

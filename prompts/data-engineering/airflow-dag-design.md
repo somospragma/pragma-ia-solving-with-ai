@@ -34,9 +34,9 @@
 - ❌ No uses XCom para pasar DataFrames; es ineficiente.
 
 **Retries y Alertas:**
-- ✅ `retries` y `retry_delay` definidos según SLA (crítico: 3-5 retries; no crítico: 1-2).
+- ✅ `retries` y `retry_delay` definidos según SLA del job (critically important tasks requieren más reintentos que non-critical).
 - ✅ `pool` y `pool_slots` para limitar paralelismo (evita sobrecargar recursos).
-- ✅ `sla` definido (ej: `sla=timedelta(hours=2)`); alertas configuradas.
+- ✅ `sla` definido según ventana de tiempo esperada del job; alertas configuradas.
 - ✅ `on_failure_callback` y `on_retry_callback` para notificaciones.
 - ❌ No dejes retries infinitos o sin delays.
 
@@ -48,11 +48,11 @@
 - ❌ Nunca hardcodees credenciales en DAGs.
 
 **Testing y Validación:**
-- ✅ DAG pasa validación: `airflow dags validate`.
+- ✅ DAG pasa proceso de validación (syntax check, dependency verification).
 - ✅ Cada tarea tiene condiciones de éxito explícitas (no falla silenciosamente).
-- ✅ Logs son estructurados (incluyen `run_id`, `task_id`, `try_number`).
+- ✅ Logs son estructurados (incluyen run ID, task ID, attempt metadata).
 - ✅ DAG tiene tests unitarios para transformaciones lógicas (si aplica).
-- ❌ DAG no debe fallar con errores cryptic.
+- ❌ DAG no debe fallar con errores cryptic o sin mensajes de diagnóstico.
 
 **Observabilidad:**
 - ✅ Cada tarea loguea entrada/salida con contexto.

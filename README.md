@@ -96,12 +96,26 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 | [📱 Frontend](.github/agents/frontend.agent.md) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
 | [⚙️ Backend](.github/agents/backend.agent.md) | Chat modes para desarrollo backend (APIs, bases de datos, etc.) |
 | [📲 Mobile](.github/agents/mobile.agent.md) | Chat modes para desarrollo móvil (React Native, Flutter, etc.) |
-| [📦 Data Engineering](.github/agents/data-engineering.agent.md) | Agente para Data Engineering: Airflow, Glue jobs, con 14 instructions + 7 prompts + 7 resources + 3 repos externos |
-| [�🚀 DevOps](.github/agents/devops.agent.md) | Chat modes para DevOps e infraestructura |
+| [📦 Data Engineering](.github/agents/data-engineering.agent.md) | Agente especializado para Data Engineering: pipelines Airflow/MWAA, Glue ETL, validación de datos, troubleshooting operacional |
+| [🚀 DevOps](.github/agents/devops.agent.md) | Chat modes para DevOps e infraestructura |
 | [🧪 QA & Testing](.github/agents/qa-testing.agent.md) | Chat modes para testing y quality assurance |
 | [🔄 Transversal](.github/agents/transversal.agent.md) | Chat modes transversales aplicables a múltiples áreas |
 
 #### Ejemplos Disponibles - Chat Modes
+
+##### Data Engineering Agent
+
+| Capacidad | Descripción |
+| --------- | ----------- |
+| **Validación de Pipelines** | Analiza idempotencia, contratos de datos y observabilidad en configuraciones Airflow/Glue |
+| **Triage de Incidentes** | Diagnostica problemas operacionales: datos no llegados, schema drift, degradación de performance |
+| **Diseño de DAGs** | Revisa estructura, operadores, manejo de XCom, retries, alertas, seguridad y observabilidad en Airflow |
+| **Optimización de Performance** | Identifica skew de datos, particionado, tuning de recursos en pipelines Spark/Glue |
+| **Troubleshooting de Jobs ETL** | Diagnóstico estructurado de jobs colgados, timeouts, OOM, state management (AWS Glue, Azure Synapse, Data Factory) |
+| **Diseño de Data Contracts** | Especificación de SLAs, versionado de schema, definición de expectations de calidad |
+| **Revisión de Calidad de Datos** | Validación con Great Expectations, detección de anomalías, completitud y distribución |
+
+##### Otros Agentes
 
 | Título | Descripción |
 | ------ | ----------- |
@@ -122,4 +136,34 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 
 ## 🤖 Secciones Adicionales
 
-> Por definir...
+### Data Engineering: Sistema Completo de Pipelines de Datos
+
+El framework de **Data Engineering** ofrece cobertura integral para el diseño, validación y operación de pipelines de datos en arquitecturas cloud (AWS/Azure):
+
+**Instrucciones Especializadas:**
+- Contexto de datos, guidelines de diseño (SOLID, testing, performance)
+- Stack tecnológico (Kafka, Spark, Glue, Airflow/MWAA, Flink, dbt)
+- Estrategia de calidad y testing
+- Operación en cloud (IaC, CI/CD, runbooks operacionales)
+- Consideraciones específicas para Airflow y despliegue en MWAA
+
+**Prompts de Validación y Optimización:**
+- Validación de idempotencia, contratos de datos y observabilidad
+- Triage de incidentes en pipelines
+- Optimización de performance (skew, particionado, resource tuning)
+- Diseño de DAGs en Airflow y troubleshooting operacional
+- Triage conceptual de problemas (timeouts, OOM, state management)
+- Diseño de data contracts con versionado y SLAs
+- Revisión de calidad de datos con Great Expectations
+
+**Recursos de Referencia:**
+- Patrones de arquitectura de datos (medallion, lambda vs kappa)
+- Mejores prácticas de Airflow y testing
+- Patrones de Glue jobs con configuración dinámica (YAML-based)
+- Comparativa AWS/Azure con costos y equivalencias
+- Testing strategies para pipelines
+
+**Validación y Escenarios:**
+- Cobertura completa de escenarios reales: desde "Primer DAG" hasta troubleshooting de jobs colgados
+- Agnósticidad: Recomendaciones sin prescripciones inflexibles, adaptables a cualquier contexto
+- Integración con repositorios externos (operadores, patrones de carga)

@@ -17,9 +17,9 @@ Este agente precarga automáticamente contexto especializado de Data Engineering
 - **Checklists (3):** batch-ingest, streaming-ingest, hybrid-architecture
 - **Recursos (2):** great-expectations-example.md
 
-#### Prompts (7 archivos - Tier 1, 2 & 3)
+#### Prompts (8 archivos - Tier 1, 2 & 3)
 - **Tier 1:** data-pipeline-validation.md, data-quality-review.md
-- **Tier 2:** performance-optimization.md, incident-triage.md, airflow-dag-design.md, glue-job-validation.md
+- **Tier 2:** performance-optimization.md, incident-triage.md, airflow-dag-design.md, glue-job-validation.md, glue-job-troubleshooting.md
 - **Tier 3:** data-contract-design.md
 
 #### Resources (7 archivos - Tier 1, 2 & 3)
@@ -89,7 +89,7 @@ Cuando agregues nuevos documentos a Data Engineering:
 
 ---
 
-**Nota:** Este agente contiene contexto para 14 instructions + 7 prompts + 7 resources = 28 artefactos especializados en Data Engineering.
+**Nota:** Este agente contiene contexto para 14 instructions + 8 prompts + 7 resources = 29 artefactos especializados en Data Engineering.
 
 ## 🔗 Repositorios Externos Integrados
 
