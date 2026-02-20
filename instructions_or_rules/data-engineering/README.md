@@ -10,8 +10,8 @@ Este directorio contiene instrucciones y guías para implementar MCPs (Minimal M
   - `01-context.md` — Contexto, alcance y stakeholders.
   - `02-guidelines.md` — Principios, código, SOLID, OOP, testing, documentación, code review.
   - `03-technology.md` — Stacks recomendados (AWS/Azure), conectores, formatos, arquitecturas híbridas.
-  - `04-quality.md` — Testing, coverage, Data Quality, monitoring.
-  - `05-process.md` — IaC, CI/CD, runbooks, backfill, operación.
+  - `05-airflow.md` — Airflow, MWAA, setup, despliegue, operaciones en AWS.
+  - `06-process.md` — IaC, CI/CD, runbooks, backfill, operación.
   - `99-agent-considerations.md` — Notas para agentes (Copilot, Amazon Q).
   - `*-checklist.md` — Checklists para validación de arquitecturas (streaming, batch, hybrid).
   - `great-expectations-example.md` — Guía de uso de Great Expectations.
@@ -28,7 +28,7 @@ Lee `modular/instructions.md` para ver cómo se organizan los módulos y qué ca
 
 - **Diseñando arquitectura:** Carga `01-context.md` + `03-technology.md` (platform focus).
 - **Implementando pipeline:** Carga `02-guidelines.md` + `04-quality.md` (código y calidad).
-- **Desplegando a producción:** Carga `05-process.md` + `04-quality.md` (operación e IaC).
+- **Desplegando a producción:** Carga `06-process.md` + `04-quality.md` (operación e IaC).
 - **Validando ingestas:** Usa `streaming-ingest-checklist.md`, `batch-ingest-checklist.md` o `hybrid-architecture-checklist.md`.
 - **AI asistentes:** Usa `99-agent-considerations.md` para instruir agentes (Copilot, Amazon Q).
 
@@ -42,14 +42,14 @@ Este MCP es un **marco transversal**. Para adaptarlo a tu proyecto:
    - Conectores genéricos → tus conectores específicos (qué DB usas, APIs, formatos).
 
 2. **Personaliza por tecnología:**
-   - Si usas **AWS Glue/EMR:** Enfatiza secciones de Glue en `03-technology.md` y runbooks en `05-process.md`.
+   - Si usas **AWS Glue/EMR:** Enfatiza secciones de Glue en `03-technology.md` y runbooks en `06-process.md`.
    - Si usas **Azure Synapse/Databricks:** Usa mappings Azure en `03-technology.md`.
    - Si es **hybrid (on-prem + cloud):** Carga `hybrid-architecture-checklist.md`.
 
 3. **Añade reglas específicas:**
    - En `02-guidelines.md`: Políticas de tu equipo (naming, standards, SLAs).
    - En `04-quality.md`: Umbrales de cobertura, herramientas específicas (Deequ vs Great Expectations).
-   - En `05-process.md`: Rutas de deploy, teams slack, rotación de on-call.
+   - En `06-process.md`: Rutas de deploy, teams slack, rotación de on-call.
 
 4. **Publica el orquestador en tu repo:**
    ```bash
@@ -66,7 +66,7 @@ Este MCP es un **marco transversal**. Para adaptarlo a tu proyecto:
 - **Arquitecturas híbridas:** [hybrid-architecture-checklist.md](./modular/hybrid-architecture-checklist.md) cubre conectividad, gateways, security, observabilidad distribuida.
 - **Calidad de código:** [02-guidelines.md](./modular/02-guidelines.md) sección 2.12 incluye code review checklist, 2.5 SOLID, 2.14 OOP.
 - **Testing & Coverage:** [04-quality.md](./modular/04-quality.md) cubre pytest, coverage gates, edge cases, CI pipeline stages.
-- **Runbooks:** [05-process.md](./modular/05-process.md) incluye triage para degradación Glue/Synapse, backfill seguro, network outage.
+- **Runbooks:** [06-process.md](./modular/06-process.md) incluye triage para degradación Glue/Synapse, backfill seguro, network outage.
 - **Data Quality Framework:** [great-expectations-example.md](./modular/great-expectations-example.md) con tutorial e integración en CI.
 
 ## 🔗 Referencias externas

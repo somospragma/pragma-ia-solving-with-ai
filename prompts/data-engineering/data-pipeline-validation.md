@@ -53,4 +53,4 @@
 
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/02-guidelines.md` (Sección 2.2 Pipeline Design, 2.6 Error Handling)
 - **Resource:** `resources/data-engineering/data-architecture-patterns.md` (Para entender Lambda vs Kappa, Medallion)
-- **Instrucciones:** `instructions_or_rules/data-engineering/modular/05-process.md` (Sección 5.4 Runbooks and Operations)
+- **Instrucciones:** `instructions_or_rules/data-engineering/modular/06-process.md` (Sección 5.4 Runbooks and Operations)

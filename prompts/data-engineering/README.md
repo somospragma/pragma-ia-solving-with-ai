@@ -87,6 +87,47 @@ Sintoniza un plan de acción ahora.
 
 ---
 
+### [airflow-dag-design.md](./airflow-dag-design.md)
+**Propósito:** Validar DAGs de Airflow: estructura, operadores, XCom, retries, seguridad, observabilidad.
+
+**Usa cuando:**
+- Diseñas o revisas un DAG antes de deploy
+- Necesitas mejorar idempotencia o error handling
+- Quieres validar configuración de retries, SLAs y alertas
+
+**Ejemplo de uso en Copilot:**
+```
+/airflow-dag-design
+
+Tengo este DAG en Airflow. ¿Está listo para producción?
+¿Hay problemas con XCom o retries?
+```
+
+---
+
+### [glue-job-validation.md](./glue-job-validation.md)
+**Propósito:** Validar AWS Glue jobs con configuración declarativa (YAML-based): estructura ETL, transformaciones, manejo de errores, reutilización.
+
+**Usa cuando:**
+- Diseñas o revisas un Glue job antes de deploy
+- Necesitas validar que es config-driven (no hardcoded)
+- Quieres asegurar que se puede reutilizar para otras tablas
+- Validas transformaciones (flatten, type casting, null handling)
+
+**Contenido:**
+- Reglas para jobs dinámicos (YAML-based configuration)
+- Patrones Extract, Transform, Load (ETL)
+- Validación de schema, transformaciones, manejo de errores
+- Checklist: from declarativa config → reutilizable
+
+**Ejemplo de uso en Copilot:**
+```
+/glue-job-validation
+
+Revisa mi job de Glue para procesar tablas DynamoDB.
+¿Es reutilizable para otras tablas? ¿Cómo agrego nueva tabla sin código?
+```
+
 ---
 
 ## 🚀 Tier 3: Specialized

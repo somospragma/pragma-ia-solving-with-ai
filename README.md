@@ -96,7 +96,7 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 | [📱 Frontend](.github/agents/frontend.agent.md) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
 | [⚙️ Backend](.github/agents/backend.agent.md) | Chat modes para desarrollo backend (APIs, bases de datos, etc.) |
 | [📲 Mobile](.github/agents/mobile.agent.md) | Chat modes para desarrollo móvil (React Native, Flutter, etc.) |
-| [📦 Data Engineering](.github/agents/data-engineering.agent.md) | Agente para Data Engineering con validación, calidad y performance (13 instructions + 5 prompts + 5 resources) |
+| [📦 Data Engineering](.github/agents/data-engineering.agent.md) | Agente para Data Engineering: Airflow, Glue jobs, con 14 instructions + 7 prompts + 7 resources + 3 repos externos |
 | [�🚀 DevOps](.github/agents/devops.agent.md) | Chat modes para DevOps e infraestructura |
 | [🧪 QA & Testing](.github/agents/qa-testing.agent.md) | Chat modes para testing y quality assurance |
 | [🔄 Transversal](.github/agents/transversal.agent.md) | Chat modes transversales aplicables a múltiples áreas |

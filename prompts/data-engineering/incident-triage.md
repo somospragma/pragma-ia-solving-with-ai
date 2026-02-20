@@ -84,7 +84,7 @@ Mitigación rápida:
 
 ### REFERENCIAS RELACIONADAS
 
-- **Instrucciones:** `instructions_or_rules/data-engineering/modular/05-process.md` (Sección 5.4 Runbook Degradación)
+- **Instrucciones:** `instructions_or_rules/data-engineering/modular/06-process.md` (Sección 5.4 Runbook Degradación)
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/04-quality.md` (Sección 4.5 Monitoring & Metrics)
 - **Resource (Tier 2):** `resources/data-engineering/testing-data-pipelines.md` (Cómo evitar incidentes con tests)
 - **Resource (Tier 1):** `resources/data-engineering/data-contract-patterns.md` (Schema drift management)
