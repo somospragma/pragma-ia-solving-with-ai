@@ -90,10 +90,13 @@ Sintoniza un plan de acción ahora.
 ### [airflow-dag-design.md](./airflow-dag-design.md)
 **Propósito:** Validar DAGs de Airflow: estructura, operadores, XCom, retries, seguridad, observabilidad.
 
+**Nota especial:** Este prompt es específico para Airflow/MWAA. **Para validación agnóstica de DAGs/Pipelines en múltiples plataformas (Airflow, Data Factory, Synapse), usa [pipeline-orchestration-design.md](./pipeline-orchestration-design.md).**
+
 **Usa cuando:**
-- Diseñas o revisas un DAG antes de deploy
+- Diseñas o revisas un DAG de Airflow antes de deploy
 - Necesitas mejorar idempotencia o error handling
 - Quieres validar configuración de retries, SLAs y alertas
+- Tu contexto es AWS Airflow/MWAA
 
 **Ejemplo de uso en Copilot:**
 ```
@@ -102,6 +105,27 @@ Sintoniza un plan de acción ahora.
 Tengo este DAG en Airflow. ¿Está listo para producción?
 ¿Hay problemas con XCom o retries?
 ```
+
+---
+
+### [pipeline-orchestration-design.md](./pipeline-orchestration-design.md)
+**Propósito:** Validar diseño de pipelines de orquestación: DAGs (Airflow), Pipelines (Data Factory), Synapse Pipelines. **Agnóstico a plataforma.**
+
+**Usa cuando:**
+- Necesitas validación genérica para múltiples plataformas (AWS + Azure)
+- Tienes Airflow Y Data Factory en tu arquitectura
+- Quieres reglas de estructura/confiabilidad/observabilidad aplicables a cualquier orquestador
+- No necesitas detalles específicos de sintaxis de cada plataforma
+
+**Ejemplo de uso en Copilot:**
+```
+/pipeline-orchestration-design
+
+Tengo un pipeline en Airflow y otro en Data Factory.
+¿Me puedes validar ambos con los mismos criterios de confiabilidad?
+```
+
+**Contenido:** Estructura agnóstica + ejemplos específicos por plataforma (Airflow, Data Factory, Synapse).
 
 ---
 

@@ -1,5 +1,7 @@
 ## PROMPT: Diseño de DAG en Airflow para Pipelines de Datos
 
+**⚠️ NOTA IMPORTANTE:** Este prompt es **específico de Airflow/MWAA (AWS)**. Si usas **Azure Data Factory, Synapse Pipelines, o deseas validación agnóstica de orquestación**, usa [pipeline-orchestration-design.md](./pipeline-orchestration-design.md) en su lugar.
+
 **ROL:** Arquitecto de Airflow experto. Revisa diseño de DAGs, estructura de tareas, dependencias y configuración operacional.
 
 **CONTEXTO:** Se te entrega un DAG Airflow (Python), un diagrama de flujo, o una descripción de requisitos. Valida:

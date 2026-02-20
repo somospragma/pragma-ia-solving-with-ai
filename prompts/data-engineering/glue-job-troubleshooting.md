@@ -307,7 +307,8 @@ Síntoma observado → Categoría probable:
 
 - **Prompt (Tier 2):** [incident-triage.md](incident-triage.md) — Escalation pathway if categorization unclear (covers operational incidents across platforms)
 - **Prompt (Tier 2):** [performance-optimization.md](performance-optimization.md) — Deep analysis for Category 2 (slowness diagnosis), applicable to Spark/Flink-based systems
+- **Prompt (Tier 2):** [pipeline-orchestration-design.md](./pipeline-orchestration-design.md) — If job failures are orchestration-related (retry policy, dependency, scheduling), validate pipeline configuration
 - **Instrucciones (06-process):** [modular/06-process.md](../../instructions_or_rules/data-engineering/modular/06-process.md) — Operational runbooks + memory tuning sequences by platform
 - **Instrucciones (03-technology):** [modular/03-technology.md](../../instructions_or_rules/data-engineering/modular/03-technology.md) — Job parameters, capacity options, state management config by platform (Glue, Synapse, etc.)
-- **Resource (Tier 2):** [aws-azure-data-services.md](../resources/data-engineering/aws-azure-data-services.md) — Platform-specific tuning and troubleshooting patterns (AWS vs Azure)
-- **Resource (Tier 3):** [glue-jobs-patterns.md](../resources/data-engineering/glue-jobs-patterns.md) — Implementation patterns for skew mitigation, stateful design (AWS-specific but conceptually translatable)
+- **Resource (Tier 2):** [aws-azure-data-services.md](../../resources/data-engineering/aws-azure-data-services.md) — Platform-specific tuning and troubleshooting patterns (AWS vs Azure); use for translating Glue concepts to Synapse/Databricks
+- **Resource (Tier 3):** [glue-jobs-patterns.md](../../resources/data-engineering/glue-jobs-patterns.md) — AWS Glue-specific patterns (skew mitigation, idempotence, bookmarks). **Translation guide:** Replace Glue bookmarks → Synapse checkpoints / Databricks Unity Catalog; Glue DynamicFrame → Spark DataFrames with merge logic; S3 → ADLS Gen2. See aws-azure-data-services.md Section 3 for feature mapping.

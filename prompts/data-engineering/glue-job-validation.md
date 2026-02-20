@@ -1,5 +1,7 @@
 ## PROMPT: Validación de Glue Jobs Dinámicos
 
+**⚠️ NOTA IMPORTANTE:** Este prompt es **específico de AWS Glue**. Si usas **Azure Synapse Spark, Databricks, o deseas validación agnóstica** de jobs batch, usa [data-pipeline-validation.md](./data-pipeline-validation.md) en su lugar.
+
 **ROL:** Especialista en AWS Glue. Revisa jobs Glue con configuración declarativa (YAML-based), validando estructura ETL, transformaciones, manejo de errores y patrones de reutilización.
 
 **CONTEXTO:** Se te entrega un Glue Job (PySpark), configuración YAML, o descripción de requisitos. Valida:

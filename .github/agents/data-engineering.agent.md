@@ -17,9 +17,9 @@ Este agente precarga automáticamente contexto especializado de Data Engineering
 - **Checklists (3):** batch-ingest, streaming-ingest, hybrid-architecture
 - **Recursos (2):** great-expectations-example.md
 
-#### Prompts (8 archivos - Tier 1, 2 & 3)
+#### Prompts (9 archivos - Tier 1, 2 & 3)
 - **Tier 1:** data-pipeline-validation.md, data-quality-review.md
-- **Tier 2:** performance-optimization.md, incident-triage.md, airflow-dag-design.md, glue-job-validation.md, glue-job-troubleshooting.md
+- **Tier 2:** performance-optimization.md, incident-triage.md, airflow-dag-design.md, pipeline-orchestration-design.md, glue-job-validation.md, glue-job-troubleshooting.md
 - **Tier 3:** data-contract-design.md
 
 #### Resources (7 archivos - Tier 1, 2 & 3)
@@ -31,9 +31,9 @@ Este agente precarga automáticamente contexto especializado de Data Engineering
 
 ### Activación Automática
 Cuando activas este agente en GitHub Copilot Chat, automáticamente:
-1. Carga los 11 documentos de instrucciones
-2. Indexa los 5 prompts especializados
-3. Mapea los 5 recursos de referencia
+1. Carga los 14 documentos de instrucciones
+2. Indexa los 9 prompts especializados
+3. Mapea los 7 recursos de referencia
 4. Adopta la persona experta de "Data Engineer 10+ años"
 
 ### Ejemplos de Uso
