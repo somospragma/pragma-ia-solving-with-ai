@@ -4,6 +4,45 @@
 
 **CONTEXTO:** Se te dará un job actual (Spark, Flink, dbt, Glue), logs, query plans o métricas. Diagnostica ineficiencias y propone optimizaciones.
 
+---
+
+### ⚡ DECISION GATE: ¿Tuning vs Redesign Arquitectónico?
+
+**PRIMERO, responde esto — determina si tuning vale la pena:**
+
+```
+¿Cuál es el patrón de crecimiento de tiempo vs volumen de datos?
+
+├─ CASOS COMUNES:
+│  ├─ 5x datos → ~5x tiempo: LINEAR growth → ✅ Tuning probablemente funciona
+│  ├─ 5x datos → 25x+ tiempo: EXPONENTIAL → ❌ Tuning no va a ayudar; REDESIGN arquitectónico
+│  └─ 5x datos → 10x+ tiempo: CUASI-EXPONENTIAL → Investigate fondo (state management, join strategy)
+│
+├─ FÓRMULA RÁPIDA:
+│  Si: (actual_time / expected_time) > (data_growth ^ 1.2)
+│  Entonces: EXPONENTIAL problem detected → REDESIGN needed
+│
+├─ SÍNTOMAS DE RESOURCE CEILING (tuning no ayuda):
+│  ├─ Executor memory siempre en 100% (OOM errors recurrentes)
+│  ├─ Shuffle disk spill > 50% de datos totales
+│  ├─ Driver memory exhausted (coordination bottleneck)
+│  └─ → Solución: Upgrade cluster OR cambiar arquitectura (streaming vs batch, distributed cache, etc.)
+│
+└─ CONTINUOS INTERMITENTE (no es simplemente lentitud):
+   └─ Ve a incident-triage.md (puede ser contention, no performance pura)
+```
+
+**EJEMPLOS CONCRETOS:**
+- **Case A:** Glue job 100TB, 45 min actual vs 30 min SLA. Data creció 10x en 3 meses. Time creció 5x → **Exponential!** Probable causa: Join strategy caducan con tamaño. **Acción: Cambiar de Nested Loop a Hash Join o Bucket Sort.**
+- **Case B:** Spark job 1TB, 20 min actual vs 10 min SLA. Data estable. Memory OK. → **Linear issue.** **Acción: Skew detection + salting + partition tuning.**
+- **Case C:** Data Factory pipeline, 1 hour actual vs 30 min SLA, pero datos no crecieron. Intermitente (a veces 30 min, a veces 1 hour) → **Contention, no tuning.** **Acción: incident-triage.md**
+
+**DECISIÓN:**
+- **Síntomas exponencial O ceiling? →** Salta a [data-architecture-patterns.md](../resources/data-architecture-patterns.md) (redesign options)
+- **Síntoma linear? →** Continúa con técnicas de tuning en sección siguiente
+
+---
+
 ### REGLAS DE DIAGNÓSTICO
 
 **Identificación de Skew:**

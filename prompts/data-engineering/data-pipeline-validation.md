@@ -49,6 +49,41 @@
 
 ---
 
+### 📊 EXPECTED OUTPUT FORMAT
+
+Al usar este prompt, espera recibir:
+
+**Estructura de respuesta:**
+```
+✅ VALIDATION RESULT: [PASS | PARTIAL | FAIL]
+
+1️⃣ IDEMPOTENCE CHECK:
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [Breve descripción del status]
+   How to fix: [Pasos concretos o "N/A" si PASS]
+
+2️⃣ DATA CONTRACTS:
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [¿Tiene schema versionado? ¿SLAs? ¿Compatibility strategy?]
+   How to fix: [Cambios específicos]
+
+3️⃣ OBSERVABILITY:
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [¿Tiene logging estructurado? ¿Métricas?]
+   How to fix: [Code snippets si aplica]
+
+🎯 PRIORITY SUMMARY:
+   [Crítico → hacer hoy], [Mayor → esta semana], [Menor → backlog]
+   Estimated effort: [X horas]
+```
+
+**Ejemplos de outputs reales:**
+- **PASS:** "Pipeline ready. Idempotent (UPSERT), contracts versioned (v2.3), logging structured (JSON). Deploy today."
+- **PARTIAL:** "Critical fix: Schema v1→v2 breaking change. Minor fix: Add metrics. Timeline: Fix today, deploy after communication."
+- **FAIL:** "Not idempotent (INSERT without dedup check). Critical blocker. Before fix, this pipeline risks data corruption."
+
+---
+
 ### REFERENCIAS RELACIONADAS
 
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/02-guidelines.md` (Sección 2.2 Pipeline Design, 2.6 Error Handling)

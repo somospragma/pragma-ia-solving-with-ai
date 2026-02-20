@@ -4,6 +4,25 @@ Prompts reutilizables para tareas comunes de ingeniería de datos, organizados p
 
 ---
 
+## ⚡ Quick Decision Matrix
+**¿No sabes cuál prompt usar? Empieza aquí:**
+
+| Necesito... | Prompt | Cuándo |
+|------------|--------|--------|
+| **Validar código idempotente** | [data-pipeline-validation](./data-pipeline-validation.md) | Antes de deployar código nuevo (Spark/Glue/Synapse) |
+| **Setup data quality gates** | [data-quality-review](./data-quality-review.md) | Configurando GE/Deequ o revisando cobertura DQ |
+| **Diagnosticar job lento** | [performance-optimization](./performance-optimization.md) | Job tarda 2-3x más que esperado; necesitas root cause |
+| **Responder incidente urgente** | [incident-triage](./incident-triage.md) | Pipeline falló en producción; necesitas acción rápida |
+| **Revisar DAG Airflow** | [airflow-dag-design](./airflow-dag-design.md) | Diseñando/revisando DAG en Airflow o AWS MWAA |
+| **Validar pipeline agnóstico** | [pipeline-orchestration-design](./pipeline-orchestration-design.md) | Pipeline en Airflow, Data Factory, o Synapse Pipelines |
+| **Diseñar data contract** | [data-contract-design](./data-contract-design.md) | Definiendo schema + SLA para tabla/evento nuevo |
+| **Validar Glue job** | [glue-job-validation](./glue-job-validation.md) | Code review de job AWS Glue (config + transforms) |
+| **Troubleshoot Glue error** | [glue-job-troubleshooting](./glue-job-troubleshooting.md) | Glue job falló; necesitas diagnóstico + próximos pasos |
+
+> **Nota:** Si no está claro qué prompt, empieza por [data-pipeline-validation](./data-pipeline-validation.md) (válido para cualquier pipeline). Luego escalala según las respuestas.
+
+---
+
 ## 🎯 Tier 1: Fundamentals
 **Aprende:** Principios básicos de validación y calidad de datos.
 

@@ -103,6 +103,56 @@
 
 ---
 
+## 📊 EXPECTED OUTPUT FORMAT
+
+Al usar este prompt, espera recibir:
+
+**Estructura de respuesta:**
+```
+✅ VALIDATION RESULT: [APPROVED | CONDITIONAL | BLOCKED]
+
+📋 FINDINGS BY SECTION:
+
+1️⃣ CONFIGURATION (Config-driven check)
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [¿Tiene YAML? ¿Está externalized?]
+   How to fix: [IF FAIL: move X to YAML. IF PARTIAL: also externalize Y]
+
+2️⃣ ETL PIPELINE
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [Extract/Transform/Load coverage]
+   How to fix: [Missing transforms or load stage details]
+
+3️⃣ DATA HANDLING (Full vs Incremental)
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [CDC strategy, idempotence, upsert]
+   How to fix: [IF INC: add Hudi merge logic. IF FULL: add safe overwrite]
+
+4️⃣ VALIDATION & TESTING
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [Test coverage, edge cases, logging]
+   How to fix: [Add unit tests for X transformation, logging for Y stage]
+
+5️⃣ PERFORMANCE & SCALABILITY
+   Status: [✅ PASS | ⚠️ PARTIAL | ❌ FAIL]
+   Finding: [Partitioning, DPU sizing, predicates]
+   How to fix: [Increase DPU to X, add date filter predicate]
+
+🎯 RECOMMENDATION:
+   ✅ APPROVED (no changes needed; deploy)
+   ⚠️ CONDITIONAL (minor fixes required; 1-2 days)
+   ❌ BLOCKED (redesign needed; 1+ weeks)
+
+Estimated effort: [X hours]
+```
+
+**Ejemplos de outputs reales:**
+- **APPROVED:** "Job fully config-driven. ETL complete. CDC with Hudi. Tests present. Deploy as-is."
+- **CONDITIONAL:** "Config 90% externalized (paths hardcoded still). ETL OK. Add 2 unit tests for flatten logic. Fix: 4 hours."
+- **BLOCKED:** "Not config-driven (hardcoded table names). No CDC (loses data on updates). Redesign with new template: 1 week."
+
+---
+
 ## OUTPUT ESPERADO
 
 - ✅/❌ Checklist por sección (Configuración, ETL, Datos, Validación, Performance)
