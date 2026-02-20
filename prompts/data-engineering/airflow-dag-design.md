@@ -113,37 +113,95 @@
 
 Al revisar DAGs, considera usar operadores pre-construidos de Pragma:
 
-### 📦 ciencia-datos-datos-lib-py-operators
+### 📦 Instalación & Setup
 
-**Link:** https://github.com/carlosguzmanbaq/ciencia-datos-datos-lib-py-operators
+```bash
+# Instalar las librerías desde PyPI
+pip install ciencia-datos-datos-lib-py>=1.0.0
+pip install ciencia-datos-datos-lib-py-operators>=2.1.0
 
-✅ **Usar S3MultipartCopyOperator en lugar de BashOperator + aws s3 cp**
+# O en requirements.txt para ambiente Airflow/MWAA:
+ciencia-datos-datos-lib-py>=1.0.0
+ciencia-datos-datos-lib-py-operators>=2.1.0
+```
+
+### ✅ S3MultipartCopyOperator (Para copias de >5GB)
+
+**Cuándo usar:** Copias grandes de S3→S3 que requieren timeout/retry robusto.
+
 ```python
-# ❌ MEJOR NO:
-copy = BashOperator(
+from ciencia_datos.operators import S3MultipartCopyOperator
+
+# ❌ EVITAR (BashOperator con aws s3 cp):
+# - Falla sin retry en timeout
+# - No gestiona multipart (lento en >5GB)
+copy_bad = BashOperator(
     task_id='copy',
     bash_command='aws s3 cp s3://src/large.parquet s3://dst/large.parquet --region us-east-1',
 )
 
-# ✅ MEJOR SÍ:
-copy = S3MultipartCopyOperator(
-    task_id='copy',
-    source_s3_key='s3://src/large.parquet',
-    destination_s3_key='s3://dst/large.parquet',
-    multipart_threshold=5 * 1024**3,  # Auto-multipart para >5GB
+# ✅ USAR (S3MultipartCopyOperator):
+# - Auto-detects tamaño y usa multipart
+# - Retry + exponential backoff nativo
+# - Logs detallados por chunk
+copy_good = S3MultipartCopyOperator(
+    task_id='copy_large_parquet',
+    source_s3_key='s3://src-bucket/large.parquet',
+    destination_s3_key='s3://dst-bucket/processed/large.parquet',
+    multipart_threshold=5 * 1024**3,          # Trigger multipart para >5GB
+    chunk_size=100 * 1024**1024,              # 100MB per chunk
+    max_retries=3,
+    retry_delay=300,                          # 5 min between retries
+    conn_id='aws_default',                    # Connection name in Airflow
 )
 ```
 
-✅ **Usar FileFerryOperator para S3↔SFTP**
+**Parámetros clave:**
+- `multipart_threshold`: Tamaño mínimo para usar multipart (default: 5GB)
+- `chunk_size`: Tamaño de cada chunk en multipart (default: 100MB)
+- `max_retries`: Reintentos si falla (default: 3)
+- `retry_delay`: Segundos entre reintentos (exponential backoff)
+
+---
+
+### ✅ FileFerryOperator (Para transferencias S3↔SFTP)
+
+**Cuándo usar:** Enviar/recibir datos desde proveedores externos via SFTP sin SSL headaches.
+
 ```python
-# FileFerry maneja retry, batch orchestration, session management automáticamente
-transfer = FileFerryOperator(
-    task_id='to_sftp',
-    operation='upload',
-    source_s3_path='s3://bucket/data/',
-    target_sftp_path='/vendor/data/',
+from ciencia_datos.operators import FileFerryOperator
+
+# Ejemplo: Upload batch diária a vendor SFTP
+transfer_to_vendor = FileFerryOperator(
+    task_id='daily_upload_to_vendor',
+    operation='upload',                       # 'upload' o 'download'
+    source_s3_path='s3://bucket/daily-batch/',
+    target_sftp_path='/vendor/incoming/',
+    sftp_conn_id='vendor_sftp',               # SFTP connection in Airflow
+    pattern='*.parquet',                      # Match files
+    archive_after=True,                       # Move source to /archive after success
+    parallel_workers=4,                       # Concurrent uploads
+)
+
+# Ejemplo: Download forecasts from external system
+transfer_from_vendor = FileFerryOperator(
+    task_id='fetch_forecasts_from_api',
+    operation='download',
+    source_sftp_path='/api-exports/forecasts/',
+    target_s3_path='s3://bucket/forecasts/{{ ds }}/',  # Partition by date
+    sftp_conn_id='external_api',
+    pattern='forecast_*.csv',
+    retry_failed=True,                        # Retry failed files
 )
 ```
+
+**Parámetros clave:**
+- `operation`: 'upload' (S3→SFTP) o 'download' (SFTP→S3)
+- `parallel_workers`: Concurrencia para múltiples archivos
+- `archive_after`: Mover source a carpeta /archive post-transferencia
+- `pattern`: Glob pattern para seleccionar archivos
+
+---
 
 ### REFERENCIAS RELACIONADAS
 
