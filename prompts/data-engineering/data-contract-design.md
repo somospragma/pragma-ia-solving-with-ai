@@ -232,7 +232,161 @@ tests:
 
 ---
 
-### OUTPUT ESPERADO
+## 🌊 STREAMING EVENT CONTRACTS vs TABLE CONTRACTS
+
+**¿Estás contratando eventos (streaming) o tablas (batch)?** Aquí está la clave:
+
+### Tabla Contract (Batch/Curated Data)
+
+**Ejemplo:** `sales.orders` table in data warehouse
+```yaml
+name: "sales.orders"
+grain: "one row per order"
+sla:
+  freshness: "< 2 hours"  # Data edad máxima
+  latency: "NOT APPLICABLE" (tablas tienen freshness, no latency)
+  schema: symmetric (same columns always)
+```
+
+### Event Contract (Streaming/Event Logs)
+
+**Ejemplo:** `orders.created` event via Kinesis/Event Hubs
+```yaml
+name: "orders.created"
+topic: "stripe.events"   # Kinesis stream / Event Hubs name
+grain: "one event per order creation"
+sla:
+  latency: "< 5 seconds"  # Evento age; cuán rápido llega desde origen
+  freshness: "NOT APPLICABLE" (eventos son valores puntuales, no estado)
+  schema: additive-only (new fields OK; removed fields = breaking)
+  event_rate_range: "100-10K events/min expected"
+```
+
+### Comparativa Rápida
+
+| Aspecto | Table Contract | Event Contract |
+|---------|---|---|
+| **SLA** | Freshness + Completeness | Latency + Throughput |
+| **Schema** | Strict (same columns) | Additive-only (new fields OK) |
+| **Grain** | "One row per X" | "One event per Y" |
+| **Idempotency** | Upsert-based (update if exists) | Idempotent keys (event dedup) |
+| **Consumers** | Tables, queries, BI | Streams, real-time apps, webhooks |
+| **Versioning** | Major: rename/remove columns | Major: change event structure |
+| **Example** | `customers` table v2 | `user.signup` event v1.2 |
+
+### Event Contract Design (6 Steps Like Tables)
+
+**Paso 1: Event Discovery**
+- Event name: `orders.created`, `orders.cancelled`, etc.
+- Source system: Stripe, Shopify, internal service
+- Trigger: When does this event fire? (order placed, payment processed)
+- Expected frequency: e.g., "100-1000 events/minute during business hours"
+
+**Paso 2: Event Schema**
+```yaml
+event_type: "orders.created"
+version: "1.0"
+schema:
+  event_id:
+    type: STRING (UUID)
+    description: "Unique event identifier for deduplication"
+  timestamp:
+    type: TIMESTAMP_MS
+    description: "When event occurred (not when received)"
+  order_id:
+    type: BIGINT
+    description: "The order created"
+  customer_id:
+    type: BIGINT
+  amount_usd:
+    type: DECIMAL(10, 2)
+  # NEW FIELD (backward compatible)
+  currency_code:
+    type: STRING (default: "USD")
+    description: "Currency of amount (added v1.1)"
+```
+
+**Paso 3: Event SLAs**
+```yaml
+sla:
+  latency_p99: "< 1 second"  # 99th percentile event arrival
+  latency_p95: "< 500ms"
+  throughput_min: "100 events/min"
+  throughput_max: "10K events/min"
+  availability: "99.5%"
+  deduplication_window: "24 hours" (how long to track event_id for dedup)
+```
+
+**Paso 4: Event Versioning**
+```yaml
+versions:
+  v1.2:
+    released: "2026-01-15"
+    status: "current"
+    changes: "added currency_code (nullable, backward compatible)"
+  v1.1:
+    released: "2025-11-01"
+    changes: "added merchant_id (nullable)"
+  v1.0:
+    released: "2025-01-01"
+    status: "deprecated"
+    sunset_date: "2026-03-01"
+```
+
+**Paso 5: Event Consumers & Routing**
+```yaml
+consumers:
+  - name: "fraud-detection"
+    latency_requirement: "< 2 seconds for real-time scoring"
+    filtering: "amount_usd > 1000"
+  - name: "analytics-warehouse"
+    latency_requirement: "< 1 hour batch"
+    filtering: "none"
+  - name: "webhook-notifications"
+    latency_requirement: "< 5 seconds"
+    filtering: "customer_id in vip_list"
+```
+
+**Paso 6: Event Schemas Evolución**
+```yaml
+breaking_changes: NONE (event versioning prohibits breaking schema changes)
+additive_changes: OK
+  - new_field (nullable)
+  - enum values expansion
+  - type widening (INT → BIGINT)
+deprecation: field removal requires 8-week notice + v2.0
+```
+
+### Event Contract Example (Complete)
+
+```json
+{
+  "event_name": "orders.created",
+  "publisher": "payments-service",
+  "topic": "kinesis:orders-events OR eventhubs:orders-events",
+  "description": "Fired when new order is created",
+  "schema_version": "1.2",
+  "latency_sla_p99ms": 1000,
+  "fields": [
+    {"name": "event_id", "type": "string", "required": true},
+    {"name": "timestamp", "type": "timestamp_ms", "required": true},
+    {"name": "order_id", "type": "bigint", "required": true},
+    {"name": "amount_usd", "type": "decimal", "required": true},
+    {"name": "currency_code", "type": "string", "required": false}
+  ],
+  "example_event": {
+    "event_id": "evt_abc123xyz",
+    "timestamp": 1707384000000,
+    "order_id": 987654,
+    "amount_usd": 49.99,
+    "currency_code": "USD"
+  }
+}
+```
+
+---
+
+## OUTPUT ESPERADO
 
 1. **Contract YAML:** Completo (schema + SLA + versioning)
 2. **Comunicación:** Template de anuncio para consumidores

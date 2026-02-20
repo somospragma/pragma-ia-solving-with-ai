@@ -58,6 +58,58 @@
 
 ---
 
+## 🎯 CUÁNDO HACER TUNING vs. REDESIGN ARQUITECTÓNICO
+
+**Use esta sección ANTES de proponer soluciones, para entender el scope del problema.**
+
+### Síntomas de TUNING PROBLEMS (Quick Fix, < 1-2 horas)
+
+✅ **Hacer tuning si:**
+- Data growth is LINEAR: 5x más data → 5x más tiempo (expected scaling)
+- Skew is DETECTABLE y FIXABLE: Some partitions 10x slower → Apply salting to hot keys
+- Memory pressure visible: Shuffle spill-to-disk logs → Increase executor memory
+- GC overhead high: High GC time in logs → Adjust memory/heap ratio
+- Task durations SIMILAR: All tasks finish ~same time, queue time is variance → Shuffle parallelism fix
+
+**Quick wins típicos:**
+- Increase worker count + memory (vertical + horizontal scaling)
+- Apply salting para hot keys (skew mitigation)
+- Configure shuffle memory fraction (memory tuning)
+- Optimize join order (filter before broadcast)
+- Enable caching if data is reused
+
+---
+
+### Síntomas de REDESIGN PROBLEMS (Strategic Change, > 1 day work)
+
+⚠️ **Consider redesign si:**
+- Data growth is EXPONENTIAL: 5x más data → 25x+ más tiempo (architectural inefficiency)
+- Skew CANNOT be fixed: Data distribution inherently imbalanced (business logic, not data skew)
+- Job hits resource CEILING: Max memory/workers still insufficient → Architecture can't scale
+- Timeout happened even with MAX resources → Current compute model doesn't fit workload
+- Stream vs batch MISMATCH: Batch job with micro-changes → Switch to stream (Kappa architecture)
+
+**Redesign ejemplos:**
+- Lambda → Kappa (batch → streaming)
+- Single-stage → Multi-stage medallion (raw → curated → serving)
+- Join all tables → Materialized views + dimensional modeling
+- Daily scheduled → Event-driven architecture
+
+**Decision rule:**
+```
+IF (actual_time / expected_time) > (data_growth ^ 1.2)
+  THEN redesign needed
+ELSE tuning sufficient
+```
+
+**Example:**
+- Data grew 10x (300 GB → 3 TB)
+- Expected: ~10x time (1 hour → 10 hours)
+- Actual: 100 hours
+- Ratio: 100 / 10 = 10x exponential → REDESIGN required
+
+---
+
 ### REFERENCIAS RELACIONADAS
 
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/02-guidelines.md` (Sección 2.9 Performance & Optimization)

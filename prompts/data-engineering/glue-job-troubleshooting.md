@@ -257,6 +257,96 @@ Síntoma observado → Categoría probable:
 - Eliminate causes progressively based on observable evidence
 - Narrow to most probable cause category
 
+---
+
+### ⚡ FASE 2.5: NEXT STEP Actions (What to Do After Diagnosis)
+
+**After identifying the category, follow EXACTLY these next steps:**
+
+#### ✅ If Categoría 1: State Discrepancy
+
+**Next step workflow:**
+1. **Collect evidence** (5 min):
+   - Take screenshot of job state in UI (RUNNING)
+   - Export logs from CloudWatch/Log Analytics for last 30 minutes
+   - Note exact timestamp of state divergence
+
+2. **Self-serve fix options:**
+   - IF timeout issue: Increase job timeout parameter (see 03-technology) → Redeploy → Rerun
+   - IF memory issue: Manually scale up executor memory (vertical scaling) → Test in staging → Redeploy
+   - IF network/external: Verify external service availability (DB, API) → Check connectivity → Rerun
+
+3. **Escalate if (after 30 min investigation):**
+   - State still discrepant after fix attempts
+   - Infrastructure issue suspected (S3 inaccessible, network firewall)
+   - → **Escalate to Data Platform / SRE** with: logs + fix attempts + timeline
+
+---
+
+#### ⚡ If Categoría 2: Resource Contention (Slow)
+
+**Next step workflow:**
+1. **Quick diagnosis** (15 min):
+   - Is this data skew (fixable by salting) or resource ceiling (needs redesign)?
+   - Use: "Cuándo hacer tuning vs redesign" section in performance-optimization.md
+
+2. **Self-serve fix (if tuning):**
+   - Apply salting to hot keys OR increase executor memory OR add workers
+   - Test in staging before prod
+   - Reference: glue-jobs-patterns.md for code examples
+   - Rerun and monitor metrics
+
+3. **Escalate if (after 1 hour tuning):**
+   - Performance doesn't improve despite tuning
+   - Max resources still insufficient
+   - → **Escalate to Data Platform + Data Architect** with: metrics + tuning attempts + redesign hypothesis
+
+---
+
+#### 🔴 If Categoría 3: Memory Exhaustion (OOM)
+
+**Next step workflow:**
+1. **Immediate action** (5 min):
+   - This is **BLOCKING** — job cannot complete; must act now
+   - Identify WHERE OOM occurred (in which operation: join, broadcast, shuffle, aggregation?)
+
+2. **Self-serve fix:**
+   - If broadcast overload: Use sort-merge join instead OR split large table
+   - If executor heap insufficient: Increase executor memory (see 03-technology)
+   - If shuffle spill: Increase shuffle memory fraction
+   - Redeploy and rerun immediately
+
+3. **Escalate if (after first fix attempt fails):**
+   - OOM persists even with max memory
+   - → **Escalate to Data Platform / SRE** with: exact OOM message + memory config + job logs
+   - **SRE action:** Investigate memory limit, consider job redesign (streaming vs batch, map-reduce structure)
+
+---
+
+#### 🔄 If Categoría 4: State Management (Duplicates)
+
+**Next step workflow:**
+1. **Verify the problem** (10 min):
+   - Count existing rows in output table BEFORE rerun
+   - Count rows after rerun
+   - Difference = duplicates (YES, escalate; NO, was false alarm)
+
+2. **Self-serve fix:**
+   - Enable state persistence in job config:
+     - **AWS Glue:** Enable job bookmarks or implement checkpoint logic
+     - **Azure Synapse:** Enable checkpoint context in Spark notebook
+     - **Azure Data Factory:** Implement watermark pattern (metadata table tracking)
+   - Reference: 03-technology → feature setup section
+   - Optionally: Manual state reset if bookmarks corrupted
+   - Rerun and verify output deduplication
+
+3. **Escalate if (after state reset fails):**
+   - Duplicates persist OR state reset error occurred
+   - → **Escalate to Data Platform** with: duplicate row sample + state config + error message
+   - **Data Platform action:** Investigate state storage location (S3 bookmarks, table corruption)
+
+---
+
 ### Fase 3: Recomendación de Acción
 - Reference 03-technology for tuning parameters
 - Reference 06-process for operational runbook sequence

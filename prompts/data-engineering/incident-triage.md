@@ -82,7 +82,71 @@ Mitigación rápida:
 
 ---
 
-### REFERENCIAS RELACIONADAS
+## 🚨 ESCALATION MATRIX & SLA
+
+**Use esta tabla para saber cuándo escalar y a quién, según el tipo de incidente:**
+
+### Incidente P1 (CRÍTICO): Datos no llegaron, SLA breached
+
+| Paso | Quién | Acción | SLA |
+|------|-------|--------|-----|
+| **Detección** | On-Call Engineer | Alert in Slack + incident tracker | <2 min |
+| **Diagnosticación** | Data Engineer | Follow "Datos no llegaron" checklist | <5 min |
+| **Escala inmediata (si infraestructura)** | Data Platform / SRE | Check S3/ADLS buckets, connectivity, schema registry | <5 min total |
+| **Escala inmediata (si source)** | Data Owner (upstream team) | Check source system availability, CDC | <5 min total |
+| **Mitigación** | On-Call Engineer | Trigger manual rerun with prior window; notify consumers | <15 min total |
+| **Resolution** | Data Engineer + Data Owner | Root cause analysis + permanent fix | <4 hours |
+
+---
+
+### Incidente P2 (MAYOR): Schema breaking change, partial data loss
+
+| Paso | Quién | Acción | SLA |
+|------|-------|--------|-----|
+| **Detección & Triage** | Data Engineer | Determine: compatible vs breaking | <10 min |
+| **If backward compatible** | Data Engineer | Update schema, rescan validations, resume | <1 hour |
+| **If breaking** | Data Owner | Block ingest; decide migration/revert | <15 min total |
+| **Impact notification** | Data Owner + Analytics leads | Communicate with downstream consumers | <15 min |
+| **Recovery** | Data Platform + Data Engineer | If data lost: backfill or rollback | <4 hours |
+| **Prevention** | Data Owner | Update data contract; implement schema validation in CI | <1 week |
+
+---
+
+### Incidente P3 (MENOR): Job slow, intermittent errors, no SLA breach yet
+
+| Paso | Quién | Acción | SLA |
+|------|-------|--------|-----|
+| **Diagnosis** | Data Engineer | Self-serve using performance-optimization.md | <1 hour |
+| **Quick fix** | Data Engineer | Apply tuning (scale up, salting, retry policy) in staging | <1 hour |
+| **Test & Deploy** | Data Engineer | Validate in staging; monitor in production | <2 hours |
+| **Escalate if unsolved** | Data Platform SRE | If > 2 hours: investigate infrastructure or design | <4 hours |
+| **Root cause** | Data Engineer + Data Platform | Permanent fix (monitoring, alerting, redesign) | <1 week |
+
+---
+
+### Guía Rápida: ¿Cuándo escalar?
+
+- **Escalar a Data Platform / SRE si:** Infraestructura issue (S3 bucket inaccessible, network timeout, service degradation)
+- **Escalar a Data Owner si:** Data/source issue (schema change, upstream API changed, CDC lag)
+- **Escalar a Product/Business si:** SLA breach affecting external customers (revenue impact)
+- **Self-serve if:** Single job performance issue solvable with tuning (< 2 hours diagnosed)
+
+---
+
+### Comunicación a Stakeholders (Template)
+
+**For P1 SLA breach:**
+```
+🚨 #data-incident: <pipeline name> SLA breached
+- Impact: <X rows> not loaded to <table>; <Y downstream jobs> affected
+- Status: Investigating (see runbook: <link>)
+- ETA: <time to mitigation>
+- Owner: @Data-Platform oncall
+```
+
+---
+
+## 📚 REFERENCIAS RELACIONADAS
 
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/06-process.md` (Sección 5.4 Runbook Degradación)
 - **Instrucciones:** `instructions_or_rules/data-engineering/modular/04-quality.md` (Sección 4.5 Monitoring & Metrics)
