@@ -112,4 +112,27 @@ Antes de mergear una PR, validar:
 - **SQL:** Usa linters (`sqlfluff`) y formatters; mantén SQL legible y optimizable.
 - **Config validation:** Usa Pydantic o dataclasses para validar configuraciones al startup.
 
+## 2.14. Object-Oriented Design
+
+- **Cuándo usar clases:** Para encapsular estado y comportamiento (conectores, transformadores, value objects). Usa funciones puras para lógica simple.
+- **Herencia vs composición:** Prefiere composición (inyectar dependencias) sobre herencia profunda; evita jerarquías complejas.
+- **Patrones recomendados:**
+  - **Factory:** Crear conectores o transformadores sin conocer detalles (CSV vs Parquet connector).
+  - **Strategy:** Diferentes estrategias de validación o transformación; inyectable en tiempo de ejecución.
+  - **Builder:** Construir objetos complejos (DataFrames config, Pipeline specs) paso a paso.
+  - **Dependency Injection:** No hardcodees conectores; inyéctalos via constructor o método.
+  
+- **Encapsulación:** Define atributos privados (`_internal`) para detalles internos; expone solo API pública clara.
+- **Inmutabilidad:** Usa dataclasses inmutables o frozen dataclasses para value objects (schemas, contratos).
+- **Interfaces/Protocolos:** Define contratos claros (Python: `@abc.abstractmethod` o `Protocol`); facilita testing con mocks.
+- **Igualdad y comparación:** Implementa `__eq__` y `__hash__` para value objects si los usas en sets/dicts.
+- **Serialización:** Usa `dataclass` o Pydantic para objetos que necesitan ser JSON/YAML; facilita configuración y logging.
+
+### Ejemplos en Data Engineering
+
+- **Conector (Factory pattern):** Clase base `DataConnector` con implementaciones concretas (S3Connector, DatabaseConnector); factory decide cuál instanciar.
+- **Transformador (Strategy pattern):** Clase `Transformer` que recibe strategy de `TransformationRule` inyectada; permite cambiar reglas sin recompilar.
+- **Validador (Value object):** Clase `DataValidationRule` inmutable que describe qué validar (field, type, constraint); reutilizable en múltiples jobs.
+- **Pipeline builder:** Encadena pasos con `Pipeline.add_step().add_step().build()`; patrón fluento y legible.
+
 ```

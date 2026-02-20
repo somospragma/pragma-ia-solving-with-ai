@@ -1,6 +1,6 @@
 # pragma-ia-solving-with-ai
 
-Repositorio que busca centralizar distintos artefactos de IA, como: Instructions, Prompts y Chatmodes.
+Repositorio que busca centralizar distintos artefactos de IA, como: Instructions, Prompts y Agents.
 
 ## 🚀 Guía de Inicio Rápido
 
@@ -13,7 +13,7 @@ Repositorio que busca centralizar distintos artefactos de IA, como: Instructions
 ## Estructura del Repositorio
 
 ```plaintext
-📁 chatmodes/       → Modos de chat personalizados
+📁 .github/agents/  → Agentes de chat personalizados
 📁 instructions/    → Instrucciones personalizadas por chapter y estándares
 📁 prompts/         → Prompts reutilizables para tareas específicas  
 📄 CONTRIBUTING.md  → Guía para contribuir al repositorio
@@ -30,11 +30,11 @@ Repositorio que busca centralizar distintos artefactos de IA, como: Instructions
 
 Actualmente, los Agentes ofrecen diversas formas para personalizar la asistencia de la Inteligencia Artificial, entre esas destacan:
 
-| **📋 [Instrucciones Personalizadas](#instrucciones-personalizadas)** | **🎯 [Prompts Reutilizables](#prompts-reutilizables)** | **🧩 [Modos de Chat (SOLO Copilot)](#modos-de-chat-personalizados-en-github-copilot)** |
+| **📋 [Instrucciones Personalizadas](#instrucciones-personalizadas)** | **🎯 [Prompts Reutilizables](#prompts-reutilizables)** | **🤖 [Agentes de Chat (SOLO Copilot)](#agentes-de-chat-personalizados-en-github-copilot)** |
 | --- | --- | --- |
-| Define pautas comunes para tareas como generación de código, revisiones y mensajes de commit. Describe _cómo_ deben realizarse las tareas. | Crea prompts reutilizables e independientes para tareas específicas. Describe _qué_ debe hacerse con pautas opcionales específicas de la tarea. | Define el comportamiento del chat, herramientas disponibles y patrones de interacción con el código base dentro de límites específicos para cada solicitud. |
+| Define pautas comunes para tareas como generación de código, revisiones y mensajes de commit. Describe _cómo_ deben realizarse las tareas. | Crea prompts reutilizables e independientes para tareas específicas. Describe _qué_ debe hacerse con pautas opcionales específicas de la tarea. | Define el comportamiento del agente, contexto precargado, herramientas disponibles y patrones de interacción con el código base especializado para dominios particulares. |
 
-> **💡 Pro Tip:** Las instrucciones personalizadas solo afectan al Chat (no a las completaciones de código en línea). Puedes combinar los tres tipos de personalización: usa instrucciones personalizadas para pautas generales, archivos de prompts para tareas específicas y modos de chat para controlar el contexto de interacción.
+> **💡 Pro Tip:** Las instrucciones personalizadas solo afectan al Chat (no a las completaciones de código en línea). Puedes combinar los tres tipos de personalización: usa instrucciones personalizadas para pautas generales, archivos de prompts para tareas específicas y agentes de chat para controlar el contexto de interacción especializado.
 
 ### Instrucciones Personalizadas
 
@@ -47,7 +47,8 @@ Instrucciones específicas de equipo y proyecto para mejorar el comportamiento d
 | [📱 Frontend](instructions/frontend/) | Instrucciones para desarrollo frontend (React, Angular, Vue, etc.) |
 | [⚙️ Backend](instructions/backend/) | Instrucciones para desarrollo backend (APIs, bases de datos, etc.) |
 | [📲 Mobile](instructions/mobile/) | Instrucciones para desarrollo móvil (React Native, Flutter, etc.) |
-| [🚀 DevOps](instructions/devops/) | Instrucciones para DevOps e infraestructura |
+| [� Data Engineering](instructions_or_rules/data-engineering/) | Instrucciones para pipelines de datos, ingesta, calidad, operación |
+| [�🚀 DevOps](instructions/devops/) | Instrucciones para DevOps e infraestructura |
 | [🧪 QA & Testing](instructions/qa-testing/) | Instrucciones para testing y quality assurance |
 | [🔄 Transversal](instructions/transversal/) | Instrucciones transversales aplicables a múltiples áreas |
 
@@ -73,7 +74,8 @@ Plantillas de prompts listas para usar para escenarios de desarrollo específico
 | [📱 Frontend](prompts/frontend/) | Prompts para desarrollo frontend (React, Angular, Vue, etc.) |
 | [⚙️ Backend](prompts/backend/) | Prompts para desarrollo backend (APIs, bases de datos, etc.) |
 | [📲 Mobile](prompts/mobile/) | Prompts para desarrollo móvil (React Native, Flutter, etc.) |
-| [🚀 DevOps](prompts/devops/) | Prompts para DevOps e infraestructura |
+| [� Data Engineering](prompts/data-engineering/) | Prompts para validación de pipelines, calidad de datos, performance |
+| [�🚀 DevOps](prompts/devops/) | Prompts para DevOps e infraestructura |
 | [🧪 QA & Testing](prompts/qa-testing/) | Prompts para testing y quality assurance |
 | [🔄 Transversal](prompts/transversal/) | Prompts transversales aplicables a múltiples áreas |
 
@@ -83,7 +85,7 @@ Plantillas de prompts listas para usar para escenarios de desarrollo específico
 
 > 💡 **Uso en Amazon Q Developer**: Guarda estos prompts en tu biblioteca personal usando `@Prompts > Create a new prompt` en el chat de Amazon Q. Los prompts se almacenan en `~/.aws/amazonq/prompts/` y pueden reutilizarse con `@nombre-del-prompt` en cualquier conversación. Para más detalles, consulta la [documentación oficial de Prompt Library](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/context-prompt-library.html).
 
-### Modos de Chat Personalizados en GitHub Copilot
+### Agentes de Chat Personalizados en GitHub Copilot
 
 Los modos de chat personalizados definen comportamientos específicos y herramientas para GitHub Copilot Chat, permitiendo asistencia mejorada consciente del contexto para tareas o flujos de trabajo particulares.
 
@@ -91,18 +93,19 @@ Los modos de chat personalizados definen comportamientos específicos y herramie
 
 | Chapter | Descripción |
 | -------- | ----------- |
-| [📱 Frontend](chatmodes/frontend/) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
-| [⚙️ Backend](chatmodes/backend/) | Chat modes para desarrollo backend (APIs, bases de datos, etc.) |
-| [📲 Mobile](chatmodes/mobile/) | Chat modes para desarrollo móvil (React Native, Flutter, etc.) |
-| [🚀 DevOps](chatmodes/devops/) | Chat modes para DevOps e infraestructura |
-| [🧪 QA & Testing](chatmodes/qa-testing/) | Chat modes para testing y quality assurance |
-| [🔄 Transversal](chatmodes/transversal/) | Chat modes transversales aplicables a múltiples áreas |
+| [📱 Frontend](.github/agents/frontend.agent.md) | Chat modes para desarrollo frontend (React, Angular, Vue, etc.) |
+| [⚙️ Backend](.github/agents/backend.agent.md) | Chat modes para desarrollo backend (APIs, bases de datos, etc.) |
+| [📲 Mobile](.github/agents/mobile.agent.md) | Chat modes para desarrollo móvil (React Native, Flutter, etc.) |
+| [📦 Data Engineering](.github/agents/data-engineering.agent.md) | Agente para Data Engineering con validación, calidad y performance (13 instructions + 5 prompts + 5 resources) |
+| [�🚀 DevOps](.github/agents/devops.agent.md) | Chat modes para DevOps e infraestructura |
+| [🧪 QA & Testing](.github/agents/qa-testing.agent.md) | Chat modes para testing y quality assurance |
+| [🔄 Transversal](.github/agents/transversal.agent.md) | Chat modes transversales aplicables a múltiples áreas |
 
 #### Ejemplos Disponibles - Chat Modes
 
 | Título | Descripción |
 | ------ | ----------- |
-| [Ejemplo de Chatmode](chatmodes/example.chatmode.md) | Pendiente por implementar. |
+| [Ejemplo de Chatmode](.github/agents/example.agent.md) | Pendiente por implementar. |
 
 > 💡 **Uso**: Crea nuevos modos de chat usando el comando `Chat: Configure Chat Modes...`, luego cambia tu modo de chat en la entrada de Chat de _Agent_ o _Ask_ a tu propio modo.
 

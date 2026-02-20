@@ -2,12 +2,12 @@ name: "MCP - Ingeniería de Datos"
 description: "Instrucciones y reglas para diseñar, implementar y operar MCPs de Ingeniería de Datos en proyectos Pragma."
 applyTo: data-engineering
 
-> Orquestador modular completo: `modular/instructions.md`
+> Orquestrador modular completo: [modular/instructions.md](modular/instructions.md)
 
 **Meta**
 - **Owner:** Data Engineering Chapter
 - **Audience:** Ingenieros de datos, arquitectos, SREs, líderes técnicos
-- **Template:** ../_estandar-instructions/instructions-orchestrator-template.md
+- **Template:** [instructions-orchestrator-template.md](../_estandar-instructions/instructions-orchestrator-template.md)
 - **Version:** 1.0
 
 **Reglas Críticas (leer primero)**
