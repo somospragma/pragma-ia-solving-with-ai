@@ -13,10 +13,11 @@ Repositorio que busca centralizar distintos artefactos de IA, como: Instructions
 ## Estructura del Repositorio
 
 ```plaintext
-📁 chatmodes/       → Modos de chat personalizados
-📁 instructions/    → Instrucciones personalizadas por chapter y estándares
-📁 prompts/         → Prompts reutilizables para tareas específicas  
-📄 CONTRIBUTING.md  → Guía para contribuir al repositorio
+📁 chatmodes/               → Modos de chat personalizados
+📁 instructions_or_rules/   → Instrucciones personalizadas por chapter y estándares
+📁 prompts/                 → Prompts reutilizables para tareas específicas  
+📁 resources/               → Recursos reutilizables invocados desde el Pragma MCP
+📄 CONTRIBUTING.md          → Guía para contribuir al repositorio
 ```
 
 ## 📝 Contribuir
