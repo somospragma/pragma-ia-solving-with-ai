@@ -1,12 +1,12 @@
 ---
-name: flutter-error-handling
+name: flutter-error
 description: Skill avanzado para manejo de errores en Flutter con Dart 3.3+, usando fpdart (Either/TaskEither),jerarquía de excepciones con sealed classes, integración con Riverpod y BLoC/Cubit, y manejo de errores globales con FlutterError.onError y PlatformDispatcher. Úsalo siempre que el usuario mencione errores en Flutter, excepciones, Either pattern, Result type, manejo de fallos en APIs REST con Dio, Firebase, bases de datos locales (ObjectBox, Drift/SQLite), crashes inesperados, o cuando pida estructura de archivos para manejo de errores. También aplica cuando el usuario quiera mejorar su arquitectura de errores, refactorizar try/catch dispersos, o implementar error boundaries. Úsalo incluso si el usuario solo menciona "cómo manejar errores en Flutter"sin especificar el patrón exacto.
 metadata:
   author: Pragma Mobile Chapter
   version: "1.0"
 ---
 
-# Flutter Advanced Error Handling
+# Flutter Advanced Error
 
 Este documento define las reglas y mejores prácticas para el manejo de errores en aplicaciones Flutter siguiendo los estándares de Pragma.
 
