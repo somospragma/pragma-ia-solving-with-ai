@@ -1,7 +1,6 @@
 ---
 name: flutter-environments
-description: >
-  Skill avanzado para configuración de flavors, schemes, build variants y ambientes de compilación en Flutter para iOS y Android, usando envied con obfuscate:true para proteger secrets, Firebase por flavor, feature flags, signing config y CI/CD con GitHub Actions, Fastlane y Azure DevOps. Úsalo siempre que el usuario mencione flavors, ambientes, dev/staging/prod, build variants, schemes, xcconfig, productFlavors, envied, variables de entorno, .env, secrets, Firebase por ambiente, google-services.json, GoogleService-Info.plist, signing, keystore, certificates, CI/CD con Flutter, o quiera separar configuración entre ambientes. También aplica cuando el usuario quiera agregar un nuevo ambiente, migrar de un solo main.dart a múltiples entry points, o proteger API keys en el binario compilado.
+description: Skill avanzado para configuración de flavors, schemes, build variants y ambientes de compilación en Flutter para iOS y Android, usando envied con obfuscate:true para proteger secrets, Firebase por flavor, feature flags, signing config y CI/CD con GitHub Actions, Fastlane y Azure DevOps. Úsalo siempre que el usuario mencione flavors, ambientes, dev/staging/prod, build variants, schemes, xcconfig, productFlavors, envied, variables de entorno, .env, secrets, Firebase por ambiente, google-services.json, GoogleService-Info.plist, signing, keystore, certificates, CI/CD con Flutter, o quiera separar configuración entre ambientes. También aplica cuando el usuario quiera agregar un nuevo ambiente, migrar de un solo main.dart a múltiples entry points, o proteger API keys en el binario compilado.
 metadata:
   author: Pragma Mobile Chapter
   version: "1.0"
