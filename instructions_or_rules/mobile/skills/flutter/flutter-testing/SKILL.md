@@ -41,21 +41,21 @@ Flutter requiere una estrategia multi-nivel de testing para garantizar calidad. 
 
 | Tipo de Prueba | Objetivo | Velocidad | Cobertura | Documento de Referencia |
 |---|---|---|---|---|
-| **Unit Tests** | Lógica aislada (UseCases, Repositories, Mappers) | ⚡⚡⚡ Rápido | Alta en Domain | [unit-testing-reference.md](references/unit-testing-reference.md) |
-| **Mutation Tests** | Validar efectividad de los tests existentes | 🐢 Muy lento | Complementaria | [mutation-testing-reference.md](references/mutation-testing-reference.md) |
-| **Widget Tests** | Renderizado y interacción de UI | ⚡⚡ Medio | Media en Presentation | [widget-testing-reference.md](references/widget-testing-reference.md) |
-| **Integration Tests** | Flujos completos end-to-end | 🐢 Lento | Baja pero crítica | [integration-testing-reference.md](references/integration-testing-reference.md) |
-| **Golden Tests** | Diseño visual y regresiones de UI | ⚡⚡ Medio | Complementaria | [golden-testing-reference.md](references/golden-testing-reference.md) |
+| **Unit Tests** | Lógica aislada (UseCases, Repositories, Mappers) | ⚡⚡⚡ Rápido | Alta en Domain | [unit-testing.md](references/unit-testing.md) |
+| **Mutation Tests** | Validar efectividad de los tests existentes | 🐢 Muy lento | Complementaria | [mutation-testing.md](references/mutation-testing.md) |
+| **Widget Tests** | Renderizado y interacción de UI | ⚡⚡ Medio | Media en Presentation | [widget-testing.md](references/widget-testing.md) |
+| **Integration Tests** | Flujos completos end-to-end | 🐢 Lento | Baja pero crítica | [integration-testing.md](references/integration-testing.md) |
+| **Golden Tests** | Diseño visual y regresiones de UI | ⚡⚡ Medio | Complementaria | [golden-testing.md](references/golden-testing.md) |
 
 ### Temas Especializados
 
-**Mocking & Dependency Injection** - [mocking-reference.md](references/mocking-reference.md)
+**Mocking & Dependency Injection** - [mocking.md](references/mocking.md)
 - ✅ Cuándo usar: En TODOS los tests (unit, widget, integration) cuando necesites aislar dependencias externas
 - ✅ Casos comunes: HTTP clients, repositorios, servicios, puertos I/O
 - ✅ Decisión crítica: Mockito (type-safe, @GenerateMocks) vs Mocktail (manual, pragmático)
 - Ver SKILL.md sección "Decisión: Mockito vs Mocktail" para elegir automáticamente
 
-**Testing Native Plugins** - [native-plugins-testing-reference.md](references/native-plugins-testing-reference.md)
+**Testing Native Plugins** - [native-plugins-testing.md](references/native-plugins-testing.md)
 - ✅ Cuándo usar: Cuando tu app depende de plugins nativos (GPS, cámara, permisos, sensores)
 - ✅ Desafío: No puedes testear código Kotlin/Swift directamente, necesitas aislar
 - ✅ Patrón: Crear interface en Dart → Mock MethodChannel → Test sin compilar nativo
@@ -254,7 +254,7 @@ verifyNoMoreInteractions(mockRepository);
 
 ### Usar Mockito (Official Flutter para HTTP/Servicios Externos)
 
-Ver: [Mockito (Official Flutter Approach)](references/unit-testing-reference.md#mockito-official-flutter-approach) en unit-testing-reference para detalles con @GenerateMocks.
+Ver: [Mockito (Official Flutter Approach)](references/unit-testing.md#mockito-official-flutter-approach) en unit-testing-reference para detalles con @GenerateMocks.
 
 ### Reglas de Mocking
 - ✅ Mockear todas las dependencias externas
@@ -321,7 +321,7 @@ open coverage/html/index.html
 
 ## Golden Tests (Testing Visual)
 
-**→ Referencia detallada: [Golden Testing Reference](references/golden-testing-reference.md)**
+**→ Referencia detallada: [Golden Testing Reference](references/golden-testing.md)**
 
 ### Para widgets críticos de UI
 ```dart
@@ -537,13 +537,13 @@ Antes de considerar una feature completa, verificar:
 Este SKILL proporciona una visión general. Para profundizar en temas específicos, consulta:
 
 - **[INDEX de Referencias](references/INDEX.md)** - Guía completa de todos los documentos
-- **[Unit Testing Reference](references/unit-testing-reference.md)** - Tests unitarios exhaustivos
-- **[Mutation Testing Reference](references/mutation-testing-reference.md)** - Validar efectividad de tests
-- **[Widget Testing Reference](references/widget-testing-reference.md)** - UI testing detallado
-- **[Integration Testing Reference](references/integration-testing-reference.md)** - Flujos end-to-end
-- **[Golden Testing Reference](references/golden-testing-reference.md)** - Testing visual
-- **[Mocking & Dependency Injection Reference](references/mocking-reference.md)** - Patrones de mocking
-- **[Native Plugins & Dependencies Reference](references/native-plugins-testing-reference.md)** - Testing de plugins
+- **[Unit Testing Reference](references/unit-testing.md)** - Tests unitarios exhaustivos
+- **[Mutation Testing Reference](references/mutation-testing.md)** - Validar efectividad de tests
+- **[Widget Testing Reference](references/widget-testing.md)** - UI testing detallado
+- **[Integration Testing Reference](references/integration-testing.md)** - Flujos end-to-end
+- **[Golden Testing Reference](references/golden-testing.md)** - Testing visual
+- **[Mocking & Dependency Injection Reference](references/mocking.md)** - Patrones de mocking
+- **[Native Plugins & Dependencies Reference](references/native-plugins-testing.md)** - Testing de plugins
 
 ### Paquetes Oficiales
 - [test](https://pub.dev/packages/test) - Framework de testing de Dart

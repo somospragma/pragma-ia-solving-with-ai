@@ -1,7 +1,9 @@
 ---
-name: skill-changelog-management
+name: changelog-management
 description: Maintain clear, organized release notes following Keep a Changelog and Semantic Versioning standards. This skill ensures your changelog communicates changes effectively to users and developers.
-license: Complete terms in LICENSE.txt
+metadata:
+  author: Pragma Mobile Chapter
+  version: "1.0"
 ---
 
 # Changelog Management Skill

@@ -1,7 +1,9 @@
 ---
-name: skill-commit-conventions
+name: commit-conventions
 description: Conventional Commits specification for commit messages including types (feat, fix, docs, etc), scopes, and message body/footer conventions. Use when writing commit messages, understanding commit structure, or reviewing commit history.
-license: Complete terms in LICENSE.txt
+metadata:
+  author: Pragma Mobile Chapter
+  version: "1.0"
 ---
 
 # Commit Conventions
