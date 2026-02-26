@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- _Pending documentation for upcoming features_
+
+### Changed
+
+- _No changes in unreleased_
+
+### Fixed
+
+- _No fixes in unreleased_
+
+---
+
+## [0.1.0] - 2026-02-25
+
+### Added
+
 - **Flutter Mobile Development**
   - Flutter advanced logging skills with console and RUM (Real User Monitoring) support
   - Flutter environments agent skills for development configuration
@@ -89,6 +105,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.0.1] - 2026-02-20
+
+### Added
+
+- **Mobile & Security Foundation**
+  - Flutter mobile security rules documentation with comprehensive evaluation guide
+  - OWASP Mobile Top 10 ruleset for Flutter applications
+  - Security best practices and evaluation guidelines
+  - Mobile security rules README documentation
+
+- **CloudOps Infrastructure**
+  - Terraform modules catalog for AWS infrastructure
+  - CloudOps comprehensive rules documentation
+  - AWS module details, capabilities, dependencies and URLs
+  - CloudOps resource integration framework
+
+- **DevSecOps Pipeline**
+  - DevSecOps rules and comprehensive guidelines
+  - DevSecOps prompts for pipeline implementation
+  - DevSecOps test and quality prompts
+  - Backend exception handling rules and evaluation prompts
+
+- **QA & Testing Foundation**
+  - QA testing rules with automation guidelines
+  - Playwright usage and best practices documentation
+  - Quality attributes guidelines for AI agents
+  - Full quality rules consolidation document
+
+- **Frontend Development Standards**
+  - React documentation with minimum development requirements
+  - Angular framework documentation and guidelines
+  - NextJS documentation and setup requirements
+  - React + Storybook enhanced documentation
+  - Frontend quality attributes and guidelines
+
+- **Architecture & Resources**
+  - Architecture rules resource framework
+  - MCP resources for CloudOps and DevSecOps
+  - Quality (Calidad) rules resource optimization
+  - Consolidated resource structure per MCP standards
+
+### Changed
+
+- **Documentation Organization**
+  - Migrated CloudOps rules to standard format with enhanced clarity
+  - Updated frontend framework documentation to assure minimum dev requirements
+  - Refactored README and instructions to point to Alejandria knowledge base
+  - Reorganized resources according to MCP server standards
+
+- **DevSecOps Structure**
+  - Adjusted DevSecOps rules for better clarity
+  - Refined backend exception handling prompts
+  - Migrated DevSecOps prompts from local server to remote MCP
+
+### Fixed
+
+- **References & Links**
+  - Fixed link to GitHub Copilot vs Amazon Q comparison in README
+  - Updated QA resource naming for consistency
+  - Refined architect rule resource referencing in framework
+
+---
+
 ## Comparison Links
 
 [unreleased]: https://github.com/somospragma/pragma-ia-solving-with-ai/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/somospragma/pragma-ia-solving-with-ai/compare/v0.0.1...v0.1.0
+[0.0.1]: https://github.com/somospragma/pragma-ia-solving-with-ai/releases/tag/v0.0.1
