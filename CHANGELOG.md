@@ -9,22 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- _Pending documentation for upcoming features_
-
-### Changed
-
-- _No changes in unreleased_
-
-### Fixed
-
-- _No fixes in unreleased_
-
----
-
-## [0.1.0] - 2026-02-25
-
-### Added
-
 - **Flutter Mobile Development**
   - Flutter advanced logging skills with console and RUM (Real User Monitoring) support
   - Flutter environments agent skills for development configuration
@@ -90,18 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed Flutter feature creation rules with variant and state usage guidance
   - Fixed Flutter security rules prompt documentation
   - Fixed steps for MCP Figma integration in UI rules
-
-### Deprecated
-
-- _No deprecated features in this release_
-
-### Removed
-
-- _No removed features in this release_
-
-### Security
-
-- _No security updates in this release_
 
 ---
 
@@ -170,6 +142,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Comparison Links
 
-[unreleased]: https://github.com/somospragma/pragma-ia-solving-with-ai/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/somospragma/pragma-ia-solving-with-ai/compare/v0.0.1...v0.1.0
+[unreleased]: https://github.com/somospragma/pragma-ia-solving-with-ai/compare/v0.0.1...HEAD
 [0.0.1]: https://github.com/somospragma/pragma-ia-solving-with-ai/releases/tag/v0.0.1
