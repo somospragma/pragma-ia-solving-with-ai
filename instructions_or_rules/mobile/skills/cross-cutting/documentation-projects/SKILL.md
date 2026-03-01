@@ -1,15 +1,6 @@
 ---
 name: documentation-projects
-description: >
-  Skill para crear, estructurar y mantener documentación de proyectos genérica, 
-  reutilizable y agnóstica al dominio. ACTÍVALO cuando el usuario mencione:
-  documentación, proyecto, especificaciones, arquitectura, requisitos, features, 
-  estructura, flujos de usuario, onboarding, specs, decision records, o cualquier 
-  conversación sobre documentar un proyecto nuevo o existente.
-  
-  USO RECOMENDADO: Usar SIEMPRE que se deba documentar un proyecto nuevo, 
-  completar documentación faltante, transformar documentación específica a genérica,
-  o validar calidad de documentación existente contra estándares.
+description: Skill para crear, estructurar y mantener documentación de proyectos genérica,  reutilizable y agnóstica al dominio. ACTÍVALO cuando el usuario mencione:documentación, proyecto, especificaciones, arquitectura, requisitos, features,  estructura, flujos de usuario, onboarding, specs, decision records, o cualquier  conversación sobre documentar un proyecto nuevo o existente. USO RECOMENDADO: Usar SIEMPRE que se deba documentar un proyecto nuevo, completar documentación faltante, transformar documentación específica a genérica,  o validar calidad de documentación existente contra estándares.
 ---
 
 # Skill: Project Documentation Structure
