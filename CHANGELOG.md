@@ -54,6 +54,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Backend rules draft for Java development standards
   - Architecture-related documentation
 
+- **Skills & Documentation**
+  - Documentation-projects skill for creating, validating, and maintaining project documentation
+    - Comprehensive SKILL.md with 7-document standardized structure (overview, requirements, architecture, tech-stack, features, implementation, user-flows)
+    - Domain-agnostic reference templates for Backend, Frontend, Mobile, QA, and Infrastructure projects
+    - Python validation scripts: completeness analyzer, structure validator, and documentation matrix generator
+    - Supports reusable documentation across different project types (microservices, SPAs, mobile apps, automation, IaC)
+
 ### Changed
 
 - **File Organization & Naming**
