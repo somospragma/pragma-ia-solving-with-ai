@@ -1,0 +1,1 @@
+Sigue las instrucciones configuradas en la ruta ./.agent/rules/rules.md
