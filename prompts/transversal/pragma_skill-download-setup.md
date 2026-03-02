@@ -1,80 +1,52 @@
-# Prompt: Descarga y Configuración de Skills desde Repositorio
+# Prompt: Descarga de Skill (estricto y simple)
 
-**Objetivo Principal:**
-Descargar una skill específica desde un repositorio remoto, almacenarla en una ruta local, validar si ya existe (para actualizar, no duplicar).
+## Objetivo
+Descargar una carpeta de skill desde un repositorio y dejarla en una ruta local, sin duplicados ni temporales.
 
-**Parámetros Configurables (Variables de Usuario):**
-- `REPOSITORY_URL`: URL del repositorio remoto (ej: https://github.com/anthropics/skills/)
-- `SKILL_FOLDER_PATH`: Ruta de la carpeta dentro del repositorio (ej: skills/skill-creator)
-- `LOCAL_STORAGE_PATH`: Ruta local del computador donde almacenar (ej: ~/.agent/skills/)
+## Parámetros
+- `REPOSITORY_URL` (obligatorio ej: https://github.com/anthropics/skills/tree/main/skills)
+- `SKILL_FOLDER_PATH` (obligatorio ej: skills/skill-creator)
+- `LOCAL_STORAGE_PATH` (obligatorio ej: ~/.agent/skills)
+- `BRANCH_NAME` (default: `main`)
 
----
+## Reglas de ejecución
+- Ejecutar en `zsh` interactivo con comandos simples, cortos y evitando inconsistencias.
+- Si falta un parámetro obligatorio: pregunta los valores.
+- Normalizar `LOCAL_STORAGE_PATH`: expandir `~` y remover `/` final.
+- Limpiar temporales siempre con `trap`.
+- Ejecutar comandos simples, y no devolver scripts largos.
+- Si `TARGET_DIR` existe, preguntar exactamente: **"¿Deseas eliminar la ruta existente y continuar?"**
+   - Si responde no: `STATUS=SKIPPED`, `ERROR_CODE=E_CONFIRM`, `LOCAL_STATE=SIN_CAMBIOS`.
+- No inventar resultados. Si hay duda o ambigüedad, preguntar antes de continuar.
+- Si una validación no puede completarse, reportar la limitación en la salida final.
 
-**Instrucciones:**
+## Flujo mínimo
+1. Validar `git`.
+2. Resolver `TARGET_DIR=${LOCAL_STORAGE_PATH}/$(basename ${SKILL_FOLDER_PATH})`.
+3. Si `TARGET_DIR` existe: pedir confirmación para eliminar.
+4. Validar rama con match exacto: `git ls-remote --heads` contra `refs/heads/$BRANCH_NAME`.
+5. Clonar optimizado: `--single-branch --filter=blob:none --sparse --no-checkout`.
+6. Configurar `sparse-checkout` solo para `SKILL_FOLDER_PATH`.
+7. Validar que la carpeta exista en el clon.
+8. Si confirma: eliminar y continuar. Si no: terminar como `SKIPPED`.
+9. Copiar con `cp -R` y validar conteo origen vs destino.
+10. Reportar salida estándar.
 
-### **Fase 1: Cuestionamiento y Claridad**
-- **PIENSA detenidamente, paso a paso**
-- Antes de proceder, valida estos parámetros:
-  - ¿El `REPOSITORY_URL` es correcto y accesible?
-  - ¿El `SKILL_FOLDER_PATH` existe dentro del repositorio?
-  - ¿El `LOCAL_STORAGE_PATH` está bien escrito? (ej: expandir `~` si aplica)
-  - ¿El repositorio requiere autenticación o token?
-- **Si tienes alguna duda, PREGUNTA** - No asumas ni inventes valores
+## Salida estándar (obligatoria)
+- `STATUS=SUCCESS|SKIPPED|FAILED`
+- `ERROR_CODE=NONE|E_PARAMS|E_BRANCH|E_PATH|E_PERMS|E_COUNT|E_RUNTIME|E_CONFIRM`
+- `LOCAL_STATE=CREADA_NUEVA|ACTUALIZADA|SIN_CAMBIOS`
+- `TARGET_DIR=...`
+- `FILES=...`
 
-### **Fase 2: Validación de Prerequisitos**
-1. Verifica si la ruta local `${LOCAL_STORAGE_PATH}` existe en el sistema.
-   - Si NO existe: créala con permisos de lectura-escritura.
-   - Si ya existe: continúa.
+## Códigos de error
+- `E_PARAMS`: parámetros inválidos o vacíos
+- `E_BRANCH`: rama inexistente o inaccesible
+- `E_PATH`: carpeta de skill no encontrada en repo
+- `E_PERMS`: error de permisos en destino
+- `E_COUNT`: conteo origen/destino no coincide
+- `E_CONFIRM`: usuario no autorizó eliminar ruta existente
+- `E_RUNTIME`: error no clasificado
 
-2. Determina si la carpeta `${SKILL_FOLDER_PATH}` **ya existe** dentro de `${LOCAL_STORAGE_PATH}`.
-   - Si existe → si es posible pregunta si se debe proceder con **ACTUALIZACIÓN** (reemplazar contenido, mantener estructura).
-   - Si NO existe → procedera con **CREACIÓN NUEVA**.
-
-### **Fase 3: Descarga desde Repositorio**
-1. Accede al repositorio remoto usando `${REPOSITORY_URL}`.
-2. Descarga **solo** la carpeta especificada en `${SKILL_FOLDER_PATH}`.
-3. Almacena el contenido en `${LOCAL_STORAGE_PATH}`.
-4. **Validación post-descarga:**
-   - Verifica que los archivos se hayan descargado completamente.
-   - Confirma la cantidad de archivos descargados.
-   - Si hay errores, reporta específicamente qué falló.
-
-### **Fase 4: Validación Post-Descarga**
-1. Verifica que la carpeta `${SKILL_FOLDER_PATH}` se encuentre en `${LOCAL_STORAGE_PATH}`.
-2. Confirma que todos los archivos se hayan transferido correctamente.
-3. Valida la estructura de directorios y que contenga los archivos esperados.
-
-### **Fase 5: Reporte Final y Validación**
-- **Estado de Descarga:** Exitosa / Con advertencias / Fallida (detalla si aplica)
-- **Estado de Carpeta Local:** Creada nueva / Actualizada
-- **Resumen de Archivos:** Número de archivos descargados y ubicación
-- **Próximos Pasos:** Listar acciones recomendadas para el usuario
-
-**Recomendación Opcional - Configuración de VS Code:**
-
-Aunque la skill está descargada y disponible, es recomendable configurar VS Code para optimizar la detección automática:
-
-1. Abre el archivo `settings.json` de VS Code:
-   - Ubicación macOS: `~/Library/Application Support/Code/User/settings.json`
-   - Ubicación Windows: `%APPDATA%\Code\User\settings.json`
-
-2. Busca o crea la clave `"chat.agentSkillsLocations"` con el siguiente formato:
-   ```json
-   "chat.agentSkillsLocations": {
-     "${LOCAL_STORAGE_PATH}": true
-   }
-   ```
-
-3. Si la configuración ya existe y contiene la referencia a `${LOCAL_STORAGE_PATH}`, no es necesario hacer cambios.
-
-4. Reinicia VS Code para que la skill sea detectada completamente.
-
----
-
-**Principios Aplicados:**
-- Genérico para cualquier gestor de repositorios
-- Variables claramente definidas para reutilización
-- Cuestionamiento activo integrado (no asume)
-- Validaciones en cada fase
-- Respuesta flexible según capacidades del agente
-- Reporte detallado al final
+## Configuración VS Code (opcional)
+Recomienda que se incluya en la configuración del ide `chat.agentSkillsLocations` con `${LOCAL_STORAGE_PATH}`.
