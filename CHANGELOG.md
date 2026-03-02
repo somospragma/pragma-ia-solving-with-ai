@@ -60,6 +60,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Domain-agnostic reference templates for Backend, Frontend, Mobile, QA, and Infrastructure projects
     - Python validation scripts: completeness analyzer, structure validator, and documentation matrix generator
     - Supports reusable documentation across different project types (microservices, SPAs, mobile apps, automation, IaC)
+  - Added reusable prompt for skill download and setup from remote repositories
+    - New file: `prompts/transversal/pragma_skill-download-setup.md`
+    - Includes prerequisite checks, update-vs-create validation, post-download verification, and final report guidance
+  - Added core project documentation set in `docs/`
+    - Includes overview, requirements, structure, tech stack, features, implementation guide, user flows, and docs index
+  - Added repository agent configuration files
+    - New files: `AGENTS.md` and `.agent/rules/rules.md`
+    - Establishes always-on repository rules, standards, and skills protocol for AI agents
 
 ### Changed
 
@@ -71,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `AuditIamUser.md` → `cloudops-AuditIamUser.md`
   - Updated Flutter mobile security rules format for AI agent evaluation
   - Updated Flutter security rules documentation for enhanced clarity
+  - Expanded `CONTRIBUTING.md` from placeholder to full contribution guide
+    - Added contribution flow, content standards, commit conventions, validation checklist, and FAQ
 
 ### Fixed
 
