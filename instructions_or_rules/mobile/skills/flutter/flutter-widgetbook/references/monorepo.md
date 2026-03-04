@@ -153,7 +153,7 @@ dependencies:
   flutter:
     sdk: flutter
   widgetbook: ^3.22.0
-  widgetbook_annotation: ^3.22.0
+  widgetbook_annotation: ^3.11.0
   my_app:
     path: ../
 
@@ -180,7 +180,7 @@ dependencies:
   flutter:
     sdk: flutter
   widgetbook: ^3.22.0
-  widgetbook_annotation: ^3.22.0
+  widgetbook_annotation: ^3.11.0
   my_design_system:
     path: ../
 
@@ -224,7 +224,7 @@ dependencies:
   flutter:
     sdk: flutter
   widgetbook: ^3.22.0
-  widgetbook_annotation: ^3.22.0
+  widgetbook_annotation: ^3.11.0
   my_design_system: ^1.0.0       # Melos resuelve el path automáticamente
   my_app: ^1.0.0                 # Melos resuelve el path automáticamente
 

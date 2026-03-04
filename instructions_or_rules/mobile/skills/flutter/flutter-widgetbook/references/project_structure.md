@@ -185,11 +185,11 @@ Si usa `@App` con `build_runner`, el archivo se detecta automáticamente.
 ### pubspec.yaml — dependencias requeridas
 ```yaml
 dependencies:
-  widgetbook: ^3.13.0
+  widgetbook: ^3.22.0
 
 dev_dependencies:
-  widgetbook_annotation: ^3.13.0
-  widgetbook_generator: ^3.13.0
+  widgetbook_annotation: ^3.11.0
+  widgetbook_generator: ^3.22.0
   build_runner: ^2.4.0
 ```
 
