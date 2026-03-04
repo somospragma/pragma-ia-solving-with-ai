@@ -56,7 +56,7 @@ Seguir estos pasos en orden:
 6. **Verificar estructura de carpetas** — leer `references/project_structure.md` paso 1. **Confirmar que existen `widgetbook_[appname]/lib/ui_system/` y `widgetbook_[appname]/lib/features/`**. Si no existen, crearlas ANTES de continuar. Nunca colocar use cases fuera de estas carpetas.
 7. **Analizar el widget/pantalla** — leer la clase completa: parámetros requeridos y opcionales, tipos, enums, callbacks, dependencias de estado o providers. Para pantallas: identificar también las dependencias de navegación, providers y servicios.
 8. **Detectar ubicación exacta** — ver `references/project_structure.md` paso 4 para determinar la ruta completa del archivo.
-9. **Planificar variantes** — ver `references/variants_guide.md` (componentes) o `references/features_guide.md` (pantallas) para decidir cuántos `@UseCase` necesita.
+9. **Planificar variantes** — ver `references/variants_guide.md` (componentes) o `references/features_guide.md` (pantallas) para decidir cuántos `@UseCase` necesita. **Regla de oro:** si el estado o el tipo visual del componente se controla con un parámetro del constructor (variant, isLoading, isEnabled, showIcon, iconPosition…) → usar un knob, NO crear un `@UseCase` separado. Solo crear múltiples `@UseCase` cuando el widget renderiza estructuras visuales radicalmente distintas que no pueden controlarse con parámetros.
 10. **Seleccionar knobs** — ver `assets/knobs_reference.md` para elegir el tipo de knob por cada parámetro.
 11. **Generar el use case con code preview** — seguir las convenciones de naming. Leer knobs en variables, llamar `context.setCodePreview(...)` con la instanciación del widget interpolando los valores, retornar el widget con esas mismas variables.
 12. **Verificar errores Dart antes de build_runner** — analizar todos los archivos `.use_case.dart`, `shared/` y cualquier helper creado, excluyendo `main.dart` y archivos generados. Ver sección "Verificación Dart pre-build" abajo. Corregir **todos** los errores antes de continuar.
@@ -180,8 +180,10 @@ Widget build[ComponentName][VariantName]UseCase(BuildContext context) { }
 ```
 
 **Ejemplos:**
-- Una variante → `buildPrimaryButtonUseCase`
-- Varias → `buildPrimaryButtonLoadingUseCase`, `buildPrimaryButtonDisabledUseCase`
+- Única variante → `buildPrimaryButtonUseCase`
+- Variantes estructuralmente distintas → `buildUploadButtonUploadingUseCase`, `buildUploadButtonSuccessUseCase`
+
+> **No** nombrar variantes por estados que se controlan con knobs (loading, disabled, withIcon): esos van como knobs dentro del mismo use case, no como `@UseCase` separados.
 
 ### Names de variantes
 - Una sola → `name: 'default'`
@@ -241,6 +243,9 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 import 'package:your_app/core/widgets/primary_button.dart';
 import '../../../shared/code_preview_addon.dart';
 
+// Ejemplo mínimo para ilustrar el patrón del code preview.
+// En un botón real, añadir también knobs de variant, size, icon, iconPosition,
+// showIcon, etc. — ver references/variants_guide.md § Regla de oro.
 @UseCase(name: 'default', type: PrimaryButton)
 Widget buildPrimaryButtonUseCase(BuildContext context) {
   // 1. Leer knobs en variables locales
@@ -389,7 +394,7 @@ widgetbook/lib/features/
 ### Específico UI System (componentes)
 - [ ] Todos los parámetros requeridos cubiertos con knobs
 - [ ] Parámetros visuales y de comportamiento usan knobs
-- [ ] Hay variantes para estados relevantes: loading, disabled, empty, error (si aplica)
+- [ ] Los estados `loading`, `disabled`, `empty`, `error` están cubiertos: como **knob** si son parámetros del constructor, como `@UseCase` separado solo si producen una estructura visual radicalmente distinta (ver `references/variants_guide.md` § Regla de oro)
 
 ### Específico Features (pantallas)
 - [ ] Estrategia de mocking elegida: Extracción o Mocking con librería (ver sección "Mocking de dependencias")
