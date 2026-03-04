@@ -22,8 +22,8 @@ Agregar Widgetbook solo como dependencia de desarrollo — no afecta el bundle d
 ```yaml
 # pubspec.yaml (proyecto principal)
 dev_dependencies:
-  widgetbook_annotation: ^3.13.0
-  widgetbook_generator: ^3.13.0
+  widgetbook_annotation: ^3.11.0
+  widgetbook_generator: ^3.22.0
   build_runner: ^2.4.0
 ```
 
@@ -44,14 +44,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.13.0
-  widgetbook_annotation: ^3.13.0
+  widgetbook: ^3.22.0
+  widgetbook_annotation: ^3.11.0
   # Importar el proyecto principal para acceder a los widgets reales
   your_app:
     path: ../
 
 dev_dependencies:
-  widgetbook_generator: ^3.13.0
+  widgetbook_generator: ^3.22.0
   build_runner: ^2.4.0
   flutter_test:
     sdk: flutter

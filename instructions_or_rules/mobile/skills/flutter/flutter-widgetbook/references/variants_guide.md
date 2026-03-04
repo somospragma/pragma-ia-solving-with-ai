@@ -31,26 +31,36 @@ que las otras no muestran.
 
 ## Estados que siempre hay que cubrir (si el widget los tiene)
 
-| Estado | `name` sugerido | Cuándo incluirlo |
-|---|---|---|
-| Estado base funcional | `'default'` | Siempre |
-| Cargando datos | `'loading'` | Si tiene estado de carga |
-| Deshabilitado | `'disabled'` | Si tiene `enabled: false` o similar |
-| Sin datos / vacío | `'empty'` | Si puede renderizar sin contenido |
-| Error | `'error'` | Si tiene estado de error visible |
-| Con contenido máximo | `'full'` | Si el layout puede saturarse |
-| Solo lectura | `'read_only'` | Si tiene modo de solo lectura |
+> **Regla de implementación:** si el estado se controla con un parámetro del constructor (`isLoading`, `isEnabled`, `isEmpty`...) → **knob**. Solo crear un `@UseCase` separado si el widget renderiza una estructura visual diferente que no puede controlarse con un parámetro.
+
+| Estado | `name` si es `@UseCase` | Knob equivalente | Implementación preferida |
+|---|---|---|---|
+| Estado base funcional | `'default'` | — | `@UseCase` siempre |
+| Cargando datos | `'loading'` | `context.knobs.boolean(label: 'Loading')` | **Knob** si hay un prop `isLoading` |
+| Deshabilitado | `'disabled'` | `context.knobs.boolean(label: 'Enabled')` | **Knob** si hay un prop `isEnabled` / `enabled` |
+| Sin datos / vacío | `'empty'` | `context.knobs.boolean(label: 'Empty')` | **Knob** si el widget acepta lista vacía o nullable |
+| Error | `'error'` | `context.knobs.boolean(label: 'Error')` | **Knob** si hay un prop `hasError` / `errorMessage` |
+| Con contenido máximo | `'full'` | `context.knobs.int.slider(label: 'itemCount')` | **Knob** con valor alto en el slider |
+| Solo lectura | `'read_only'` | `context.knobs.boolean(label: 'ReadOnly')` | **Knob** si hay un prop `readOnly` |
 
 ---
 
 ## Estrategia por tipo de componente
 
 ### Botones
+
+> **Regla:** Un único `@UseCase(name: 'default')` con knobs para todos los estados y variantes visuales. Solo crear `@UseCase` adicionales si el widget renderiza estructuras radicalmente distintas (ver Regla de oro más abajo).
+
 ```dart
-// default — estado normal interactivo con knobs
-// loading  — indicador de carga activo
-// disabled — no interactivo
-// with_icon — variante con ícono (si aplica)
+// default — un use case, con knobs:
+//   - label/text (string)
+//   - variant (list<ButtonVariant>)  ← primary, secondary, ghost, destructive…
+//   - size (list<ButtonSize>)        ← small, normal, large…
+//   - icon (list<IconData>)
+//   - iconPosition (list<IconPosition>) ← start, end
+//   - showIcon (boolean)
+//   - isLoading (boolean)            ← NO crear @UseCase 'loading' aparte
+//   - isEnabled (boolean)            ← NO crear @UseCase 'disabled' aparte
 ```
 
 ### Campos de texto / inputs
@@ -84,38 +94,131 @@ que las otras no muestran.
 
 ---
 
-## Cuándo NO crear más variantes
+## Regla de oro: knobs primero, variantes solo cuando hay diferencia estructural
 
-- Si la variante se puede demostrar completamente con un knob → usar knob, no crear variante separada.
-- Si la diferencia es solo de color o texto → usar knobs, no variante.
-- Si el widget es tan simple que una variante con todos los knobs lo cubre → solo `'default'`.
+> **Un `@UseCase` separado solo se justifica cuando el widget renderiza una estructura visual fundamentalmente diferente que no puede controlarse con un knob.**
 
-**Ejemplo — botón simple: una sola variante es suficiente**
+| Situación | Decisión |
+|---|---|
+| Estado `loading`, `disabled`, `showIcon`, posición del ícono... | **Knob** — el mismo widget, solo cambia un parámetro |
+| Variante visual del componente (`primary`, `secondary`, `ghost`...) | **Knob `list<Enum>`** — el mismo widget con una prop distinta |
+| El widget renderiza una estructura completamente diferente (ej. progress bar activa vs ícono) | **`@UseCase` separado** |
+
+### ✅ Patrón correcto para botones — una variante, todos los estados como knobs
+
+Todos los estados (loading, disabled) **y** los tipos visuales (primary, secondary...) se exponen como knobs dentro de un único `@UseCase`:
+
 ```dart
 @UseCase(name: 'default', type: AppButton)
 Widget buildAppButtonUseCase(BuildContext context) {
+  // Knobs de contenido
+  final label = context.knobs.string(label: 'Text', initialValue: 'Continuar');
+
+  // Knob de variante visual — dropdown con todos los tipos del enum
+  final variant = context.knobs.list<ButtonVariant>(
+    label: 'Variant',
+    initialOption: ButtonVariant.primary,
+    options: ButtonVariant.values,
+    labelBuilder: (v) => v.name,
+  );
+
+  // Knobs de tamaño y comportamiento
+  final size = context.knobs.list<ButtonSize>(
+    label: 'Size',
+    initialOption: ButtonSize.normal,
+    options: ButtonSize.values,
+    labelBuilder: (v) => v.name,
+  );
+
+  // Knobs del ícono
+  final icon = context.knobs.list<IconData>(
+    label: 'Icon',
+    initialOption: Icons.balance,
+    options: [Icons.balance, Icons.star, Icons.favorite, Icons.check_circle],
+    labelBuilder: (i) => {
+      Icons.balance: 'balance',
+      Icons.star: 'star',
+      Icons.favorite: 'favorite',
+      Icons.check_circle: 'check_circle',
+    }[i] ?? 'icon',
+  );
+
+  final iconPosition = context.knobs.list<IconPosition>(
+    label: 'Icon position',
+    initialOption: IconPosition.start,
+    options: IconPosition.values,
+    labelBuilder: (p) => p.name,
+  );
+
+  // Knobs de estado — NO crear @UseCase separados para estos
+  final showIcon = context.knobs.boolean(label: 'Show icon', initialValue: true);
+  final isLoading = context.knobs.boolean(label: 'Loading', initialValue: false);
+  final isEnabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+
+  context.setCodePreview('''
+AppButton(
+  label: '$label',
+  variant: ButtonVariant.${variant.name},
+  size: ButtonSize.${size.name},
+  icon: Icons.${icon.toString().split('.').last},
+  iconPosition: IconPosition.${iconPosition.name},
+  showIcon: $showIcon,
+  isLoading: $isLoading,
+  isEnabled: $isEnabled,
+  onPressed: () {},
+)''');
+
   return AppButton(
-    label: context.knobs.string(label: 'label', initialValue: 'Confirmar'),
-    isLoading: context.knobs.boolean(label: 'isLoading', initialValue: false),
-    isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: true),
-    onPressed: () => print('Button pressed'),
+    label: label,
+    variant: variant,
+    size: size,
+    icon: icon,
+    iconPosition: iconPosition,
+    showIcon: showIcon,
+    isLoading: isLoading,
+    isEnabled: isEnabled,
+    onPressed: () => print('AppButton pressed'),
   );
 }
 ```
 
-**Ejemplo — botón con variantes justificadas: estados muy distintos visualmente**
+### ✅ Variantes separadas justificadas — estructura visual radicalmente diferente
+
+Solo cuando el widget **no puede renderizar** todos sus estados con un único árbol de widgets controlado por parámetros:
+
 ```dart
 @UseCase(name: 'default', type: UploadButton)
 Widget buildUploadButtonUseCase(BuildContext context) { /* estado normal */ }
 
 @UseCase(name: 'uploading', type: UploadButton)
-Widget buildUploadButtonUploadingUseCase(BuildContext context) { /* progress bar activa */ }
+Widget buildUploadButtonUploadingUseCase(BuildContext context) { /* progress bar activa, estructura distinta */ }
 
 @UseCase(name: 'success', type: UploadButton)
 Widget buildUploadButtonSuccessUseCase(BuildContext context) { /* checkmark animado */ }
 
 @UseCase(name: 'error', type: UploadButton)
 Widget buildUploadButtonErrorUseCase(BuildContext context) { /* ícono de error + retry */ }
+```
+
+### ❌ Antipatrón — NO crear un @UseCase por estado cuando un knob basta
+
+```dart
+// ❌ Incorrecto: tres use cases para lo que son solo cambios de parámetros
+@UseCase(name: 'primary_disabled', type: AppButton)
+Widget buildAppButtonPrimaryDisabledUseCase(BuildContext context) {
+  return AppButton(variant: ButtonVariant.primary, isEnabled: false, ...);
+}
+
+@UseCase(name: 'primary_loading', type: AppButton)
+Widget buildAppButtonPrimaryLoadingUseCase(BuildContext context) {
+  return AppButton(variant: ButtonVariant.primary, isLoading: true, ...);
+}
+
+@UseCase(name: 'primary_with_icon', type: AppButton)
+Widget buildAppButtonPrimaryWithIconUseCase(BuildContext context) {
+  return AppButton(variant: ButtonVariant.primary, showIcon: true, ...);
+}
+// ✅ Correcto: un solo use case 'default' con knobs isEnabled, isLoading y showIcon
 ```
 
 ---
@@ -227,15 +330,23 @@ interpolando los valores actuales de los knobs — el panel se actualiza en tiem
 ```dart
 import '../../../shared/code_preview_addon.dart';
 
+// ✅ Un único use case — todos los estados son knobs, NO @UseCase separados
 @UseCase(name: 'default', type: AppButton)
 Widget buildAppButtonUseCase(BuildContext context) {
-  final label = context.knobs.string(label: 'label', initialValue: 'Confirmar');
-  final isLoading = context.knobs.boolean(label: 'isLoading', initialValue: false);
-  final isEnabled = context.knobs.boolean(label: 'isEnabled', initialValue: true);
+  final label    = context.knobs.string(label: 'Text', initialValue: 'Confirmar');
+  final variant  = context.knobs.list<ButtonVariant>(
+    label: 'Variant',
+    initialOption: ButtonVariant.primary,
+    options: ButtonVariant.values,
+    labelBuilder: (v) => v.name,
+  );
+  final isLoading = context.knobs.boolean(label: 'Loading', initialValue: false);
+  final isEnabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
 
   context.setCodePreview('''
 AppButton(
   label: '$label',
+  variant: ButtonVariant.${variant.name},
   isLoading: $isLoading,
   isEnabled: $isEnabled,
   onPressed: () {},
@@ -243,27 +354,16 @@ AppButton(
 
   return AppButton(
     label: label,
+    variant: variant,
     isLoading: isLoading,
     isEnabled: isEnabled,
-    onPressed: () => print('Button pressed'),
+    onPressed: () => print('AppButton pressed'),
   );
 }
 
-@UseCase(name: 'loading', type: AppButton)
-Widget buildAppButtonLoadingUseCase(BuildContext context) {
-  context.setCodePreview('''
-AppButton(
-  label: 'Guardando...',
-  isLoading: true,
-  onPressed: () {},
-)''');
-
-  return AppButton(
-    label: 'Guardando...',
-    isLoading: true,
-    onPressed: () => print('Button pressed'),
-  );
-}
+// ❌ NO hacer esto — 'loading' no es una variante estructural, es un knob
+// @UseCase(name: 'loading', type: AppButton)
+// Widget buildAppButtonLoadingUseCase(BuildContext context) { ... }
 ```
 
 ### ✗ Antipatrón — nunca hacer esto

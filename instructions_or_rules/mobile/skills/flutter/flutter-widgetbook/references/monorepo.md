@@ -75,8 +75,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.13.0
-  widgetbook_annotation: ^3.13.0
+  widgetbook: ^3.22.0
+  widgetbook_annotation: ^3.22.0
   # Referenciar cada paquete del monorepo que contenga widgets a catalogar
   my_design_system:
     path: ../packages/my_design_system
@@ -84,7 +84,7 @@ dependencies:
     path: ../my_app
 
 dev_dependencies:
-  widgetbook_generator: ^3.13.0
+  widgetbook_generator: ^3.22.0
   build_runner:
   flutter_test:
     sdk: flutter
@@ -152,13 +152,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.13.0
-  widgetbook_annotation: ^3.13.0
+  widgetbook: ^3.22.0
+  widgetbook_annotation: ^3.22.0
   my_app:
     path: ../
 
 dev_dependencies:
-  widgetbook_generator: ^3.13.0
+  widgetbook_generator: ^3.22.0
   build_runner:
   flutter_test:
     sdk: flutter
@@ -179,13 +179,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.13.0
-  widgetbook_annotation: ^3.13.0
+  widgetbook: ^3.22.0
+  widgetbook_annotation: ^3.22.0
   my_design_system:
     path: ../
 
 dev_dependencies:
-  widgetbook_generator: ^3.13.0
+  widgetbook_generator: ^3.22.0
   build_runner:
   flutter_test:
     sdk: flutter
@@ -223,13 +223,13 @@ name: widgetbook_workspace
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.13.0
-  widgetbook_annotation: ^3.13.0
+  widgetbook: ^3.22.0
+  widgetbook_annotation: ^3.22.0
   my_design_system: ^1.0.0       # Melos resuelve el path automáticamente
   my_app: ^1.0.0                 # Melos resuelve el path automáticamente
 
 dev_dependencies:
-  widgetbook_generator: ^3.13.0
+  widgetbook_generator: ^3.22.0
   build_runner:
 ```
 
