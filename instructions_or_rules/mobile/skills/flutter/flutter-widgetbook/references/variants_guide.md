@@ -155,6 +155,8 @@ Widget buildAppButtonUseCase(BuildContext context) {
   final isLoading = context.knobs.boolean(label: 'Loading', initialValue: false);
   final isEnabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
 
+  // El code preview muestra la instanciación del widget SIN el ColoredBox —
+  // ese wrapper es scaffolding del catálogo, no código de producción.
   context.setCodePreview('''
 AppButton(
   label: '$label',
@@ -168,16 +170,27 @@ AppButton(
   onPressed: () {},
 )''');
 
-  return AppButton(
-    label: label,
-    variant: variant,
-    size: size,
-    icon: icon,
-    iconPosition: iconPosition,
-    showIcon: showIcon,
-    isLoading: isLoading,
-    isEnabled: isEnabled,
-    onPressed: () => print('AppButton pressed'),
+  // Envolver en ColoredBox con el fondo correcto según el tema activo.
+  // El code preview ya registrado muestra solo AppButton(...) — sin este wrapper.
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  return ColoredBox(
+    color: isDark ? AppColors.primary900 : AppColors.primary0,
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: AppButton(
+          label: label,
+          variant: variant,
+          size: size,
+          icon: icon,
+          iconPosition: iconPosition,
+          showIcon: showIcon,
+          isLoading: isLoading,
+          isEnabled: isEnabled,
+          onPressed: () => print('AppButton pressed'),
+        ),
+      ),
+    ),
   );
 }
 ```

@@ -254,6 +254,8 @@ Widget buildPrimaryButtonUseCase(BuildContext context) {
   final isEnabled = context.knobs.boolean(label: 'isEnabled', initialValue: true);
 
   // 2. Registrar el código con los valores actuales de los knobs interpolados
+  //    El code preview muestra la instanciación del widget SIN el wrapper de fondo —
+  //    el ColoredBox es scaffolding del catálogo, no código de producción.
   context.setCodePreview('''
 PrimaryButton(
   label: '$label',
@@ -262,12 +264,22 @@ PrimaryButton(
   onPressed: () {},
 )''');
 
-  // 3. Retornar el widget usando las mismas variables
-  return PrimaryButton(
-    label: label,
-    isLoading: isLoading,
-    isEnabled: isEnabled,
-    onPressed: () => print('PrimaryButton pressed'),
+  // 3. Retornar el widget envuelto en ColoredBox con el fondo correcto según el tema.
+  //    NO aplicar a templates ni a Features (tienen su propio Scaffold).
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  return ColoredBox(
+    color: isDark ? AppColors.primary900 : AppColors.primary0,
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: PrimaryButton(
+          label: label,
+          isLoading: isLoading,
+          isEnabled: isEnabled,
+          onPressed: () => print('PrimaryButton pressed'),
+        ),
+      ),
+    ),
   );
 }
 ```
@@ -334,6 +346,22 @@ widgetbook/lib/features/
 
 - El **tema se inyecta globalmente** — nunca envolver con `Theme(...)` ni `MaterialApp(...)`.
 - Los **colores deben venir del tema** — usar `Theme.of(context).colorScheme` en vez de `Colors.white`, `Color(0xFF...)` o cualquier color hardcodeado. Solo así el tema Dark/Light se aplica correctamente.
+- Los **use cases de UI System** (atoms, molecules, organisms, components —  todo excepto templates) deben envolver el widget en un `ColoredBox` con el color de fondo correcto según el tema activo, para que el componente se vea siempre sobre el fondo real de la app independientemente del canvas de Widgetbook:
+
+  ```dart
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  return ColoredBox(
+    color: isDark ? AppColors.primary900 : AppColors.primary0,
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: <TuWidget>(...),
+      ),
+    ),
+  );
+  ```
+
+  > **No aplicar a templates ni a Features:** los templates ya definen su propio layout a pantalla completa; las pantallas de Features incluyen su propio `Scaffold`.
 - Los **callbacks** siempre usan `print()` descriptivo — nunca `() {}` vacíos.
 - Los **iconos e imágenes** (PNG, JPEG, SVG) requieren que sus paths estén declarados en `widgetbook_[appname]/pubspec.yaml` bajo `flutter.assets`. Para imágenes de red usar `NetworkImage`. Para `IconData` usar `context.knobs.list` con un conjunto curado. Ver `assets/knobs_reference.md` § Iconos e imágenes.
 - Los **datos mock y valores iniciales deben reflejar el dominio del proyecto** — antes de generar un use case, analizar el contexto de la app (fintech, e-commerce, salud, educación, etc.) y usar nombres, valores y escenarios coherentes con ese dominio. Nunca usar "lorem ipsum", "text", "value", "test" ni datos genéricos.
@@ -359,6 +387,7 @@ widgetbook/lib/features/
 | Elegir el knob correcto por tipo de parámetro | `assets/knobs_reference.md` |
 | Iconos, SVG, PNG, JPEG en use cases | `assets/knobs_reference.md` § Iconos e imágenes + `references/setup.md` § Assets |
 | Tema Dark/Light no se aplica | `references/setup.md` § Troubleshooting |
+| Fondo del canvas incorrecto en un componente | `references/setup.md` § Fondo del canvas — ColoredBox |
 | Detectar componentes y pantallas sin use case (gaps de cobertura) | `references/coverage_audit.md` |
 
 ---
@@ -395,6 +424,7 @@ widgetbook/lib/features/
 - [ ] Todos los parámetros requeridos cubiertos con knobs
 - [ ] Parámetros visuales y de comportamiento usan knobs
 - [ ] Los estados `loading`, `disabled`, `empty`, `error` están cubiertos: como **knob** si son parámetros del constructor, como `@UseCase` separado solo si producen una estructura visual radicalmente distinta (ver `references/variants_guide.md` § Regla de oro)
+- [ ] El widget está envuelto en `ColoredBox(color: isDark ? AppColors.primary900 : AppColors.primary0, ...)` para que se vea sobre el fondo correcto en cualquier modo de tema — **excepto templates** (que definen su propio layout a pantalla completa)
 
 ### Específico Features (pantallas)
 - [ ] Estrategia de mocking elegida: Extracción o Mocking con librería (ver sección "Mocking de dependencias")

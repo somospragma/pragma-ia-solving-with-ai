@@ -8,9 +8,10 @@
 2. [Estructura inicial de carpetas](#2-estructura-inicial-de-carpetas)
 3. [main.dart completo](#3-maindart-completo)
 4. [Code Preview — panel externo fuera del device frame](#4-code-preview--panel-externo-fuera-del-device-frame)
-5. [Troubleshooting — Tema oscuro no se aplica](#5-troubleshooting--tema-oscuro-no-se-aplica)
-6. [Actualizar dependencias en proyecto existente](#6-actualizar-dependencias-en-proyecto-existente)
-7. [Comandos de referencia](#7-comandos-de-referencia)
+5. [Fondo del canvas — ColoredBox según el tema (UI System)](#5-fondo-del-canvas--coloredbox-según-el-tema-ui-system)
+6. [Troubleshooting — Tema oscuro no se aplica](#6-troubleshooting--tema-oscuro-no-se-aplica)
+7. [Actualizar dependencias en proyecto existente](#7-actualizar-dependencias-en-proyecto-existente)
+8. [Comandos de referencia](#8-comandos-de-referencia)
 ---
 
 ## 1. Setup desde cero
@@ -617,7 +618,81 @@ Widget buildPrimaryButtonUseCase(BuildContext context) {
 
 ---
 
-## 5. Troubleshooting — Tema oscuro no se aplica
+## 5. Fondo del canvas — ColoredBox según el tema (UI System)
+
+Los componentes del **UI System** (atoms, molecules, organisms, components) deben enviarse al device frame sobre el fondo correcto de la app, no sobre el fondo gris del canvas de Widgetbook. Si no se hace, el componente puede parecer flotante o con contraste incorrecto al cambiar de Light a Dark.
+
+> **No aplica a templates ni a Features.** Los templates ya definen un layout a pantalla completa; las screens de Features incluyen su propio `Scaffold`.
+
+### Patrón obligatorio para UI System
+
+```dart
+import 'package:your_app/core/theme/app_colors.dart'; // donde vive AppColors
+
+@UseCase(name: 'default', type: AppButton)
+Widget buildAppButtonUseCase(BuildContext context) {
+  final label = context.knobs.string(label: 'Text', initialValue: 'Continuar');
+  // ... resto de knobs ...
+
+  // El code preview muestra la instanciación del widget SIN el ColoredBox:
+  // ese wrapper es scaffolding del catálogo, no código de producción.
+  context.setCodePreview('''
+AppButton(
+  label: '$label',
+  onPressed: () {},
+)''');
+
+  // Fondo correcto según el tema activo — se actualiza solo al cambiar Light/Dark
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  return ColoredBox(
+    color: isDark ? AppColors.primary900 : AppColors.primary0,
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: AppButton(
+          label: label,
+          onPressed: () => print('AppButton pressed'),
+        ),
+      ),
+    ),
+  );
+}
+```
+
+### Regla de decisión
+
+| Tipo de use case | Wrapper |
+|---|---|
+| Atom / Molecule / Organism / Component | `ColoredBox` con `AppColors.primary0` o `AppColors.primary900` |
+| Template | Ninguno — define su propio layout full-screen |
+| Feature (pantalla completa) | Ninguno — tiene su propio `Scaffold` |
+
+### Qué colores usar
+
+Usar los colores de fondo de la app tal como están definidos en el design system del proyecto. Los nombres típicos son:
+
+| Tema | Color | Equivalencia en Material |
+|---|---|---|
+| Light | `AppColors.primary0` (blanco o tono muy claro) | `colorScheme.surface` |
+| Dark | `AppColors.primary900` (negro o tono muy oscuro) | `colorScheme.surface` |
+
+Si el proyecto no define `AppColors`, usar `Theme.of(context).colorScheme.surface` como fallback:
+
+```dart
+// Fallback si no hay AppColors definido
+final bgColor = Theme.of(context).colorScheme.surface;
+return ColoredBox(
+  color: bgColor,
+  child: Center(child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: <TuWidget>(...),
+  )),
+);
+```
+
+---
+
+## 6. Troubleshooting — Tema oscuro no se aplica
 
 Si al cambiar de Light a Dark en Widgetbook los componentes no reflejan el cambio:
 
@@ -674,7 +749,7 @@ MaterialThemeAddon(
 
 ---
 
-## 6. Actualizar dependencias en proyecto existente
+## 7. Actualizar dependencias en proyecto existente
 
 Cuando Widgetbook ya está instalado y se quiere actualizar:
 
@@ -693,7 +768,7 @@ Si hay breaking changes al actualizar, revisar el [CHANGELOG de Widgetbook](http
 
 ---
 
-## 7. Comandos de referencia
+## 8. Comandos de referencia
 
 ```bash
 # Generar/regenerar use cases y árbol de directorios
