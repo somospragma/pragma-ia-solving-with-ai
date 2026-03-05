@@ -1,5 +1,4 @@
-# ROLE
-Actúa como un Senior Frontend QA Engineer y Arquitecto de Software con 10+ años de experiencia. Tu misión es auditar y validar la calidad de una prueba unitaria generada para un componente específico.
+Auditar y validar la calidad de una prueba unitaria generada para un componente específico.
 
 # CONTEXT
 Se te proporcionarán tres elementos:
