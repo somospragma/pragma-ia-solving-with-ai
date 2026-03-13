@@ -1,0 +1,66 @@
+[
+  {
+    "query": "Necesito crear un runbook operativo para un API interno de autenticacion que soporte pueda operar sin depender del equipo original.",
+    "should_trigger": true
+  },
+  {
+    "query": "Ayudame a completar la documentacion operativa de un job batch nocturno; me faltan observabilidad, recuperacion y errores conocidos.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tengo notas dispersas de un servicio de pagos y quiero convertirlas en una ficha tecnica operable para handoff a soporte.",
+    "should_trigger": true
+  },
+  {
+    "query": "Quiero documentar el troubleshooting y la recuperacion de un worker critico en produccion usando una plantilla reusable.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audita esta documentacion de servicio y dime si le faltan observabilidad, pasos de recuperacion y errores conocidos.",
+    "should_trigger": true
+  },
+  {
+    "query": "Necesito preguntas guiadas para completar la documentacion operativa de un servicio que solo conozco parcialmente.",
+    "should_trigger": true
+  },
+  {
+    "query": "Quiero revisar una documentacion operativa que esta incompleta y necesito detectar vacios de recuperacion, troubleshooting y observabilidad.",
+    "should_trigger": true
+  },
+  {
+    "query": "Ayudame a dejar lista para soporte productivo la documentacion de un backend con dependencias, dashboards y contingencias.",
+    "should_trigger": true
+  },
+  {
+    "query": "Diseña la arquitectura hexagonal para un nuevo servicio de pagos con Java y Spring Boot.",
+    "should_trigger": false
+  },
+  {
+    "query": "Escribe pruebas unitarias para el modulo de autenticacion y cubre casos de error.",
+    "should_trigger": false
+  },
+  {
+    "query": "Depura un timeout de PostgreSQL en produccion y propon una hipotesis de causa raiz.",
+    "should_trigger": false
+  },
+  {
+    "query": "Genera un contrato OpenAPI 3.0 para el endpoint /auth/login con ejemplos de request y response.",
+    "should_trigger": false
+  },
+  {
+    "query": "Resume este ADR de arquitectura en cinco bullets para presentarlo al equipo.",
+    "should_trigger": false
+  },
+  {
+    "query": "Crea un dashboard de Grafana para latencia, throughput y errores de un API.",
+    "should_trigger": false
+  },
+  {
+    "query": "Redacta documentacion funcional para usuarios finales de una aplicacion movil.",
+    "should_trigger": false
+  },
+  {
+    "query": "Define los SLOs y SLAs de un servicio critico y propone alertas iniciales.",
+    "should_trigger": false
+  }
+]

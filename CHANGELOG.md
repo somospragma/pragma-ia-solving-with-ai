@@ -60,6 +60,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Domain-agnostic reference templates for Backend, Frontend, Mobile, QA, and Infrastructure projects
     - Python validation scripts: completeness analyzer, structure validator, and documentation matrix generator
     - Supports reusable documentation across different project types (microservices, SPAs, mobile apps, automation, IaC)
+  - Generic service documentation feature for operational templates
+    - Added `service_documentation_template` skill for guided interviews and intake-based draft generation
+    - Added reusable prompt `prompts/arquitectura/generar_documentacion_servicio_operable.md` to apply prompting best practices when filling operational documentation
   - Added reusable prompt for skill download and setup from remote repositories
     - New file: `prompts/transversal/pragma_skill-download-setup.md`
     - Includes prerequisite checks, update-vs-create validation, post-download verification, and final report guidance

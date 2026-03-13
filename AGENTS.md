@@ -76,6 +76,10 @@ Carga bajo demanda por keywords. Antes de implementar cambios:
 3. Aplicar guidelines
 4. Mencionar skill usado: _"Se aplicó **X skill** para..."_
 
+- Skills locales del proyecto: `.agent/skills/`
+- Skills locales del usuario: `~/.agent/skills/`
+- Cargar bajo demanda por keywords del dominio (testing, seguridad, flavors, monorepo).
+
 ## Instrucciones Detalladas
 
 > Para reglas completas del agente: [.agent/rules/rules.md](.agent/rules/rules.md)

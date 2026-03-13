@@ -1,0 +1,23 @@
+{
+  "skill_name": "service_documentation_template",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Ayudame a llenar la documentacion operativa de un servicio backend de autenticacion. Es un API REST critica, opera 7x24, usa PostgreSQL y Redis, corre en nube publica, tiene dashboards de metricas y logs, depende de un proveedor de identidad externo y de un servicio interno de perfiles. Quiero una salida lista para la plantilla y si falta algo lo debes marcar como pendiente de confirmar.",
+      "expected_output": "Debe producir un borrador listo para la plantilla sin inventar datos operativos no confirmados y mantener coherencia entre criticidad, dependencias, observabilidad y recuperacion.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Necesito documentar un servicio pero solo tengo estos datos: se llama GeneradorReportes, lo usa el equipo financiero para cierres diarios y corre una vez por noche. Hazme las preguntas necesarias para completar la plantilla operativa sin inventar informacion.",
+      "expected_output": "Debe seleccionar entrevista guiada, preguntar en bloques cortos y evitar redactar secciones completas antes de confirmar criticidad, dependencias, observabilidad y recuperacion.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Revisa una documentacion operativa existente y dime si esta incompleta o tiene vacios criticos para soporte. Quiero hallazgos accionables sobre observabilidad, recuperacion y errores conocidos, sin reescribir todo desde cero.",
+      "expected_output": "Debe activar auditoria o refinamiento, detectar vacios operativos y responder con hallazgos accionables en lugar de inventar contenido nuevo.",
+      "files": []
+    }
+  ]
+}
