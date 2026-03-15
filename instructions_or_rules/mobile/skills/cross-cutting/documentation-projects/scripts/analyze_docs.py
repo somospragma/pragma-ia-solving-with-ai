@@ -10,8 +10,23 @@ Output:
 """
 
 import os
+import re
 from pathlib import Path
 import json
+
+# Patrones que sugieren datos específicos/sensibles en el contenido
+SENSITIVE_PATTERNS = [
+    r'https?://',                                          # URLs absolutas
+    r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',  # emails
+    r'\b(?:\d{1,3}\.){3}\d{1,3}\b',                      # IPs
+    r'/home/\w+|/Users/\w+|C:\\\\Users\\\\',             # rutas absolutas
+    r'sk-[A-Za-z0-9]{20,}',                               # API keys estilo OpenAI
+    r'eyJ[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+',              # JWTs
+    r'Bearer\s+[A-Za-z0-9\-_.]{10,}',                    # Bearer tokens
+    r'(?i)password\s*[:=]\s*\S+',                         # passwords inline
+    r'(?i)secret\s*[:=]\s*\S+',                           # secrets inline
+    r'(?i)api[_-]?key\s*[:=]\s*\S+',                      # API keys inline
+]
 
 REQUIRED_DOCS = {
     'index.md': 'Guía de navegación',
@@ -33,7 +48,7 @@ def analyze_file(filepath):
             'size': 0,
             'has_tbd': False,
             'has_headers': False,
-            'genericidade': 'N/A'
+            'genericidad': 'N/A'  # BUG FIXED: era 'genericidade' (typo)
         }
     
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -43,13 +58,10 @@ def analyze_file(filepath):
     has_headers = bool(content.count('#')) > 0
     size = len(content)
     
-    # Detectar posibles datos específicos (heurístico)
-    has_specific_data = any([
-        'github.com/' in content,
-        'http' in content,
-        '@' in content,
-        'gmail' in content,
-    ])
+    # Detectar posibles datos específicos usando regex amplios
+    has_specific_data = any(
+        re.search(pattern, content) for pattern in SENSITIVE_PATTERNS
+    )
     
     return {
         'exists': True,

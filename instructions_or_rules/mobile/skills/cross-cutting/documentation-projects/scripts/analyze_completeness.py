@@ -52,12 +52,16 @@ def analyze_file(filepath):
             if not section_content or section_content == 'TBD':
                 empty_sections.append(line.strip())
     
+    total_lines = max(len(lines), 1)
+    # Ratio real: líneas significativas sobre total del documento (x100)
+    completeness = round(min(100, (meaningful_lines / total_lines) * 100), 1)
+
     return {
         'lines': len(lines),
         'meaningful_lines': meaningful_lines,
         'tbd_count': tbd_count,
         'empty_sections': empty_sections,
-        'completeness_estimate': min(100, max(0, meaningful_lines * 2)),  # Rough estimate
+        'completeness_estimate': completeness,  # % real de contenido significativo
     }
 
 def analyze_folder(docs_folder):
