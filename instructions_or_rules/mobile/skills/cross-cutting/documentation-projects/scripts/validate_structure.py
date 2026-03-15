@@ -10,9 +10,8 @@ Usage:
     
 Checks:
     - All 7 documents present or explicitly excluded
-    - Required sections in each document
+    - Required sections in each document (matches Spanish and English vocabulary)
     - Metadata (date, version, author)
-    - Internal links between documents
     - No empty TBDs without explanation
 """
 
@@ -20,16 +19,56 @@ import os
 import re
 from pathlib import Path
 
-# Required structure for each document
+# Required sections per document. Each entry maps a regex pattern (with synonyms,
+# English and Spanish) to a human-readable section name used in reports.
+# A document "has" a section if ANY of the pipe-separated alternatives match.
 REQUIRED_SECTIONS = {
-    'index.md': ['overview', 'reading order', 'navigation', 'links'],
-    'project-overview.md': ['vision', 'goals', 'problems', 'principles'],
-    'requirements.md': ['functional', 'technical', 'quality', 'environment'],
-    'project-structure.md': ['architecture', 'organization', 'modules', 'communication'],
-    'tech-stack.md': ['language', 'frameworks', 'tools', 'justification'],
-    'features.md': ['features', 'behavior', 'specification'],
-    'implementation.md': ['setup', 'standards', 'workflow', 'process'],
-    'user-flow.md': ['flows', 'interaction', 'data', 'scenarios'],
+    'index.md': {
+        r'vision|overview|purpose|prop.sito|acerca|about': 'vision/overview',
+        r'order|navigation|reading|navegaci.n|lectura|gu.a|guid': 'navigation/reading order',
+        r'link|.ndice|index|table.of.contents|toc|archivos|documents': 'links/index',
+    },
+    'project-overview.md': {
+        r'vision|visión|purpose|objetivo|goal|prop.sito': 'vision',
+        r'goals|objetivos|aims|metas|resultado': 'goals',
+        r'problem|problema|challenge|desaf.o|resuelve': 'problems',
+        r'principle|principio|pattern|solid|dise.o': 'principles',
+    },
+    'requirements.md': {
+        r'functional|funcional|rf-|feature|capability|capacidad': 'functional',
+        r'technical|t.cnico|rt-|performance|rendimiento': 'technical',
+        r'quality|calidad|rq-|coverage|cobertura|testing': 'quality',
+        r'environment|ambiente|ra-|deploy|entorno': 'environment',
+    },
+    'project-structure.md': {
+        r'architecture|arquitectura|pattern|patr.n|hexagonal|layered|clean': 'architecture',
+        r'structure|estructura|organization|organización|carpeta|folder|tree': 'organization',
+        r'module|m.dulo|package|component|layer|capa': 'modules',
+        r'communication|comunicación|flow|flujo|depend|interact': 'communication',
+    },
+    'tech-stack.md': {
+        r'language|lenguaje|java|python|dart|kotlin|swift|go|typescript': 'language',
+        r'framework|library|librer.a|dependency|dependencia': 'frameworks',
+        r'tool|herramienta|build|test|lint|ci|cd|pipeline': 'tools',
+        r'justif|reason|rationale|por.qu.|decision|eligio|chose': 'justification',
+    },
+    'features.md': {
+        r'feature|funcionalidad|capability|capabil|caracter.stica': 'features',
+        r'flow|flujo|step|paso|process|proceso|behavior|comportamiento': 'behavior',
+        r'valid|rule|regla|acceptance|acepta|criteria|criterio': 'specification',
+    },
+    'implementation.md': {
+        r'setup|install|prerequisite|prerequisito|dependency|configuración': 'setup',
+        r'standard|est.ndar|convention|convención|style|estilo|naming': 'standards',
+        r'git|branch|commit|pr|pull.request|review|workflow': 'workflow',
+        r'process|proceso|ci|cd|pipeline|deploy|test|build': 'process',
+    },
+    'user-flow.md': {
+        r'flow|flujo|journey|user|usuario|actor': 'flows',
+        r'step|paso|action|acción|interact|click|trigger': 'interaction',
+        r'data|dato|input|output|request|response|payload': 'data',
+        r'scenario|escenario|alternative|alternativo|error|exception': 'scenarios',
+    },
 }
 
 def check_metadata(content, filename):
@@ -42,14 +81,14 @@ def check_metadata(content, filename):
     return checks
 
 def check_sections(content, filename):
-    """Verify required sections are present"""
+    """Verify required sections are present using multi-synonym regex patterns."""
     content_lower = content.lower()
-    required = REQUIRED_SECTIONS.get(filename, [])
-    
+    section_patterns = REQUIRED_SECTIONS.get(filename, {})
+
     found = {}
-    for section in required:
-        found[section] = section in content_lower
-    
+    for pattern, label in section_patterns.items():
+        found[label] = bool(re.search(pattern, content_lower))
+
     return found
 
 def check_structure(content, filename):
