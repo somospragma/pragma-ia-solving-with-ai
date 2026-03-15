@@ -1,0 +1,104 @@
+{
+  "skill_name": "documentation-projects",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "new-project-from-scratch",
+      "prompt": "Necesito documentar un nuevo proyecto que estoy construyendo. Es un microservicio en Java con Spring Boot que maneja pagos. Usa PostgreSQL, tiene una API REST y se despliega en AWS. Aún no tenemos ningún documento. ¿Puedes crear la documentación completa del proyecto?",
+      "expected_output": "El skill debe generar los 7 documentos (index.md, project-overview.md, requirements.md, project-structure.md, tech-stack.md, features.md, implementation.md, user-flow.md) con contenido relevante para un microservicio de pagos en Java/Spring Boot.",
+      "assertions": [
+        {
+          "id": "A1.1",
+          "name": "genera-7-documentos",
+          "description": "El output contiene propuestas de contenido para los 7 documentos base",
+          "check": "output menciona index.md, project-overview.md, requirements.md, project-structure.md, tech-stack.md, features.md, implementation.md, user-flow.md"
+        },
+        {
+          "id": "A1.2",
+          "name": "identifica-dominio-backend",
+          "description": "El skill identifica correctamente que es un proyecto backend y aplica el patrón correspondiente",
+          "check": "output menciona capas (controller/service/repository), REST API, o arquitectura de microservicio"
+        },
+        {
+          "id": "A1.3",
+          "name": "usa-informacion-del-proyecto",
+          "description": "El contenido generado refleja los datos del usuario (Java, Spring Boot, PostgreSQL, AWS)",
+          "check": "output menciona Java, Spring Boot o Spring, PostgreSQL, y AWS"
+        },
+        {
+          "id": "A1.4",
+          "name": "sigue-flujo-paso1-al-paso4",
+          "description": "El skill sigue el flujo de 5 pasos: valida contexto, hace auditoría, genera documentos",
+          "check": "output muestra estructura clara de qué documentos crea y por qué"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "existing-partial-docs-completion",
+      "prompt": "Tengo una carpeta docs/ con algunos documentos de mi app Flutter de gestión de tareas. Algunos están a medias con TBDs. El index.md existe pero está vacío. requirements.md tiene solo los headers sin contenido. features.md y user-flow.md están completos. Los demás no existen. ¿Puedes ayudarme a completar la documentación?",
+      "expected_output": "El skill debe: 1) hacer auditoría de los docs existentes, clasificar cada uno, 2) identificar cuáles faltan (project-overview.md, project-structure.md, tech-stack.md, implementation.md), 3) identificar cuáles están incompletos (index.md, requirements.md), 4) proponer completar/crear solo los que faltan sin alterar features.md y user-flow.md.",
+      "assertions": [
+        {
+          "id": "A2.1",
+          "name": "audita-estado-existente",
+          "description": "El skill distingue entre documentos existentes, parciales y faltantes",
+          "check": "output clasifica documentos como: existentes (features.md, user-flow.md), parciales (index.md, requirements.md), faltantes (project-overview.md, project-structure.md, tech-stack.md, implementation.md)"
+        },
+        {
+          "id": "A2.2",
+          "name": "no-altera-docs-completos",
+          "description": "El skill indica que features.md y user-flow.md están completos y no los modifica",
+          "check": "output NO propone reescribir features.md ni user-flow.md"
+        },
+        {
+          "id": "A2.3",
+          "name": "identifica-dominio-mobile-flutter",
+          "description": "El skill identifica que es un proyecto Flutter/mobile y adapta sugerencias",
+          "check": "output menciona Flutter, iOS/Android, widget, pubspec, o términos de mobile"
+        },
+        {
+          "id": "A2.4",
+          "name": "referencia-scripts-de-auditoria",
+          "description": "El skill menciona o usa los scripts de análisis disponibles",
+          "check": "output menciona analyze_docs.py, analyze_completeness.py o validate_structure.py"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "audit-and-generalize-specific-docs",
+      "prompt": "Tenemos documentación pero contiene datos reales que queremos generalizar para publicar como template. Por ejemplo, tech-stack.md menciona 'api-key: sk-prod-abc123xyz', implementation.md tiene '/Users/juan/projects/myapp' como setup path, y requirements.md incluye 'github.com/mi-empresa/repo-privado'. ¿Puedes auditar y generalizar los documentos?",
+      "expected_output": "El skill debe: 1) detectar los datos sensibles mencionados (API key, ruta absoluta, URL de GitHub privado), 2) proponer versiones generalizadas reemplazando con placeholders, 3) ejecutar o referenciar analyze_docs.py para la detección automática.",
+      "assertions": [
+        {
+          "id": "A3.1",
+          "name": "detecta-datos-sensibles",
+          "description": "El skill identifica correctamente los 3 problemas: API key, ruta absoluta, URL privada",
+          "check": "output menciona los 3 tipos de datos sensibles: API key/token, ruta /Users/, github.com URL"
+        },
+        {
+          "id": "A3.2",
+          "name": "propone-placeholders",
+          "description": "El skill propone reemplazos con placeholders apropiados",
+          "check": "output propone [API_KEY], [PROJECT_PATH] u otros placeholders en lugar de los datos reales"
+        },
+        {
+          "id": "A3.3",
+          "name": "ejecuta-o-referencia-script",
+          "description": "El skill ejecuta analyze_docs.py o indica cómo usarlo para detección automática",
+          "check": "output menciona analyze_docs.py o 'python scripts/' para detección de datos específicos"
+        },
+        {
+          "id": "A3.4",
+          "name": "valida-genericidad-final",
+          "description": "El skill verifica que el resultado final no contiene datos sensibles",
+          "check": "output incluye validación de genericidad o checklist antes de entregar"
+        }
+      ],
+      "files": []
+    }
+  ]
+}
