@@ -1,0 +1,39 @@
+{
+  "skill_name": "specs",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "create_pagos_stripe_requirements",
+      "prompt": "Necesito definir los requerimientos para la nueva integración de pagos con Stripe.",
+      "assertions": [
+        {
+          "name": "created-folder-and-file",
+          "type": "boolean",
+          "description": "Created correctly named folder and requirements.md"
+        },
+        {
+          "name": "stopped-for-approval",
+          "type": "boolean",
+          "description": "Did not create design.md or tasks.md, stopped for human review"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "continue_to_design",
+      "prompt": "Ya aprobé los requerimientos de la feature 'login_jwt'. Ayúdame con la siguiente fase.",
+      "assertions": [
+        {
+          "name": "created-design-md",
+          "type": "boolean",
+          "description": "Created design.md using template"
+        },
+        {
+          "name": "stopped-before-tasks",
+          "type": "boolean",
+          "description": "Stopped to ask for approval before creating tasks.md"
+        }
+      ]
+    }
+  ]
+}
